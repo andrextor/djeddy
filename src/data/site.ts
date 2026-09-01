@@ -35,7 +35,6 @@ export interface SiteConfig {
   name: string
   legalName: string
   founderName: string
-  domain: string
   city: string
   /** ISO-3166 alpha-2 */
   countryCode: string
@@ -66,7 +65,6 @@ export const site = {
   name: 'DJ Eddy',
   legalName: 'DJ Eddy',
   founderName: 'Edison Ayala',
-  domain: 'https://djeddy.example.com',
   city: 'Cali',
   countryCode: 'CO',
   countryName: 'Colombia',

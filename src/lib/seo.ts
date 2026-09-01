@@ -2,14 +2,19 @@ import type { SiteConfig, Video } from '@/data/site'
 
 export type JsonLd = Record<string, unknown>
 
-const businessId = (domain: string): string => `${domain}/#business`
+const businessId = (siteUrl: string): string => `${siteUrl}#business`
 
-const business = (site: SiteConfig, ogImageUrl: string, logoUrl?: string): JsonLd => ({
+const business = (
+  site: SiteConfig,
+  siteUrl: string,
+  ogImageUrl: string,
+  logoUrl?: string,
+): JsonLd => ({
   '@type': 'EntertainmentBusiness',
-  '@id': businessId(site.domain),
+  '@id': businessId(siteUrl),
   name: site.name,
   description: site.tagline,
-  url: site.domain,
+  url: siteUrl,
   image: ogImageUrl,
   ...(logoUrl ? { logo: logoUrl } : {}),
   telephone: `+${site.whatsapp.number}`,
@@ -33,16 +38,16 @@ const business = (site: SiteConfig, ogImageUrl: string, logoUrl?: string): JsonL
   })),
 })
 
-const website = (site: SiteConfig): JsonLd => ({
+const website = (site: SiteConfig, siteUrl: string): JsonLd => ({
   '@type': 'WebSite',
-  '@id': `${site.domain}/#website`,
-  url: site.domain,
+  '@id': `${siteUrl}#website`,
+  url: siteUrl,
   name: site.name,
   inLanguage: 'es',
-  publisher: { '@id': businessId(site.domain) },
+  publisher: { '@id': businessId(siteUrl) },
 })
 
-const video = (site: SiteConfig, item: Video): JsonLd => ({
+const video = (siteUrl: string, item: Video): JsonLd => ({
   '@type': 'VideoObject',
   name: item.title,
   uploadDate: item.uploadDate,
@@ -52,17 +57,22 @@ const video = (site: SiteConfig, item: Video): JsonLd => ({
         embedUrl: `https://www.youtube-nocookie.com/embed/${item.youtubeId}`,
       }
     : {
-        thumbnailUrl: `${site.domain}${item.poster.src}`,
-        contentUrl: `${site.domain}${item.src}`,
+        thumbnailUrl: new URL(item.poster.src, siteUrl).href,
+        contentUrl: new URL(item.src, siteUrl).href,
       }),
 })
 
-export const buildJsonLd = (site: SiteConfig, ogImageUrl: string, logoUrl?: string): JsonLd => ({
+export const buildJsonLd = (
+  site: SiteConfig,
+  siteUrl: string,
+  ogImageUrl: string,
+  logoUrl?: string,
+): JsonLd => ({
   '@context': 'https://schema.org',
   '@graph': [
-    business(site, ogImageUrl, logoUrl),
-    website(site),
-    ...site.videos.map((item) => video(site, item)),
+    business(site, siteUrl, ogImageUrl, logoUrl),
+    website(site, siteUrl),
+    ...site.videos.map((item) => video(siteUrl, item)),
   ],
 })
 

@@ -109,7 +109,7 @@ import sitemap from '@astrojs/sitemap'
 import { defineConfig } from 'astro/config'
 
 export default defineConfig({
-  site: 'https://djeddy.example.com', // sustituir por el dominio real en la Fase 6
+  site, // SITE_URL ?? https://VERCEL_PROJECT_PRODUCTION_URL ?? http://localhost:4321
   output: 'static',
   compressHTML: true,
   integrations: [sitemap()],

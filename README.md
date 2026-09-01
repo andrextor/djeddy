@@ -10,6 +10,11 @@ All business data lives in `src/data/site.ts` and `src/data/events.json`. Photos
 filenames are documented in [`docs/07-fotos-y-archivos.md`](docs/07-fotos-y-archivos.md).
 `pnpm build` always works (sample data included); `pnpm build:release` refuses to build while any `[PLACEHOLDER]` or sample data remains, so hosting must run that one.
 
+## Deployment
+
+Vercel, linked to this GitHub repository (`vercel.json` holds headers and cache rules). The canonical
+URL comes from `SITE_URL` or Vercel's `VERCEL_PROJECT_PRODUCTION_URL`; nothing is hardcoded.
+
 ## Requirements
 
 - Node 22 (`.nvmrc`)

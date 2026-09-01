@@ -14,7 +14,8 @@ import { buildJsonLd, serializeJsonLd } from '@/lib/seo'
 const title = `${site.name} · DJ en ${site.city} para fiestas, marcas y empresas`
 const ogImageUrl = new URL('/og.jpg', Astro.site).href
 const logoUrl = new URL(logo.src, Astro.site).href
-const jsonLd = serializeJsonLd(buildJsonLd(site, ogImageUrl, logoUrl))
+const siteUrl = new URL('/', Astro.site).href
+const jsonLd = serializeJsonLd(buildJsonLd(site, siteUrl, ogImageUrl, logoUrl))
 const instagram = site.socials.find((social) => social.network === 'instagram')
 ---
 

@@ -95,27 +95,12 @@ Los 96 de "Buenas prácticas" corresponden a errores 404 en consola de las minia
 
 Cómo repetir: `pnpm build && pnpm preview` y `pnpm dlx lighthouse http://localhost:4321/ --preset=desktop` (o sin preset para móvil).
 
-## Cabeceras de seguridad — `public/_headers`
-Formato Netlify/Cloudflare Pages (para Vercel, trasladar a `vercel.json`): CSP con `frame-src https://www.youtube-nocookie.com` e `img-src` con `https://i.ytimg.com`, `nosniff`, `Referrer-Policy`, `Permissions-Policy`, `frame-ancestors 'none'`, y `Cache-Control: immutable` para `/_astro/*`.
-
-## CI (GitHub Actions) — `.github/workflows/ci.yml`
-```yaml
-name: ci
-on: [push, pull_request]
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v4
-        with: { node-version-file: .nvmrc, cache: pnpm }
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm lint
-      - run: pnpm test
-      - run: pnpm build   # cambiar a `pnpm build:release` cuando los datos reales estén cargados (Fase 6)
-```
-Opcional al final de la v1: `treosh/lighthouse-ci-action` contra `dist/` con los presupuestos de la tabla.
+## Despliegue en Vercel (decisión del cliente)
+- Vercel está enlazado al repositorio de GitHub: cada push a `main` despliega producción. El workflow de GitHub Actions (`lint → test → build`) se mantiene solo como validación; no interviene en el despliegue.
+- `vercel.json`: framework `astro`, `buildCommand: pnpm build`, `outputDirectory: dist`, cabeceras de seguridad (CSP con `media-src 'self'` para los MP4, `frame-src youtube-nocookie`, `img-src i.ytimg.com`), `Cache-Control` inmutable para `/_astro/*` y 7 días para `/videos/*`.
+- Dominio: `astro.config.mjs` toma `SITE_URL` si existe; si no, `https://` + `VERCEL_PROJECT_PRODUCTION_URL` (dominio de producción del proyecto en Vercel, incluido el personalizado cuando se configure); en local, `http://localhost:4321`. Canonical, OG, sitemap, `robots.txt` (endpoint `src/pages/robots.txt.ts`) y JSON-LD derivan de ahí: no hay dominio escrito a mano.
+- Node fijado a `22.x` en `engines`; pnpm por `packageManager` (Corepack); `sharp` y `esbuild` autorizados en `pnpm-workspace.yaml`.
+- `pnpm build:release` (bloqueo por placeholders / `sampleData`) queda como comprobación manual antes de dar por publicada la versión definitiva.
 
 ## Seguridad / privacidad
 - Enlaces externos `rel="noopener"`; sin cookies ni trackers por defecto; YouTube en modo `nocookie`.
@@ -129,4 +114,4 @@ Opcional al final de la v1: `treosh/lighthouse-ci-action` contra `dist/` con los
 - [ ] Rich Results Test valida `EntertainmentBusiness` y `VideoObject`; Schema Markup Validator sin errores.
 - [ ] La palabra clave principal aparece en title, H1/hero, description, alt del hero y JSON-LD.
 - [ ] Search Console: sitemap enviado y página indexada tras el despliegue.
-- [ ] CI en verde en `main` (workflow creado; se valida en el primer push).
+- [x] Despliegue automático desde GitHub en Vercel; CI de validación en GitHub Actions.

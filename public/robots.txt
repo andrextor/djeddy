@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://djeddy.example.com/sitemap-index.xml

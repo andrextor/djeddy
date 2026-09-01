@@ -23,7 +23,6 @@ test('buildJsonLd links videos to the business entity', () => {
     name: 'DJ Eddy',
     legalName: 'DJ Eddy',
     founderName: 'Eddy',
-    domain: 'https://djeddy.test',
     city: 'Medellín',
     countryCode: 'CO',
     countryName: 'Colombia',
@@ -44,7 +43,12 @@ test('buildJsonLd links videos to the business entity', () => {
       },
     ],
   } as const
-  const json = buildJsonLd(site, 'https://djeddy.test/og.jpg', 'https://djeddy.test/logo.png')
+  const json = buildJsonLd(
+    site,
+    'https://djeddy.test/',
+    'https://djeddy.test/og.jpg',
+    'https://djeddy.test/logo.png',
+  )
   const graph = json['@graph']
   assert.ok(Array.isArray(graph))
   assert.deepEqual(
