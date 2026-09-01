@@ -11,7 +11,9 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro check && astro build",
+    "build:draft": "ALLOW_PLACEHOLDERS=1 astro check && ALLOW_PLACEHOLDERS=1 astro build",
     "preview": "astro preview",
+    "test": "node --experimental-strip-types --test \"src/lib/*.test.ts\"",
     "lint": "biome check .",
     "format": "biome format --write .",
     "typecheck": "astro check",
@@ -26,6 +28,7 @@
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
     "@biomejs/biome": "^2.5.11",
+    "@types/node": "^26.4.0",
     "typescript": "^5.9.3"
   },
   "allowScripts": {

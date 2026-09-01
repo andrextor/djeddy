@@ -32,6 +32,8 @@ export interface SiteConfig {
   whatsapp: {
     /** E.164 sin '+': 573001234567 */
     number: string
+    /** forma legible que se muestra en la página: '+57 300 123 4567' (evita formatear por código: cada país agrupa distinto) */
+    display: string
     /** mensaje prellenado */
     message: string
   }
@@ -51,6 +53,7 @@ export const site = {
   tagline: 'DJ para bodas, fiestas privadas y eventos corporativos en [CIUDAD]. Sonido, luces y la lectura de pista que mantiene a todos bailando.',
   whatsapp: {
     number: '[NUMERO_E164]',
+    display: '[+00 000 000 0000]',
     message: 'Hola Eddy, quiero reservar una fecha para mi evento.',
   },
   email: '[CORREO]',
@@ -113,14 +116,22 @@ export const buildWhatsAppUrl = (number: string, message: string): string =>
 WhatsAppButton con `target="_blank" rel="noopener"`.
 
 ## Placeholders y validación
-- Mientras un valor siga entre `[CORCHETES]`, `pnpm build` debe **fallar**:
-  añadir en `site.ts` un `assertNoPlaceholders(site)` que recorra los strings
-  y lance `Error` si encuentra `/\[[A-Z_ ]+\]/`. Se ejecuta en `BaseLayout`
-  (solo en build: `import.meta.env.PROD`).
+- Mientras un valor siga entre `[CORCHETES]`, `pnpm build` (build de
+  publicación) **falla**: `src/lib/placeholders.ts` exporta
+  `findPlaceholders` / `assertNoPlaceholders`, y `BaseLayout` lo ejecuta
+  cuando `import.meta.env.PROD && process.env.ALLOW_PLACEHOLDERS !== '1'`.
+  Durante el desarrollo se usa `pnpm build:draft` (fija `ALLOW_PLACEHOLDERS=1`).
+  El hosting debe ejecutar `pnpm build`, nunca `build:draft`.
+- Helpers en `src/lib/`: `whatsapp.ts` (`buildWhatsAppUrl`), `dates.ts`
+  (`formatEventDate` → `{ day, month, iso }` en UTC, `upcoming(items, now, limit)`),
+  `seo.ts` (`buildJsonLd`, ver Parte 5), `placeholders.ts`. Un único archivo
+  de pruebas `src/lib/lib.test.ts` con `node:test` (`pnpm test`).
+- Astro 7: `z` se importa de `astro/zod` (el de `astro:content` está
+  deprecado) y las URL se validan con `z.url()`.
 - Las imágenes se importan desde `src/assets` para que `astro:assets` las
   optimice (AVIF/WebP, `widths`), nunca desde `public/`.
 
 ## Criterios de aceptación
-- [ ] `site.ts` compila con `satisfies SiteConfig`; ninguna propiedad opcional silenciosa.
-- [ ] Un evento con `time: "9pm"` o `image` inexistente hace fallar `astro check`/`build`.
-- [ ] Con `events.json` vacío la sección muestra el estado vacío y el sitio compila.
+- [x] `site.ts` compila con `satisfies SiteConfig`; ninguna propiedad opcional silenciosa.
+- [x] Un evento con `time: "9pm"` o `image` inexistente hace fallar `astro check`/`build`.
+- [ ] Con `events.json` vacío (se verifica al construir `Events.astro` en la Fase 4) la sección muestra el estado vacío y el sitio compila.
