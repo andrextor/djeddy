@@ -46,9 +46,8 @@ salen de `tokens.css` (Parte 2). "D" = escritorio ≥1024, "M" = móvil.
 - D: sección `padding: 128px 80px`; grid `minmax(0,1.75fr) minmax(0,1fr)`, `gap: 24px`. Columna 1: tarjeta 620px alto. Columna 2: tarjeta flexible + bloque gold "Más clips" 128px con "Instagram · TikTok · YouTube" y `ArrowUpRight` 28 → `socialsUrl`.
 - M: cabecera con "Desliza →" (12px, muted); **carrusel** `.snap` (`overflow-x: auto; scroll-snap-type: x mandatory; gap: 14px; padding: 0 20px 8px`; ítems `flex: 0 0 300px; scroll-snap-align: start`; scrollbar oculta); tarjetas 380px alto; tercera tarjeta gold "Más clips" 380px.
 - Tarjeta de video (`.card.video`, radius 28 / M 24, borde `--border-gold-22`, fondo `--gradient-card` / `--gradient-card-alt`, `.grain`):
-  - Contenido: `<iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/{id}" title="{title}" allow="accelerometer; encrypted-media; picture-in-picture" allowfullscreen>` ocupando todo, `border: 0`.
-  - Caption `.glass` inferior (`inset: auto 24px 24px`, radius 18; M `12px`, radius 14): etiqueta gold uppercase + `<h3>` título + duración (13px muted, solo D).
-  - El botón Play y el hover `.play` del diseño son **decorativos del mockup**: con iframe no se renderizan. Si se adopta facade (v2), recuperar `.play` 104px (M 72) `.glass`.
+  - Contenido: **fachada** `<button class="facade" data-embed="https://www.youtube-nocookie.com/embed/{id}?autoplay=1" aria-label="Reproducir: {title}">` con `<img src="https://i.ytimg.com/vi/{id}/hqdefault.jpg" alt="" loading="lazy">` (opacidad .7) y el botón `.play .glass` (D 104px principal / 80px secundaria, M 72px; hover: fondo gold .9, `scale(1.12)`, icono oscuro). Un script inline en la sección sustituye el botón por el `<iframe>` al pulsar (`allow="accelerometer; autoplay; encrypted-media; picture-in-picture"`, `allowfullscreen`, `title` = aria-label).
+  - Caption `.glass` inferior (`inset: auto 24px 24px`, radius 18; M `12px`, radius 14): etiqueta gold uppercase + `<h3>` título + duración (13px muted, solo D); `pointer-events: none` para no tapar el botón.
 
 ## `Events.astro`
 - Obtiene la colección `events` (filtro/orden/límite de Parte 3). Cabecera `02 · Agenda · Próximos eventos`.
@@ -63,7 +62,7 @@ salen de `tokens.css` (Parte 2). "D" = escritorio ≥1024, "M" = móvil.
 ## `Contact.astro`
 - Cabecera `03 · Contacto`. D: `padding: 0 80px 128px`; glow radial 900×500 centrado detrás (`rgba(212,175,55,.22)`); tarjeta `.glass` radius 36, `padding: 72px`, grid 2 columnas `gap: 64px` alineadas al centro.
   - Izquierda: eyebrow, `<h2>` "Reserva`<br>`tu fecha.", párrafo "Cuéntame qué celebras, dónde y cuándo. Te respondo el mismo día con disponibilidad y propuesta.", botón primario WhatsApp 60px.
-  - Derecha: tres filas (`padding: 24px 28px`, radius 20, fondo `--color-surface-row`, borde `--border-gold-16`, `gap: 16px` entre filas): WhatsApp (número formateado, `<a>` wa.me) · Correo (`<a mailto>`) · Base ("{city} · disponible para viajar", sin enlace). Las dos primeras llevan `ArrowUpRight` 22 gold.
+  - Derecha: lista `<ul>` de tres filas (`padding: 24px 28px`, radius 20, fondo `--color-surface-row`, borde `--border-gold-16`, `gap: 16px` entre filas): WhatsApp (número formateado, `<a>` wa.me) · Correo (`<a mailto>`) · Base ("{city} · disponible para viajar", sin enlace). Las dos primeras llevan `ArrowUpRight` 22 gold.
 - M: `padding: 64px 20px 0`; tarjeta radius 28, `padding: 28px 22px`, columna `gap: 20px`; H2 44px; botón 56px ancho completo; filas `min-height: 64px; padding: 14px 18px`, radius 16 (todo el área es el enlace).
 - Número mostrado tal cual `site.whatsapp.display` (p. ej. `+57 300 123 4567`); el enlace usa `site.whatsapp.number` (E.164).
 
@@ -77,7 +76,7 @@ salen de `tokens.css` (Parte 2). "D" = escritorio ≥1024, "M" = móvil.
 
 ## `WhatsAppButton.astro`
 - `<a>` **fijo** `bottom: 24px; right: 32px` (M `right: 16px`), `z-index: 30`, `.pulse`, fondo `--color-whatsapp`, sombra `--shadow-float`, `aria-label="Escríbeme por WhatsApp"`.
-- D: píldora 60px `padding: 0 22px 0 8px`, `gap: 12px`: círculo 44px `rgba(255,255,255,.18)` con icono 26 blanco + texto "Escríbeme" 15px 700 blanco.
+- D: píldora 60px `padding: 0 22px 0 8px`, `gap: 12px`: círculo 44px `rgba(255,255,255,.28)` con icono 26 + texto "Escríbeme" 15px 700, ambos en `--color-bg` (el blanco sobre el verde de WhatsApp da 1,98:1 y falla AA).
 - M: círculo 60×60, icono 30.
 - En el diseño está dibujado en el primer pliegue por ser una maqueta; en el sitio real es `position: fixed`.
 
@@ -88,5 +87,5 @@ salen de `tokens.css` (Parte 2). "D" = escritorio ≥1024, "M" = móvil.
 - [ ] Coincide píxel a píxel con el artboard correspondiente a 1440 y a 390 (comparar capturas).
 - [ ] Todo enlace/botón ≥ 44px de alto en móvil; foco visible (anillo gold 2px `outline-offset: 3px`).
 - [ ] `Header` no tapa los títulos al navegar por ancla (`scroll-margin-top`).
-- [ ] Sin JS de cliente (excepción documentada: cierre del popover si Safari no lo hace solo).
+- [x] Sin JS de aplicación (dos scripts inline documentados: cierre del popover y fachada de video).
 - [ ] Textos de negocio proceden de `site.ts`/`events.json`, no del componente.

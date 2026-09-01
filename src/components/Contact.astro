@@ -20,28 +20,32 @@ const whatsappUrl = buildWhatsAppUrl(site.whatsapp.number, site.whatsapp.message
         <span>Escríbeme por WhatsApp</span>
       </a>
     </div>
-    <dl class="rows">
-      <a class="row" href={whatsappUrl} target="_blank" rel="noopener">
+    <ul class="rows">
+      <li>
+        <a class="row" href={whatsappUrl} target="_blank" rel="noopener">
+          <div>
+            <span class="key">WhatsApp</span>
+            <span class="value">{site.whatsapp.display}</span>
+          </div>
+          <Icon name="arrow-up-right" size={22} class="arrow" />
+        </a>
+      </li>
+      <li>
+        <a class="row" href={`mailto:${site.email}`}>
+          <div>
+            <span class="key">Correo</span>
+            <span class="value">{site.email}</span>
+          </div>
+          <Icon name="arrow-up-right" size={22} class="arrow" />
+        </a>
+      </li>
+      <li class="row">
         <div>
-          <dt>WhatsApp</dt>
-          <dd>{site.whatsapp.display}</dd>
+          <span class="key">Base</span>
+          <span class="value">{site.city} · disponible para viajar</span>
         </div>
-        <Icon name="arrow-up-right" size={22} class="arrow" />
-      </a>
-      <a class="row" href={`mailto:${site.email}`}>
-        <div>
-          <dt>Correo</dt>
-          <dd>{site.email}</dd>
-        </div>
-        <Icon name="arrow-up-right" size={22} class="arrow" />
-      </a>
-      <div class="row">
-        <div>
-          <dt>Base</dt>
-          <dd>{site.city} · disponible para viajar</dd>
-        </div>
-      </div>
-    </dl>
+      </li>
+    </ul>
   </div>
 </section>
 
@@ -106,6 +110,8 @@ const whatsappUrl = buildWhatsAppUrl(site.whatsapp.number, site.whatsapp.message
     flex-direction: column;
     gap: 10px;
     margin: 0;
+    padding: 0;
+    list-style: none;
   }
   .row {
     display: flex;
@@ -129,15 +135,14 @@ const whatsappUrl = buildWhatsAppUrl(site.whatsapp.number, site.whatsapp.message
     gap: 2px;
     min-width: 0;
   }
-  dt {
+  .key {
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--color-text-muted);
   }
-  dd {
-    margin: 0;
+  .value {
     font-family: var(--font-display);
     font-weight: 600;
     font-size: 17px;
@@ -193,11 +198,11 @@ const whatsappUrl = buildWhatsAppUrl(site.whatsapp.number, site.whatsapp.message
     .row > div {
       gap: 4px;
     }
-    dt {
+    .key {
       font-size: 12px;
       letter-spacing: 0.18em;
     }
-    dd {
+    .value {
       font-size: 22px;
     }
   }

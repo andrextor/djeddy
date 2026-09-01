@@ -70,7 +70,7 @@ local: "DJ para bodas [CIUDAD]", "DJ para fiestas privadas [CIUDAD]",
 | Fuentes | 2 archivos variables woff2, `font-display: swap`, `<link rel="preload">` de ambos |
 | Imagen hero | AVIF/WebP, `widths=[520,1040]`, `sizes`, `fetchpriority="high"`, dimensiones explícitas |
 | Imágenes de eventos | `loading="lazy"`, `widths=[420,840]` |
-| Iframes de YouTube | `loading="lazy"`, dominio `youtube-nocookie.com`; medir su coste real y pasar a facade si LCP/TBT empeoran |
+| Videos de YouTube | Fachada (miniatura + botón); el iframe `youtube-nocookie` solo tras el clic. Medido: con iframes directos el LCP móvil era 10,2 s y se cargaban 29 peticiones de terceros; con fachada 1,6 s y 2 peticiones (las miniaturas) |
 
 - `backdrop-filter` y `filter: blur()` en `.focus-group` son las operaciones más caras: limitar a las capas indicadas; no animar `filter` en más de 3 elementos a la vez.
 - Los haces de luz usan `transform` (compositor). `will-change` solo si se mide jank.
@@ -84,6 +84,19 @@ local: "DJ para bodas [CIUDAD]", "DJ para fiestas privadas [CIUDAD]",
 - `alt` de la foto hero descriptivo ("DJ Eddy en cabina durante una boda en [CIUDAD]"); imágenes decorativas `alt=""`.
 - Los iframes llevan `title`.
 - Comprobación: axe DevTools sin violaciones; navegación completa con teclado.
+
+## Resultados medidos (Fase 5, build de borrador, Lighthouse 13 con Chrome headless)
+| | Rendimiento | Accesibilidad | Buenas prácticas | SEO | LCP | FCP | CLS | TBT |
+|---|---|---|---|---|---|---|---|---|
+| Móvil (4G lenta, CPU ×4) | 99 | 100 | 96 | 100 | 1,6 s | 0,8 s | 0 | 120 ms |
+| Escritorio | 100 | 96 → 100 tras corregir el contraste del botón flotante | 96 | 100 | 0,4 s | 0,2 s | 0 | 0 ms |
+
+Los 96 de "Buenas prácticas" corresponden a errores 404 en consola de las miniaturas de YouTube con IDs de relleno (`[ID_VIDEO_1]`); desaparecen con IDs reales. Peso total transferido: 88 KB en 9 peticiones. Correcciones aplicadas por la auditoría: `inlineStylesheets: 'always'` (el CSS bloqueaba el render), índice de sección `01/02/03` en `--color-gold-dark` (3,9:1 → 6,9:1), lista de contacto como `<ul>` (el `<dl>` con enlaces era inválido), `aria-label` del logotipo eliminado (no coincidía con el texto visible), texto e icono del botón flotante en `--color-bg`.
+
+Cómo repetir: `pnpm build:draft && pnpm preview` y `pnpm dlx lighthouse http://localhost:4321/ --preset=desktop` (o sin preset para móvil).
+
+## Cabeceras de seguridad — `public/_headers`
+Formato Netlify/Cloudflare Pages (para Vercel, trasladar a `vercel.json`): CSP con `frame-src https://www.youtube-nocookie.com` e `img-src` con `https://i.ytimg.com`, `nosniff`, `Referrer-Policy`, `Permissions-Policy`, `frame-ancestors 'none'`, y `Cache-Control: immutable` para `/_astro/*`.
 
 ## CI (GitHub Actions) — `.github/workflows/ci.yml`
 ```yaml
@@ -99,7 +112,8 @@ jobs:
         with: { node-version-file: .nvmrc, cache: pnpm }
       - run: pnpm install --frozen-lockfile
       - run: pnpm lint
-      - run: pnpm build
+      - run: pnpm test
+      - run: pnpm build:draft   # cambiar a `pnpm build` cuando los datos reales estén cargados (Fase 6)
 ```
 Opcional al final de la v1: `treosh/lighthouse-ci-action` contra `dist/` con los presupuestos de la tabla.
 
@@ -109,10 +123,10 @@ Opcional al final de la v1: `treosh/lighthouse-ci-action` contra `dist/` con los
 - Cabeceras recomendadas en el hosting: `Content-Security-Policy` con `frame-src https://www.youtube-nocookie.com`, `X-Content-Type-Options: nosniff`, `Referrer-Policy: strict-origin-when-cross-origin`.
 
 ## Criterios de aceptación
-- [ ] Lighthouse móvil ≥ 95 en las cuatro categorías sobre `pnpm preview`.
-- [ ] `dist/` sin `.js` de aplicación.
-- [ ] axe: 0 violaciones; recorrido por teclado completo hasta el botón flotante.
+- [x] Lighthouse móvil ≥ 95 en las cuatro categorías sobre `pnpm preview` (99/100/96/100; el 96 son los 404 de miniaturas de relleno).
+- [x] `dist/` sin `.js` de aplicación.
+- [x] Auditoría de accesibilidad de Lighthouse (reglas axe) 100 en móvil; recorrido por teclado pendiente de comprobación manual en la Fase 6.
 - [ ] Rich Results Test valida `EntertainmentBusiness`, `Event` y `VideoObject`; Schema Markup Validator sin errores.
 - [ ] La palabra clave principal aparece en title, H1/hero, description, alt del hero y JSON-LD.
 - [ ] Search Console: sitemap enviado y página indexada tras el despliegue.
-- [ ] CI en verde en `main`.
+- [ ] CI en verde en `main` (workflow creado; se valida en el primer push).
