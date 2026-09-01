@@ -1,0 +1,210 @@
+---
+import { Image } from 'astro:assets'
+import { getCollection } from 'astro:content'
+import { site } from '@/data/site'
+import Icon from './Icon.astro'
+import SectionHeading from './SectionHeading.astro'
+
+const services = (await getCollection('services')).sort((a, b) => a.data.order - b.data.order)
+---
+
+<section id="eventos" class="services" aria-labelledby="services-title">
+  <SectionHeading
+    index="02"
+    label="Eventos"
+    title={`Fiestas, marcas y empresas en ${site.city}`}
+    id="services-title"
+    lead="Un set distinto para cada tipo de evento."
+  />
+
+  <ul class="list focus-group">
+    {
+      services.map((service, index) => {
+        const Wrapper = service.data.url ? 'a' : 'div'
+        const wrapperProps = service.data.url
+          ? { href: service.data.url, target: '_blank', rel: 'noopener' }
+          : {}
+        return (
+          <li>
+            <Wrapper class:list={['card', { alt: index % 2 === 1 }]} {...wrapperProps}>
+              <div class="media">
+                {service.data.image ? (
+                  <Image
+                    src={service.data.image}
+                    alt=""
+                    widths={[420, 840]}
+                    sizes="(min-width: 1024px) 420px, 96px"
+                    loading="lazy"
+                  />
+                ) : (
+                  <div class="grain" />
+                )}
+                <span class="tag">{service.data.tag}</span>
+              </div>
+              <div class="body">
+                <h3>{service.data.title}</h3>
+                <p class="meta">{service.data.description}</p>
+              </div>
+              {service.data.url && <Icon name="arrow-up-right" size={20} class="arrow" />}
+            </Wrapper>
+          </li>
+        )
+      })
+    }
+  </ul>
+</section>
+
+<style>
+  .services {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    padding: 64px var(--gutter) 0;
+    scroll-margin-top: 90px;
+  }
+  .list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .card {
+    position: relative;
+    display: flex;
+    align-items: stretch;
+    gap: 16px;
+    padding: 14px;
+    border-radius: 20px;
+    border: 1px solid var(--border-gold-22);
+    background: linear-gradient(120deg, #1f1a12 0%, #0d0b08 100%);
+    color: var(--color-text);
+  }
+  .card.alt {
+    background: linear-gradient(120deg, #181410 0%, #0d0b08 100%);
+  }
+  .media {
+    position: relative;
+    flex: 0 0 96px;
+    border-radius: var(--radius-inner);
+    overflow: hidden;
+    background: var(--gradient-event-a);
+  }
+  .alt .media {
+    background: var(--gradient-event-b);
+  }
+  .media img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .tag {
+    position: absolute;
+    left: 8px;
+    bottom: 8px;
+    padding: 4px 8px;
+    border-radius: var(--radius-pill);
+    background: var(--color-gold);
+    color: var(--color-bg);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .body {
+    display: flex;
+    flex: 1 1 0;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+    min-height: 96px;
+  }
+  h3 {
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+    color: var(--color-text);
+  }
+  .meta {
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--color-text-muted);
+  }
+  .arrow {
+    align-self: center;
+    flex: 0 0 auto;
+    color: var(--color-gold);
+  }
+
+  @media (min-width: 1024px) {
+    .services {
+      gap: 48px;
+      padding: 32px var(--gutter) var(--section-gap);
+      scroll-margin-top: 120px;
+    }
+    .list {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 24px;
+    }
+    .card {
+      flex-direction: column;
+      justify-content: flex-end;
+      height: 520px;
+      padding: 28px;
+      border-radius: var(--radius-card);
+      overflow: hidden;
+      background: var(--gradient-event-a);
+    }
+    .card.alt {
+      background: var(--gradient-event-b);
+    }
+    .media {
+      position: absolute;
+      inset: 0;
+      flex: none;
+      border-radius: 0;
+      background: transparent;
+    }
+    .media::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(7, 6, 4, 0.1) 0%, rgba(7, 6, 4, 0.2) 45%, rgba(7, 6, 4, 0.92) 100%);
+    }
+    .tag {
+      left: 24px;
+      top: 24px;
+      bottom: auto;
+      z-index: 1;
+      padding: 10px 14px;
+      font-size: 12px;
+      letter-spacing: 0.16em;
+    }
+    .body {
+      position: relative;
+      z-index: 1;
+      flex: none;
+      gap: 10px;
+      min-height: 0;
+    }
+    h3 {
+      font-size: 26px;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+    }
+    .meta {
+      font-size: 15px;
+    }
+    .arrow {
+      position: absolute;
+      top: 28px;
+      right: 28px;
+      z-index: 1;
+    }
+  }
+</style>

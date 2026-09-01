@@ -11,14 +11,10 @@ export interface SocialLink {
   url: string
 }
 
-export interface Video {
-  /** YouTube video id (11 chars) */
-  youtubeId: string
-  title: string
-  duration?: string
-  /** ISO date; needed for VideoObject rich results */
-  uploadDate: string
-}
+type Video =
+  | { kind: 'youtube'; youtubeId: string; title: string; duration?: string; uploadDate: string }
+  | { kind: 'file'; src: string /* bajo public/ */; poster: ImageMetadata; title: string; duration?: string; uploadDate: string }
+// Un video propio se sirve desde public/videos/ (MP4 H.264, ≤ 5 MB, vertical 540×960 o 720×1280) con su poster en src/assets/; la fachada lo carga solo al pulsar.
 
 export interface SiteConfig {
   name: string                  // "DJ Eddy"
@@ -70,7 +66,7 @@ export const site = {
 } as const satisfies SiteConfig
 ```
 
-## `src/data/events.json` + colección `events`
+## `src/data/services.json` + colección `services` (antes `events`)
 ```ts
 // src/content.config.ts
 import { defineCollection, z } from 'astro:content'
@@ -98,7 +94,9 @@ export const collections = { events }
   { "id": "2026-09-12-boda", "title": "[NOMBRE DEL EVENTO]", "date": "2026-09-12", "venue": "[LUGAR]", "city": "[CIUDAD]", "time": "21:00", "image": "../assets/events/placeholder.jpg" }
 ]
 ```
-Reglas de presentación:
+> Cambio de la Fase 6: el cliente descartó una agenda con fechas ("no podemos cambiar esto dinámicamente"). La sección conserva la tarjeta pero muestra **tipos de evento** perennes (`order`, `tag`, `title`, `description`, `image`, `url?`; se ordena por `order` porque el loader devuelve las entradas por `id`) sin fechas. `lib/dates.ts` y los nodos `Event` del JSON-LD se eliminaron.
+
+Reglas de presentación (versión original con fechas, ya no vigente):
 - Se muestran solo eventos con `date >= hoy`, ordenados ascendente, **máximo 3**
   en escritorio y 3 en móvil. Si no hay eventos futuros, la sección muestra
   el estado vacío: "Agenda 2026: consulta disponibilidad por WhatsApp" con el
@@ -116,12 +114,13 @@ export const buildWhatsAppUrl = (number: string, message: string): string =>
 WhatsAppButton con `target="_blank" rel="noopener"`.
 
 ## Placeholders y validación
-- Mientras un valor siga entre `[CORCHETES]`, `pnpm build` (build de
-  publicación) **falla**: `src/lib/placeholders.ts` exporta
-  `findPlaceholders` / `assertNoPlaceholders`, y `BaseLayout` lo ejecuta
-  cuando `import.meta.env.PROD && process.env.ALLOW_PLACEHOLDERS !== '1'`.
-  Durante el desarrollo se usa `pnpm build:draft` (fija `ALLOW_PLACEHOLDERS=1`).
-  El hosting debe ejecutar `pnpm build`, nunca `build:draft`.
+- `pnpm build` construye siempre (avisa por consola si `sampleData` es
+  `true`). `pnpm build:release` (`RELEASE=1`) **falla** mientras quede un
+  valor entre `[CORCHETES]` o `sampleData` siga en `true`:
+  `src/lib/placeholders.ts` exporta `findPlaceholders` /
+  `assertNoPlaceholders` y `BaseLayout` los ejecuta cuando
+  `import.meta.env.PROD && process.env.RELEASE === '1'`. El hosting debe
+  ejecutar `pnpm build:release`.
 - Helpers en `src/lib/`: `whatsapp.ts` (`buildWhatsAppUrl`), `dates.ts`
   (`formatEventDate` → `{ day, month, iso }` en UTC, `upcoming(items, now, limit)`),
   `seo.ts` (`buildJsonLd`, ver Parte 5), `placeholders.ts`. Un único archivo

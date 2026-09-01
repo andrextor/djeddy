@@ -10,16 +10,16 @@ lee el nombre del archivo (SEO de imágenes).
 
 | # | Qué es | Carpeta | Nombre exacto | Tamaño mínimo | Formato | Se usa en |
 |---|--------|---------|---------------|---------------|---------|-----------|
-| 1 | Foto principal del DJ (hero) | `src/assets/` | `dj-eddy-en-cabina.jpg` | 1040 × 1320 px (vertical, 4:5) | JPG, ≤ 600 KB | Portada, escritorio y móvil; también es la imagen de la ficha de Google |
+| 1 | Foto principal del DJ (hero) | `src/assets/` | `dj-eddy-en-cabina.webp` (entregada, 4000 × 6000) | 1040 × 1320 px (vertical, 4:5) | JPG o WebP (se recomprime al construir) | Portada, escritorio y móvil; también es la imagen de la ficha de Google |
 | 2 | Imagen para compartir en redes (Open Graph) | `public/` | `og.jpg` | exactamente 1200 × 630 px | JPG, ≤ 300 KB | Vista previa al compartir el enlace en WhatsApp, Instagram, Facebook |
-| 3 | Flyer o foto de cada evento | `src/assets/events/` | `AAAA-MM-DD-nombre-corto.jpg` (ej. `2026-09-12-boda-hacienda-el-roble.jpg`) | 840 × 1040 px (vertical, 4:5) | JPG, ≤ 400 KB cada uno | Tarjetas de "Próximos eventos" |
+| 3 | Foto de cada tipo de evento | `src/assets/events/` | `evento-1.webp`, `evento-2.webp`, `evento-3.webp` (entregadas) | 840 × 1040 px (vertical, 4:5) | JPG o WebP | Tarjetas de "Fiestas, marcas y empresas" (1 privadas, 2 marcas, 3 corporativos/aire libre) |
 | 4 | Favicon | `public/` | `favicon.svg` | vectorial | SVG | Pestaña del navegador (ya hay uno negro/dorado; solo cambiar si hay logo) |
-| 5 | Logo del DJ (si existe) | `src/assets/` | `dj-eddy-logo.svg` | vectorial, fondo transparente | SVG (o PNG 512 px) | Opcional: cabecera y footer en lugar del texto "DJEDDY" |
+| 5 | Logo del DJ | `src/assets/` | `dj-eddy-logo.png` (original, entregado) · `dj-eddy-logo-dark.png` y `dj-eddy-mark.png` (derivados para fondo oscuro, generados) | 1338 × 1568 | PNG transparente | Icono en cabecera, logo completo en footer, favicon, icono iOS, `og.jpg`, JSON-LD `logo` |
 | 6 | Videos | *no se suben*: van en YouTube | — | 1080p, miniatura clara | Enlace de YouTube | Sección "En acción" (se muestran las miniaturas de YouTube) |
 
 ## Detalle por archivo
 
-### 1. `src/assets/dj-eddy-en-cabina.jpg` — foto principal
+### 1. `src/assets/dj-eddy-en-cabina.webp` — foto principal (entregada)
 - Es la imagen más importante de la página: aparece grande, ligeramente
   inclinada, con luces doradas detrás.
 - Vertical (más alta que ancha), proporción 4:5. Mínimo 1040 × 1320 px; ideal
@@ -43,15 +43,15 @@ lee el nombre del archivo (SEO de imágenes).
   (recomendado: foto del DJ a la derecha, titular a la izquierda).
 - No lleva optimización automática: guardar ya comprimida (≤ 300 KB).
 
-### 3. `src/assets/events/AAAA-MM-DD-nombre-corto.jpg` — flyers de eventos
-- Un archivo por evento, nombrado con la **fecha del evento** y un nombre
-  corto: `2026-10-03-fiesta-privada-club-campestre.jpg`.
+### 3. `src/assets/events/evento-N.webp` — fotos de tipos de evento (entregadas)
+- Un archivo por tipo de evento: `evento-1` fiestas privadas, `evento-2`
+  activaciones de marca, `evento-3` corporativos / aire libre.
 - Vertical 4:5, mínimo 840 × 1040 px. En escritorio la tarjeta muestra la
   imagen completa detrás del texto; en móvil, un recorte cuadrado a la
   izquierda con la fecha encima. Por eso el motivo principal debe estar
   **centrado**, no en las esquinas.
-- Cada evento se declara en `src/data/events.json` y ahí se indica la ruta
-  de su imagen (`"image": "../assets/events/2026-10-03-fiesta-privada-club-campestre.jpg"`).
+- Cada tipo de evento se declara en `src/data/services.json` y ahí se indica la ruta
+  de su imagen (`"image": "../assets/events/evento-2.jpg"`).
   Si un evento no tiene imagen, se omite el campo y la tarjeta muestra un
   fondo degradado dorado: no hace falta inventar una.
 - El archivo de relleno `placeholder-evento.jpg` se puede borrar cuando haya
@@ -61,9 +61,9 @@ lee el nombre del archivo (SEO de imágenes).
 - Ya existe (disco dorado sobre negro). Sustituir solo si hay logo oficial;
   debe verse bien a 16 × 16 px.
 
-### 5. `src/assets/dj-eddy-logo.svg` (opcional)
-- Solo si el DJ tiene logotipo. Vectorial, sin fondo, en dorado o blanco.
-  Si se entrega, se integra en cabecera y footer en lugar del texto "DJEDDY".
+### 5. `src/assets/dj-eddy-logo.png` — logo (entregado)
+- Original: auriculares negros, barras y "PLAYMUSIC" en naranja coral, "DJ EDDY" en blanco. Sobre el fondo negro del sitio los auriculares desaparecían y el naranja rompía la paleta, así que se generaron dos derivados (`scripts` de sesión, sin herramientas externas): `dj-eddy-logo-dark.png` (auriculares blanco cálido `#f4efe4`, barras y PLAYMUSIC dorado `#d4af37`) y `dj-eddy-mark.png` (solo auriculares, para cabecera/favicon).
+- Si algún día llega un SVG o una versión oficial en dorado, sustituir los derivados; el original se conserva sin tocar.
 
 ### 6. Videos (YouTube)
 - Subirlos al canal de YouTube del DJ (públicos o "no listados", nunca
@@ -88,5 +88,5 @@ lee el nombre del archivo (SEO de imágenes).
 ## Comprobar que no falta nada
 ```bash
 pnpm check:content   # lista los textos entre [CORCHETES] que quedan por rellenar
-pnpm build           # falla mientras quede alguno; cuando pasa, el sitio está listo para publicar
+pnpm build:release   # falla mientras quede alguno o haya datos de muestra; cuando pasa, el sitio está listo para publicar
 ```

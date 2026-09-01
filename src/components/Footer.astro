@@ -1,4 +1,6 @@
 ---
+import { Image } from 'astro:assets'
+import logo from '@/assets/dj-eddy-logo-dark.png'
 import { type SocialNetwork, site } from '@/data/site'
 import type { IconName } from './Icon.astro'
 import Icon from './Icon.astro'
@@ -10,9 +12,9 @@ const iconFor = (network: SocialNetwork): IconName => network
 <footer class="footer">
   <div class="top">
     <div class="brand">
-      <p class="wordmark-small">DJ<span>EDDY</span></p>
+      <Image class="logo" src={logo} alt={`${site.name} PlayMusic`} width={140} densities={[1, 2]} loading="lazy" />
       <p class="about">
-        DJ para bodas, fiestas privadas y eventos corporativos. {site.city} y donde haga falta.
+        DJ para fiestas privadas, activaciones de marca y eventos corporativos. Base en {site.city}; viaja a {site.travelCities.join(', ')} y todo {site.countryName}.
       </p>
     </div>
     <div class="social">
@@ -53,17 +55,11 @@ const iconFor = (network: SocialNetwork): IconName => network
   .brand {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 16px;
   }
-  .wordmark-small {
-    font-family: var(--font-display);
-    font-weight: 800;
-    font-size: 20px;
-    letter-spacing: 0.06em;
-    color: var(--color-text);
-  }
-  .wordmark-small span {
-    color: var(--color-gold);
+  .logo {
+    width: 120px;
+    height: auto;
   }
   .about {
     max-width: 360px;
@@ -147,9 +143,8 @@ const iconFor = (network: SocialNetwork): IconName => network
       justify-content: space-between;
       gap: 48px;
     }
-    .wordmark-small {
-      font-size: 24px;
-      letter-spacing: 0.08em;
+    .logo {
+      width: 140px;
     }
     .about {
       font-size: 15px;

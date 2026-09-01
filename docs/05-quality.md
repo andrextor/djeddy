@@ -52,7 +52,7 @@ local: "DJ para bodas [CIUDAD]", "DJ para fiestas privadas [CIUDAD]",
   ]
 }
 ```
-  Cada evento futuro añade al `@graph` un `Event` (`name`, `startDate` ISO con zona horaria, `eventStatus: EventScheduled`, `eventAttendanceMode: OfflineEventAttendanceMode`, `location` → `Place` con `name` y `address.addressLocality`, `performer` → `{"@id": ".../#business"}`, `image` si existe, `url` si existe). Los dos videos añaden `VideoObject` (`name`, `thumbnailUrl` = `https://i.ytimg.com/vi/{id}/hqdefault.jpg`, `embedUrl`, `uploadDate` [FECHA]) para elegibilidad de resultados de video.
+  ~~Cada evento futuro añade al `@graph` un `Event`~~ (eliminado: la sección de eventos ya no lleva fechas). Los dos videos añaden `VideoObject`  (`name`, `thumbnailUrl` = `https://i.ytimg.com/vi/{id}/hqdefault.jpg`, `embedUrl`, `uploadDate` [FECHA]) para elegibilidad de resultados de video.
 - Enlaces de anclaje internos (`#videos`, `#eventos`, `#contacto`) con texto descriptivo en la nav; los ids se mantienen en español.
 - Los textos de negocio proceden de `site.ts`: cambiar ciudad o servicios actualiza título, description, H1, JSON-LD y footer a la vez.
 - `robots.txt` (`Allow: /`, `Sitemap: https://[DOMINIO]/sitemap-index.xml`) y `@astrojs/sitemap` (única integración añadida).
@@ -93,7 +93,7 @@ local: "DJ para bodas [CIUDAD]", "DJ para fiestas privadas [CIUDAD]",
 
 Los 96 de "Buenas prácticas" corresponden a errores 404 en consola de las miniaturas de YouTube con IDs de relleno (`[ID_VIDEO_1]`); desaparecen con IDs reales. Peso total transferido: 88 KB en 9 peticiones. Correcciones aplicadas por la auditoría: `inlineStylesheets: 'always'` (el CSS bloqueaba el render), índice de sección `01/02/03` en `--color-gold-dark` (3,9:1 → 6,9:1), lista de contacto como `<ul>` (el `<dl>` con enlaces era inválido), `aria-label` del logotipo eliminado (no coincidía con el texto visible), texto e icono del botón flotante en `--color-bg`.
 
-Cómo repetir: `pnpm build:draft && pnpm preview` y `pnpm dlx lighthouse http://localhost:4321/ --preset=desktop` (o sin preset para móvil).
+Cómo repetir: `pnpm build && pnpm preview` y `pnpm dlx lighthouse http://localhost:4321/ --preset=desktop` (o sin preset para móvil).
 
 ## Cabeceras de seguridad — `public/_headers`
 Formato Netlify/Cloudflare Pages (para Vercel, trasladar a `vercel.json`): CSP con `frame-src https://www.youtube-nocookie.com` e `img-src` con `https://i.ytimg.com`, `nosniff`, `Referrer-Policy`, `Permissions-Policy`, `frame-ancestors 'none'`, y `Cache-Control: immutable` para `/_astro/*`.
@@ -113,7 +113,7 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm lint
       - run: pnpm test
-      - run: pnpm build:draft   # cambiar a `pnpm build` cuando los datos reales estén cargados (Fase 6)
+      - run: pnpm build   # cambiar a `pnpm build:release` cuando los datos reales estén cargados (Fase 6)
 ```
 Opcional al final de la v1: `treosh/lighthouse-ci-action` contra `dist/` con los presupuestos de la tabla.
 
@@ -126,7 +126,7 @@ Opcional al final de la v1: `treosh/lighthouse-ci-action` contra `dist/` con los
 - [x] Lighthouse móvil ≥ 95 en las cuatro categorías sobre `pnpm preview` (99/100/96/100; el 96 son los 404 de miniaturas de relleno).
 - [x] `dist/` sin `.js` de aplicación.
 - [x] Auditoría de accesibilidad de Lighthouse (reglas axe) 100 en móvil; recorrido por teclado pendiente de comprobación manual en la Fase 6.
-- [ ] Rich Results Test valida `EntertainmentBusiness`, `Event` y `VideoObject`; Schema Markup Validator sin errores.
+- [ ] Rich Results Test valida `EntertainmentBusiness` y `VideoObject`; Schema Markup Validator sin errores.
 - [ ] La palabra clave principal aparece en title, H1/hero, description, alt del hero y JSON-LD.
 - [ ] Search Console: sitemap enviado y página indexada tras el despliegue.
 - [ ] CI en verde en `main` (workflow creado; se valida en el primer push).

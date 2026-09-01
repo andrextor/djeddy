@@ -9,16 +9,16 @@
     "node": ">=22.12.0"
   },
   "scripts": {
-    "dev": "astro dev",
+    "dev": "astro dev --force",
     "build": "astro check && astro build",
-    "build:draft": "ALLOW_PLACEHOLDERS=1 astro check && ALLOW_PLACEHOLDERS=1 astro build",
+    "build:release": "RELEASE=1 astro check && RELEASE=1 astro build",
     "preview": "astro preview",
     "test": "node --experimental-strip-types --no-warnings=ExperimentalWarning --test \"src/lib/*.test.ts\"",
+    "check:content": "node --experimental-strip-types --no-warnings=ExperimentalWarning scripts/list-placeholders.ts",
     "lint": "biome check .",
     "format": "biome format --write .",
     "typecheck": "astro check",
-    "astro": "astro",
-    "check:content": "node --experimental-strip-types --no-warnings=ExperimentalWarning scripts/list-placeholders.ts"
+    "astro": "astro"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",

@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets'
 import type { Video } from '@/data/site'
 import Icon from './Icon.astro'
 import SectionHeading from './SectionHeading.astro'
@@ -12,6 +13,10 @@ const { videos, moreClipsUrl } = Astro.props
 const [first, second] = videos
 const embedUrl = (id: string): string => `https://www.youtube-nocookie.com/embed/${id}?autoplay=1`
 const thumbnailUrl = (id: string): string => `https://i.ytimg.com/vi/${id}/hqdefault.jpg`
+const facadeData = (video: Video): Record<string, string> =>
+  video.kind === 'youtube'
+    ? { 'data-embed': embedUrl(video.youtubeId) }
+    : { 'data-video': video.src }
 ---
 
 <section id="videos" class="videos" aria-labelledby="videos-title">
@@ -31,10 +36,14 @@ const thumbnailUrl = (id: string): string => `https://i.ytimg.com/vi/${id}/hqdef
       <button
         class="facade"
         type="button"
-        data-embed={embedUrl(first.youtubeId)}
+        {...facadeData(first)}
         aria-label={`Reproducir: ${first.title}`}
       >
-        <img src={thumbnailUrl(first.youtubeId)} alt="" loading="lazy" width="480" height="360" />
+        {first.kind === 'youtube' ? (
+          <img src={thumbnailUrl(first.youtubeId)} alt="" loading="lazy" width="480" height="360" />
+        ) : (
+          <Image src={first.poster} alt="" widths={[540, 1080]} sizes="(min-width: 1024px) 480px, 300px" loading="lazy" />
+        )}
         <span class="play glass"><Icon name="play" size={34} class="gold" /></span>
       </button>
       <div class="caption glass">
@@ -50,10 +59,14 @@ const thumbnailUrl = (id: string): string => `https://i.ytimg.com/vi/${id}/hqdef
       <button
         class="facade"
         type="button"
-        data-embed={embedUrl(second.youtubeId)}
+        {...facadeData(second)}
         aria-label={`Reproducir: ${second.title}`}
       >
-        <img src={thumbnailUrl(second.youtubeId)} alt="" loading="lazy" width="480" height="360" />
+        {second.kind === 'youtube' ? (
+          <img src={thumbnailUrl(second.youtubeId)} alt="" loading="lazy" width="480" height="360" />
+        ) : (
+          <Image src={second.poster} alt="" widths={[540, 1080]} sizes="(min-width: 1024px) 480px, 300px" loading="lazy" />
+        )}
         <span class="play glass"><Icon name="play" size={26} class="gold" /></span>
       </button>
       <div class="caption glass">
@@ -76,17 +89,41 @@ const thumbnailUrl = (id: string): string => `https://i.ytimg.com/vi/${id}/hqdef
 </section>
 
 <script is:inline>
-  // YouTube facade: the player (~1 MB of third-party JS) loads only when a viewer asks for it.
-  for (const facade of document.querySelectorAll('.facade[data-embed]')) {
+  // Facade: the YouTube player (~1 MB of third-party JS) or the MP4 loads only when a viewer asks for it.
+  for (const facade of document.querySelectorAll('.facade')) {
     facade.addEventListener('click', () => {
-      const iframe = document.createElement('iframe')
-      iframe.src = facade.dataset.embed
-      iframe.title = facade.getAttribute('aria-label')
-      iframe.allow = 'accelerometer; autoplay; encrypted-media; picture-in-picture'
-      iframe.allowFullscreen = true
-      facade.replaceWith(iframe)
+      let player
+      if (facade.dataset.embed) {
+        player = document.createElement('iframe')
+        player.src = facade.dataset.embed
+        player.allow = 'accelerometer; autoplay; encrypted-media; picture-in-picture'
+        player.allowFullscreen = true
+      } else {
+        player = document.createElement('video')
+        player.src = facade.dataset.video
+        player.controls = true
+        player.autoplay = true
+        player.playsInline = true
+      }
+      player.title = facade.getAttribute('aria-label')
+      // Copy Astro's scoped-style attribute so the card CSS applies to the injected player.
+      for (const { name } of facade.attributes) {
+        if (name.startsWith('data-astro-cid')) player.setAttribute(name, '')
+      }
+      facade.closest('.card')?.classList.add('playing')
+      facade.replaceWith(player)
     })
   }
+  // Only one video plays at a time.
+  document.addEventListener(
+    'play',
+    (event) => {
+      for (const other of document.querySelectorAll('video')) {
+        if (other !== event.target) other.pause()
+      }
+    },
+    true,
+  )
 </script>
 
 <style>
@@ -136,7 +173,9 @@ const thumbnailUrl = (id: string): string => `https://i.ytimg.com/vi/${id}/hqdef
     background: var(--gradient-card-alt);
   }
   .facade,
-  iframe {
+  iframe,
+  video {
+    display: block;
     position: absolute;
     inset: 0;
     width: 100%;
@@ -151,6 +190,18 @@ const thumbnailUrl = (id: string): string => `https://i.ytimg.com/vi/${id}/hqdef
     height: 100%;
     object-fit: cover;
     opacity: 0.6;
+  }
+  video {
+    object-fit: contain;
+    background: #000;
+  }
+  .card.playing,
+  .card.playing:hover {
+    transform: none;
+    filter: none;
+  }
+  .card.playing .caption {
+    display: none;
   }
   .facade::after {
     content: '';

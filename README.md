@@ -8,7 +8,7 @@ the design canvas in [`design/`](design/).
 
 All business data lives in `src/data/site.ts` and `src/data/events.json`. Photos and their exact
 filenames are documented in [`docs/07-fotos-y-archivos.md`](docs/07-fotos-y-archivos.md).
-`pnpm build` fails while any `[PLACEHOLDER]` remains; use `pnpm build:draft` meanwhile.
+`pnpm build` always works (sample data included); `pnpm build:release` refuses to build while any `[PLACEHOLDER]` or sample data remains, so hosting must run that one.
 
 ## Requirements
 
@@ -22,10 +22,10 @@ filenames are documented in [`docs/07-fotos-y-archivos.md`](docs/07-fotos-y-arch
 | `pnpm install`   | Install dependencies                     |
 | `pnpm dev`       | Start the dev server                     |
 | `pnpm build`     | Type-check and build to `dist/`          |
+| `pnpm build:release` | Same, but fails if placeholders or sample data remain (use in hosting) |
 | `pnpm preview`   | Preview the production build             |
 | `pnpm lint`      | Lint and format check (Biome)            |
 | `pnpm format`    | Format the codebase (Biome)              |
 | `pnpm typecheck` | `astro check`                            |
 | `pnpm test`      | Unit tests (`node:test`)                 |
-| `pnpm build:draft` | Build while client data is still missing |
 | `pnpm check:content` | List remaining `[PLACEHOLDER]` values |

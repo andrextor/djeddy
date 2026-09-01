@@ -1,0 +1,26 @@
+[
+  {
+    "id": "fiestas-privadas",
+    "order": 1,
+    "tag": "Privado",
+    "title": "Fiestas privadas",
+    "description": "Cumpleaños, aniversarios y celebraciones en casa o finca. El set se arma con tu música y la de tus invitados.",
+    "image": "../assets/events/evento-1.webp"
+  },
+  {
+    "id": "activaciones-de-marca",
+    "order": 2,
+    "tag": "Marcas",
+    "title": "Activaciones de marca",
+    "description": "Lanzamientos, ferias y experiencias de marca con sonido, luces y energía al ritmo del guion del evento.",
+    "image": "../assets/events/evento-2.webp"
+  },
+  {
+    "id": "eventos-corporativos",
+    "order": 3,
+    "tag": "Empresas",
+    "title": "Eventos corporativos y al aire libre",
+    "description": "Fiestas de fin de año, integraciones, brunches y sunset sessions: música para todas las edades y un cierre memorable.",
+    "image": "../assets/events/evento-3.webp"
+  }
+]

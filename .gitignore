@@ -22,3 +22,7 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# raw video sources (cut versions live in public/videos)
+src/assets/*.mp4
+src/assets/*.mov

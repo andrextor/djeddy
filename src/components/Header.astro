@@ -1,4 +1,6 @@
 ---
+import { Image } from 'astro:assets'
+import mark from '@/assets/dj-eddy-mark.png'
 import { site } from '@/data/site'
 import { buildWhatsAppUrl } from '@/lib/whatsapp'
 import Icon from './Icon.astro'
@@ -12,7 +14,10 @@ const links = [
 ---
 
 <header class="header glass rise">
-  <a class="wordmark" href="#main">DJ<span>EDDY</span></a>
+  <a class="wordmark" href="#main">
+    <Image src={mark} alt="" width={40} densities={[1, 2]} loading="eager" />
+    <span>DJ<em>EDDY</em></span>
+  </a>
   <nav class="links" aria-label="Secciones">
     {links.map((link) => <a href={link.href}>{link.label}</a>)}
   </nav>
@@ -53,17 +58,25 @@ const links = [
     justify-content: space-between;
     gap: 16px;
     height: 56px;
-    padding: 0 6px 0 18px;
+    padding: 0 6px 0 12px;
     border-radius: var(--radius-pill);
   }
   .wordmark {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
     font-family: var(--font-display);
     font-weight: 800;
     font-size: 17px;
     letter-spacing: 0.06em;
     color: var(--color-text);
   }
-  .wordmark span {
+  .wordmark img {
+    width: 34px;
+    height: auto;
+  }
+  .wordmark em {
+    font-style: normal;
     color: var(--color-gold);
   }
   .links {
@@ -160,11 +173,14 @@ const links = [
       height: 68px;
       margin-inline: auto;
       gap: 48px;
-      padding: 0 12px 0 28px;
+      padding: 0 12px 0 20px;
     }
     .wordmark {
       font-size: 20px;
       letter-spacing: 0.08em;
+    }
+    .wordmark img {
+      width: 40px;
     }
     .links {
       display: flex;

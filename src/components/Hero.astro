@@ -1,6 +1,6 @@
 ---
 import { Image } from 'astro:assets'
-import heroImage from '@/assets/dj-eddy-en-cabina.jpg'
+import heroImage from '@/assets/dj-eddy-en-cabina.webp'
 import { site } from '@/data/site'
 import { buildWhatsAppUrl } from '@/lib/whatsapp'
 import Icon from './Icon.astro'
@@ -23,12 +23,13 @@ const services = [
     <div class="copy">
       <p class="badge glass rise delay-1">
         <span class="live"></span>
-        <span>Agenda 2026 abierta<span class="badge-long"> · bodas, privadas y corporativos</span></span>
+        <span>Agenda abierta<span class="badge-long"> · fiestas privadas, marcas y empresas</span></span>
       </p>
       <h1 id="hero-title" class="rise delay-2">Enciende<br /><span>tu evento.</span></h1>
       <p class="lead rise delay-3">
-        DJ en {site.city} para bodas, fiestas privadas y eventos corporativos: sets a medida, sonido e
-        iluminación propios y una lectura de pista que no deja a nadie sentado. Disponible para viajar.
+        DJ en {site.city} para fiestas privadas, activaciones de marca y eventos corporativos: salsa
+        clásica y romántica, crossover, sonido e iluminación propios y una lectura de pista que no deja a
+        nadie sentado. Base en {site.city}, disponible en todo {site.countryName}.
       </p>
       <div class="actions rise delay-4">
         <a class="primary" href={whatsappUrl} target="_blank" rel="noopener">
@@ -53,6 +54,7 @@ const services = [
         <Image
           src={heroImage}
           alt={`${site.name} en cabina durante un evento en ${site.city}`}
+          width={1040}
           widths={[520, 1040]}
           sizes="(min-width: 1024px) 520px, calc(100vw - 64px)"
           loading="eager"

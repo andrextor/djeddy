@@ -1,29 +1,20 @@
 ---
-import { getCollection } from 'astro:content'
+import logo from '@/assets/dj-eddy-logo-dark.png'
 import Contact from '@/components/Contact.astro'
-import Events from '@/components/Events.astro'
 import Footer from '@/components/Footer.astro'
 import Header from '@/components/Header.astro'
 import Hero from '@/components/Hero.astro'
+import Services from '@/components/Services.astro'
 import Videos from '@/components/Videos.astro'
 import WhatsAppButton from '@/components/WhatsAppButton.astro'
 import { site } from '@/data/site'
 import BaseLayout from '@/layouts/BaseLayout.astro'
-import { upcoming } from '@/lib/dates'
 import { buildJsonLd, serializeJsonLd } from '@/lib/seo'
 
-const title = `${site.name} · DJ para bodas, fiestas y eventos en ${site.city}`
+const title = `${site.name} · DJ en ${site.city} para fiestas, marcas y empresas`
 const ogImageUrl = new URL('/og.jpg', Astro.site).href
-const events = upcoming(await getCollection('events')).map((event) => ({
-  title: event.data.title,
-  date: event.data.date,
-  venue: event.data.venue,
-  city: event.data.city,
-  time: event.data.time,
-  imageUrl: event.data.image ? new URL(event.data.image.src, Astro.site).href : undefined,
-  url: event.data.url,
-}))
-const jsonLd = serializeJsonLd(buildJsonLd(site, events, ogImageUrl))
+const logoUrl = new URL(logo.src, Astro.site).href
+const jsonLd = serializeJsonLd(buildJsonLd(site, ogImageUrl, logoUrl))
 const instagram = site.socials.find((social) => social.network === 'instagram')
 ---
 
@@ -33,7 +24,7 @@ const instagram = site.socials.find((social) => social.network === 'instagram')
   <main id="main">
     <Hero />
     <Videos videos={site.videos} moreClipsUrl={instagram?.url ?? site.socials[0].url} />
-    <Events />
+    <Services />
     <Contact />
   </main>
   <Footer />

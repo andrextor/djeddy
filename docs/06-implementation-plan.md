@@ -19,7 +19,7 @@ Estimaciones para una persona.
 **Hecho cuando**: criterios de la Parte 2. (Cumplido: build sin JS, CSS 5,4 KB gzip.)
 
 ## Fase 3 · Contenido tipado (½ día) — Parte 3 ✅
-1. `site.ts` con `SiteConfig` (+ campos SEO) y `lib/placeholders.ts` con `assertNoPlaceholders`; `pnpm build` bloqueado con 18 placeholders, `pnpm build:draft` para desarrollo.
+1. `site.ts` con `SiteConfig` (+ campos SEO) y `lib/placeholders.ts` con `assertNoPlaceholders`; `pnpm build` bloqueado con 18 placeholders, `pnpm build` para desarrollo.
 2. `content.config.ts` + `events.json` con 3 eventos de ejemplo y `src/assets/events/placeholder-evento.svg`.
 3. `lib/whatsapp.ts`, `lib/dates.ts` (`formatEventDate`, `upcoming`), `lib/seo.ts` (`buildJsonLd`, adelantado de la Fase 5 por prioridad SEO).
 4. `src/lib/lib.test.ts` con `node:test` (5 pruebas), sin framework.
@@ -42,12 +42,13 @@ Notas de implementación: un icono compartido `Icon.astro` (mapa de paths) en lu
 ## Fase 6 · Contenido real y publicación (½ día) — en curso
 Preparado sin datos del cliente (hecho):
 - Nombres de archivo de las fotos fijados en el código (`src/assets/dj-eddy-en-cabina.jpg`, `src/assets/events/AAAA-MM-DD-nombre.jpg`, `public/og.jpg`) y guía de entrega en la Parte 7.
-- `pnpm check:content` lista los textos que faltan; `pnpm build` sigue bloqueado mientras quede alguno.
+- `pnpm check:content` lista los textos que faltan; `pnpm build:release` sigue bloqueado mientras quede alguno.
+- Mientras llegan los datos, `site.ts` y `services.json` llevan **valores de muestra** (Cali, +57 300 123 4567, redes `@djeddy`, dos videos públicos cualesquiera, tres tipos de evento) marcados con `sampleData = true`; `pnpm build:release` también se bloquea mientras esa bandera sea `true`; `pnpm build` normal siempre funciona. Al cargar los datos reales: sustituir valores y poner `sampleData = false`.
 
 ### Checklist de datos que debe entregar el cliente
 | Dato | Dónde se escribe | Formato / ejemplo |
 |------|------------------|-------------------|
-| Ciudad base | `src/data/site.ts` → `city` | `Medellín` |
+| Ciudad base | `src/data/site.ts` → `city` | `Cali` ✅ |
 | País | `site.ts` → `countryCode` | ISO-2: `CO`, `ES`, `MX` |
 | Apellido (para la ficha de negocio) | `site.ts` → `founderName` | `Eddy Ramírez` |
 | Número de WhatsApp | `site.ts` → `whatsapp.number` y `whatsapp.display` | `573001234567` y `+57 300 123 4567` |
@@ -55,20 +56,20 @@ Preparado sin datos del cliente (hecho):
 | Correo | `site.ts` → `email` | `hola@djeddy.com` |
 | Redes | `site.ts` → `socials[].url` | URL completa de Instagram, TikTok, YouTube, Facebook (borrar la fila de la red que no tenga) |
 | Dos videos | `site.ts` → `videos[]` | ID de YouTube (11 caracteres), título corto, duración `3:12`, fecha de subida `2026-05-20` |
-| Eventos próximos | `src/data/events.json` | `title`, `date` `AAAA-MM-DD`, `venue`, `city`, `time` `HH:MM`, `image` (ver Parte 7), `url` (entradas, opcional) |
+| Tipos de evento | `src/data/services.json` | `tag` (≤ 12 caracteres), `title`, `description` (≤ 160), `image` (ver Parte 7), `url` opcional. Sin fechas: decisión del cliente en la Fase 6 |
 | Dominio | `astro.config.mjs` → `site`, `public/robots.txt` → `Sitemap:`, `site.ts` → `domain` | `https://djeddy.com` |
 | Fotos | ver Parte 7 | — |
 
 ### Pasos de publicación (cuando lleguen los datos)
 1. Rellenar la tabla anterior; `pnpm check:content` debe decir que no queda nada.
-2. `pnpm lint && pnpm test && pnpm build` (build de publicación, sin `ALLOW_PLACEHOLDERS`).
-3. Cambiar en `.github/workflows/ci.yml` `pnpm build:draft` por `pnpm build`.
+2. `pnpm lint && pnpm test && pnpm build:release`.
+3. Cambiar en `.github/workflows/ci.yml` `pnpm build` por `pnpm build:release`.
 4. Recorrido manual por teclado (Tab desde el skip link hasta el botón flotante) y prueba del menú móvil en Safari iOS.
-5. Elegir hosting [Vercel / Netlify / Cloudflare Pages]; conectar el repo, comando `pnpm build`, carpeta `dist/`. Si es Vercel, trasladar `public/_headers` a `vercel.json`.
+5. Elegir hosting [Vercel / Netlify / Cloudflare Pages]; conectar el repo, comando `pnpm build:release`, carpeta `dist/`. Si es Vercel, trasladar `public/_headers` a `vercel.json`.
 6. Dominio: apuntar DNS al hosting; forzar HTTPS y redirección `www` → raíz (o al revés, pero una sola).
 7. Google Search Console: verificar el dominio, enviar `https://[DOMINIO]/sitemap-index.xml`, pedir indexación de `/`.
 8. Google Business Profile: crear/actualizar la ficha con **el mismo nombre, teléfono y ciudad** que el JSON-LD; categoría "DJ"; enlazar la web.
-9. Comprobar con Rich Results Test (`EntertainmentBusiness`, `Event`, `VideoObject`) y con el depurador de compartir de Facebook/WhatsApp que `og.jpg` se ve.
+9. Comprobar con Rich Results Test (`EntertainmentBusiness`, `VideoObject`) y con el depurador de compartir de Facebook/WhatsApp que `og.jpg` se ve.
 10. Lighthouse en producción: ≥ 95 en las cuatro categorías (referencia de la Parte 5).
 **Hecho cuando**: el sitio está en el dominio, Lighthouse ≥ 95 en producción y el botón de WhatsApp abre la conversación con el mensaje prellenado.
 
