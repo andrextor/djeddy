@@ -1,0 +1,231 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Manrope:wght@400;500;600;700&display=swap">
+  <style>
+    body { margin: 0; background: #070604; color: #f4efe4; font-family: 'Manrope', 'Helvetica Neue', Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+    a { color: #d4af37; text-decoration: none; } a:hover { color: #f1d67a; }
+    h1, h2, h3, p { margin: 0; }
+    .grain { background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/></svg>"); mix-blend-mode: soft-light; opacity: 0.35; }
+    .glass { background: rgba(20, 17, 12, 0.55); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); border: 1px solid rgba(212,175,55,0.22); }
+    .rise { animation: rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+    .d1 { animation-delay: 0.1s; } .d2 { animation-delay: 0.25s; } .d3 { animation-delay: 0.4s; } .d4 { animation-delay: 0.55s; }
+    @keyframes rise { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
+    .marquee { display: flex; gap: 0; width: max-content; animation: marquee 26s linear infinite; }
+    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    .pulse::before { content: ''; position: absolute; inset: -8px; border-radius: 999px; border: 2px solid rgba(37,211,102,0.6); animation: pulse 2s ease-out infinite; }
+    @keyframes pulse { 0% { transform: scale(0.85); opacity: 1; } 100% { transform: scale(1.35); opacity: 0; } }
+    .card { transition: transform 0.4s cubic-bezier(0.2, 0.7, 0.2, 1), border-color 0.4s ease, filter 0.4s ease; }
+    .card:hover { transform: translateY(-6px) scale(1.02); border-color: rgba(212,175,55,0.7); }
+    .focus-group:hover .card { filter: blur(2px) grayscale(0.7) brightness(0.6); }
+    .focus-group .card:hover { filter: none; }
+    .video:hover .play { transform: scale(1.12); background: rgba(212,175,55,0.9); }
+    .video:hover .play svg { fill: #070604; }
+    .play { transition: transform 0.35s ease, background 0.35s ease; }
+    .beam { position: absolute; top: -10%; width: 14px; height: 120%; border-radius: 999px; filter: blur(10px); opacity: 0.55; background: linear-gradient(180deg, rgba(241,214,122,0) 0%, rgba(241,214,122,0.9) 35%, rgba(212,175,55,0.7) 70%, rgba(212,175,55,0) 100%); transform-origin: top center; animation: sway 7s ease-in-out infinite alternate; }
+    @keyframes sway { from { transform: rotate(-4deg); } to { transform: rotate(4deg); } }
+    .fade-right { animation: fadeRight 1s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+    @keyframes fadeRight { from { opacity: 0; transform: translateX(60px) rotate(4deg); } to { opacity: 1; transform: translateX(0) rotate(4deg); } }
+    .wordmark { -webkit-mask-image: linear-gradient(180deg, #000 20%, transparent 95%); mask-image: linear-gradient(180deg, #000 20%, transparent 95%); }
+    .snap { display: flex; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 0 20px 8px; scrollbar-width: none; }
+    .snap::-webkit-scrollbar { display: none; }
+    .snap > * { flex: 0 0 300px; scroll-snap-align: start; }
+  </style>
+</helmet>
+<div style="position: relative; width: 390px; min-height: 3380px; background: #070604; overflow: hidden;">
+
+  <div class="glass" style="position: absolute; top: 14px; left: 14px; right: 14px; z-index: 20; display: flex; align-items: center; justify-content: space-between; height: 56px; padding: 0 6px 0 18px; box-sizing: border-box; border-radius: 999px;">
+    <div style="font-family: 'Sora', 'Helvetica Neue', Arial, sans-serif; font-weight: 800; font-size: 17px; letter-spacing: 0.06em; color: #f4efe4;">DJ<span style="color: #d4af37;">EDDY</span></div>
+    <div style="display: flex; align-items: center; gap: 4px;">
+      <a href="https://wa.me/[NUMERO]" style="display: inline-flex; align-items: center; justify-content: center; height: 44px; padding: 0 16px; border-radius: 999px; background: #d4af37; color: #070604; font-size: 13px; font-weight: 700;">Reservar</a>
+      <div style="display: flex; align-items: center; justify-content: center; width: 44px; height: 44px;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#f4efe4" stroke-width="1.6" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"></path></svg></div>
+    </div>
+  </div>
+
+  <!-- Hero: flowing, no overlaps -->
+  <div style="position: relative; overflow: hidden; background: radial-gradient(520px 420px at 0% 0%, rgba(212,175,55,0.22) 0%, rgba(212,175,55,0) 60%), linear-gradient(180deg, #0c0a07 0%, #070604 100%);">
+    <div class="grain" style="position: absolute; inset: 0; pointer-events: none;"></div>
+    <div style="position: relative; display: flex; flex-direction: column; gap: 20px; padding: 104px 20px 0;">
+      <div class="glass rise d1" style="display: inline-flex; align-self: flex-start; align-items: center; gap: 10px; height: 36px; padding: 0 14px 0 10px; border-radius: 999px; font-size: 12px; font-weight: 600; color: #e6dcc3;">
+        <span style="display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #25d366; box-shadow: 0 0 12px #25d366;"></span>
+        <span>Agenda 2026 abierta</span>
+      </div>
+      <h1 class="rise d2" style="font-family: 'Sora', 'Helvetica Neue', Arial, sans-serif; font-weight: 800; font-size: 62px; line-height: 0.96; letter-spacing: -0.035em; color: #f4efe4; text-wrap: balance;">Enciende<br><span style="font-weight: 700; color: #e6c463; text-shadow: 0 0 40px rgba(212,175,55,0.35);">tu evento.</span></h1>
+      <p class="rise d3" style="font-size: 16px; line-height: 1.65; color: #b8b0a0; max-width: 320px;">Bodas, fiestas privadas y corporativos. Base en [CIUDAD], disponible para viajar.</p>
+      <div class="rise d4" style="display: flex; flex-direction: column; gap: 10px;">
+        <a href="https://wa.me/[NUMERO]" style="display: flex; align-items: center; justify-content: center; gap: 10px; height: 56px; border-radius: 999px; background: linear-gradient(120deg, #f1d67a 0%, #d4af37 55%, #b8922a 100%); color: #070604; font-size: 15px; font-weight: 700; box-shadow: 0 16px 40px rgba(212,175,55,0.25);">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#070604"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413"></path></svg>
+          <span>Escríbeme por WhatsApp</span>
+        </a>
+        <a href="#videos" class="glass" style="display: flex; align-items: center; justify-content: center; gap: 10px; height: 52px; border-radius: 999px; color: #f4efe4; font-size: 14px; font-weight: 600;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="#d4af37"><path d="M7 4.5v15l12-7.5z"></path></svg>
+          <span>Ver en acción</span>
+        </a>
+      </div>
+    </div>
+    <div style="position: relative; height: 470px; margin-top: 28px; overflow: hidden;">
+      <div style="position: absolute; inset: 0; pointer-events: none;">
+        <div class="beam" style="left: 20%;"></div>
+        <div class="beam" style="left: 50%; animation-delay: -2.5s; opacity: 0.7;"></div>
+        <div class="beam" style="left: 80%; animation-delay: -5s;"></div>
+        <div style="position: absolute; left: 0; right: 0; bottom: 0; height: 220px; background: radial-gradient(ellipse at 50% 100%, rgba(212,175,55,0.35) 0%, rgba(212,175,55,0) 70%);"></div>
+      </div>
+      <div class="fade-right d3" style="position: absolute; left: 32px; right: 32px; top: 24px; height: 420px; transform: rotate(3deg); border-radius: 28px; overflow: hidden; border: 1px solid rgba(212,175,55,0.35); box-shadow: 0 30px 80px rgba(0,0,0,0.65);">
+        <div style="position: absolute; inset: 0; background: linear-gradient(165deg, #33291a 0%, #17130d 50%, #0a0806 100%);"></div>
+        <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(7,6,4,0) 50%, rgba(7,6,4,0.85) 100%);"></div>
+        <div style="position: absolute; left: 22px; bottom: 22px; display: flex; flex-direction: column; gap: 4px;">
+          <span style="font-size: 11px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(244,239,228,0.55);">[FOTO PRINCIPAL DEL DJ]</span>
+          <span style="font-family: 'Sora', 'Helvetica Neue', Arial, sans-serif; font-weight: 600; font-size: 18px; color: #f4efe4;">En cabina, [CIUDAD]</span>
+        </div>
+      </div>
+    </div>
+    <div style="position: relative; height: 48px; display: flex; align-items: center; overflow: hidden; border-top: 1px solid rgba(212,175,55,0.25); border-bottom: 1px solid rgba(212,175,55,0.25); background: rgba(7,6,4,0.6);">
+      <div class="marquee" style="font-family: 'Sora', 'Helvetica Neue', Arial, sans-serif; font-weight: 600; font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase; color: #d4af37; white-space: nowrap;">
+        <span style="padding: 0 18px;">Bodas</span><span style="color: rgba(212,175,55,0.4);">◆</span><span style="padding: 0 18px;">Fiestas privadas</span><span style="color: rgba(212,175,55,0.4);">◆</span><span style="padding: 0 18px;">Corporativos</span><span style="color: rgba(212,175,55,0.4);">◆</span><span style="padding: 0 18px;">Sonido e iluminación</span><span style="color: rgba(212,175,55,0.4);">◆</span>
+        <span style="padding: 0 18px;">Bodas</span><span style="color: rgba(212,175,55,0.4);">◆</span><span style="padding: 0 18px;">Fiestas privadas</span><span style="color: rgba(212,175,55,0.4);">◆</span><span style="padding: 0 18px;">Corporativos</span><span style="color: rgba(212,175,55,0.4);">◆</span><span style="padding: 0 18px;">Sonido e iluminación</span><span style="color: rgba(212,175,55,0.4);">◆</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Videos: swipe carousel -->
+  <div id="videos" style="display: flex; flex-direction: column; gap: 22px; padding: 64px 0 0;">
+    <div style="display: flex; align-items: flex-end; justify-content: space-between; padding: 0 20px;">
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <div style="display: flex; align-items: center; gap: 10px; font-size: 11px; font-weight: 700; letter-spacing: 0.26em; text-transform: uppercase; color: #d4af37;"><span style="font-family: 'Sora', 'Helvetica Neue', Arial, sans-serif; opacity: 0.6;">01</span><span style="width: 24px; height: 1px; background: #d4af37;"></span><span>Videos</span></div>
+        <h2 style="font-family: 'Sora', 'Helvetica Neue', Arial, sans-serif; font-weight: 700; font-size: 40px; line-height: 1; letter-spacing: -0.03em; color: #f4efe4;">En acción</h2>
+      </div>
+      <span style="font-size: 12px; font-weight: 600; color: #b8b0a0; padding-bottom: 6px;">Desliza →</span>
+    </div>
+    <div class="snap">
+      <div class="card video" style="position: relative; height: 380px; border-radius: 24px; overflow: hidden; border: 1px solid rgba(212,175,55,0.22); background: linear-gradient(160deg, #201a11 0%, #0d0b08 60%, #070604 100%);">
+        <div class="grain" style="position: absolute; inset: 0;"></div>
+        <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;"><div class="glass play" style="display: flex; align-items: center; justify-content: center; width: 72px; height: 72px; border-radius: 50%;"><svg width="26" height="26" viewBox="0 0 24 24" fill="#d4af37"><path d="M8 4.5v15l12-7.5z"></path></svg></div></div>
+        <div class="glass" style="position: absolute; left: 12px; right: 12px; bottom: 12px; display: flex; flex-direction: column; gap: 2px; padding: 12px 16px; border-radius: 14px;">
+          <span style="font-size: 10px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: #d4af37;">[VIDEO 1]</span>
+          <h3 style="font-family: 'Sora', 'Helvetica Neue', Arial, sans-serif; font-weight: 600; font-size: 17px; letter-spacing: -0.01em; color: #f4efe4;">Boda en [LUGAR]</h3>
+        </div>
+      </div>
+      <div class="card video" style="position: relative; height: 380px; border-radius: 24px; overflow: hidden; border: 1px solid rgba(212,175,55,0.22); background: linear-gradient(160deg, #1a1610 0%, #0d0b08 60%, #070604 100%);">
+        <div class="grain" style="position: absolute; inset: 0;"></div>
+        <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;"><div class="glass play" style="display: flex; align-items: center; justify-content: center; width: 72px; height: 72px; border-radius: 50%;"><svg width="26" height="26" viewBox="0 0 24 24" fill="#d4af37"><path d="M8 4.5v15l12-7.5z"></path></svg></div></div>
+        <div class="glass" style="position: absolute; left: 12px; right: 12px; bottom: 12px; display: flex; flex-direction: column; gap: 2px; padding: 12px 16px; border-radius: 14px;">
+          <span style="font-size: 10px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: #d4af37;">[VIDEO 2]</span>
+          <h3 style="font-family: 'Sora', 'Helvetica Neue', Arial, sans-serif; font-weight: 600; font-size: 17px; letter-spacing: -0.01em; color: #f4efe4;">Fiesta privada en [LUGAR]</h3>
+        </div>
+      </div>
+      <a href="[URL INSTAGRAM]" style="display: flex; flex-direction: column; justify-content: space-between; height: 380px; padding: 22px; box-sizing: border-box; border-radius: 24px; background: linear-gradient(140deg, #f1d67a 0%, #d4af37 55%, #b8922a 100%); color: #070604;">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#070604" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"></path></svg>
+        <div style="display: flex; flex-direction: column; gap: 4px;"><span style="font-family: 'Sora', 'Helvetica Neue', Arial, sans-serif; font-weight: 800; font-size: 26px; line-height: 1; letter-spacing: -0.02em;">Más clips</span><span style="font-size: 13px; font-weight: 600; opacity: 0.75;">Instagram · TikTok · YouTube</span></div>
+      </a>
+    </div>
+  </div>
+
+  <!-- Eventos: compact list -->
+  <div id="eventos" style="display: flex; flex-direction: column; gap: 22px; padding: 64px 20px 0;">
+    <div style="display: flex; flex-direction: column; gap: 10px;">
+      <div style="display: flex; align-items: center; gap: 10px; font-size: 11px; font-weight: 700; letter-spacing: 0.26em; text-transform: uppercase; color: #d4af37;"><span style="font-family: 'Sora', 'Helvetica Neue', Arial, sans-serif; opacity: 0.6;">02</span><span style="width: 24px; height: 1px; background: #d4af37;"></span><span>Agenda</span></div>
+      <h2 style="font-family: 'Sora', 'Helvetica Neue', Arial, sans-serif; font-weight: 700; font-size: 40px; line-height: 1; letter-spacing: -0.03em; color: #f4efe4;">Próximos eventos</h2>
+    </div>
+    <div class="focus-group" style="display: flex; flex-direction: column; gap: 12px;">
+      <div class="card" style="position: relative; display: flex; align-items: stretch; gap: 16px; padding: 14px; border-radius: 20px; border: 1px solid rgba(212,175,55,0.22); background: linear-gradient(120deg, #1f1a12 0%, #0d0b08 100%);">
+        <div style="position: relative; flex: 0 0 96px; border-radius: 14px; overflow: hidden; background: linear-gradient(180deg, #2a2216 0%, #12100b 100%);">
+          <div class="grain" style="position: absolute; inset: 0;"></div>
+          <div style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; color: #f1d67a;">
+            <span style="font-family: 'Sora', 'Helvetica Neue', Arial, sans-serif; font-weight: 800; font-size: 30px; line-height: 1; letter-spacing: -0.02em;">[DD]</span>
+            <span style="font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;">[MES]</span>
+          </div>
+        </div>
+        <div style="display: flex; flex: 1 1 0; flex-direction: column; justify-content: center; gap: 6px; min-height: 96px;">
+          <h3 style="font-family: 'Sora', 'Helvetica Neue', Arial, sans-serif; font-weight: 700; font-size: 18px; line-height: 1.2; letter-spacing: -0.015em; color: #f4efe4;">[NOMBRE DEL EVENTO]</h3>
+          <p style="font-size: 13px; line-height: 1.5; color: #b8b0a0;">[LUGAR] · [HORA]</p>
+          <span style="font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(244,239,228,0.4);">[FOTO / FLYER]</span>
+        </div>
+        <svg style="align-self: center; flex: 0 0 auto;" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"></path></svg>
+      </div>
+      <div class="card" style="position: relative; display: flex; align-items: stretch; gap: 16px; padding: 14px; border-radius: 20px; border: 1px solid rgba(212,175,55,0.22); background: linear-gradient(120deg, #181410 0%, #0d0b08 100%);">
+        <div style="position: relative; flex: 0 0 96px; border-radius: 14px; overflow: hidden; background: linear-gradient(180deg, #2a2216 0%, #12100b 100%);">
+          <div class="grain" style="position: absolute; inset: 0;"></div>
+          <div style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; color: #f1d67a;">
+            <span style="font-family: 'Sora', 'Helvetica Neue', Arial, sans-serif; font-weight: 800; font-size: 30px; line-height: 1; letter-spacing: -0.02em;">[DD]</span>
+            <span style="font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;">[MES]</span>
+          </div>
+        </div>
+        <div style="display: flex; flex: 1 1 0; flex-direction: column; justify-content: center; gap: 6px; min-height: 96px;">
+          <h3 style="font-family: 'Sora', 'Helvetica Neue', Arial, sans-serif; font-weight: 700; font-size: 18px; line-height: 1.2; letter-spacing: -0.015em; color: #f4efe4;">[NOMBRE DEL EVENTO]</h3>
+          <p style="font-size: 13px; line-height: 1.5; color: #b8b0a0;">[LUGAR] · [HORA]</p>
+          <span style="font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(244,239,228,0.4);">[FOTO / FLYER]</span>
+        </div>
+        <svg style="align-self: center; flex: 0 0 auto;" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"></path></svg>
+      </div>
+      <div class="card" style="position: relative; display: flex; align-items: stretch; gap: 16px; padding: 14px; border-radius: 20px; border: 1px solid rgba(212,175,55,0.22); background: linear-gradient(120deg, #1f1a12 0%, #0d0b08 100%);">
+        <div style="position: relative; flex: 0 0 96px; border-radius: 14px; overflow: hidden; background: linear-gradient(180deg, #2a2216 0%, #12100b 100%);">
+          <div class="grain" style="position: absolute; inset: 0;"></div>
+          <div style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; color: #f1d67a;">
+            <span style="font-family: 'Sora', 'Helvetica Neue', Arial, sans-serif; font-weight: 800; font-size: 30px; line-height: 1; letter-spacing: -0.02em;">[DD]</span>
+            <span style="font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;">[MES]</span>
+          </div>
+        </div>
+        <div style="display: flex; flex: 1 1 0; flex-direction: column; justify-content: center; gap: 6px; min-height: 96px;">
+          <h3 style="font-family: 'Sora', 'Helvetica Neue', Arial, sans-serif; font-weight: 700; font-size: 18px; line-height: 1.2; letter-spacing: -0.015em; color: #f4efe4;">[NOMBRE DEL EVENTO]</h3>
+          <p style="font-size: 13px; line-height: 1.5; color: #b8b0a0;">[LUGAR] · [HORA]</p>
+          <span style="font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(244,239,228,0.4);">[FOTO / FLYER]</span>
+        </div>
+        <svg style="align-self: center; flex: 0 0 auto;" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"></path></svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contacto -->
+  <div id="contacto" style="position: relative; padding: 64px 20px 0;">
+    <div style="position: absolute; left: 50%; top: 50%; width: 420px; height: 420px; transform: translate(-50%, -50%); border-radius: 50%; background: radial-gradient(circle, rgba(212,175,55,0.22) 0%, rgba(212,175,55,0) 65%); pointer-events: none;"></div>
+    <div class="glass" style="position: relative; display: flex; flex-direction: column; gap: 20px; padding: 28px 22px; border-radius: 28px;">
+      <div style="display: flex; align-items: center; gap: 10px; font-size: 11px; font-weight: 700; letter-spacing: 0.26em; text-transform: uppercase; color: #d4af37;"><span style="font-family: 'Sora', 'Helvetica Neue', Arial, sans-serif; opacity: 0.6;">03</span><span style="width: 24px; height: 1px; background: #d4af37;"></span><span>Contacto</span></div>
+      <h2 style="font-family: 'Sora', 'Helvetica Neue', Arial, sans-serif; font-weight: 700; font-size: 44px; line-height: 0.98; letter-spacing: -0.035em; color: #f4efe4;">Reserva<br>tu fecha.</h2>
+      <p style="font-size: 15px; line-height: 1.65; color: #b8b0a0;">Cuéntame qué celebras, dónde y cuándo. Te respondo el mismo día.</p>
+      <a href="https://wa.me/[NUMERO]" style="display: flex; align-items: center; justify-content: center; gap: 10px; height: 56px; border-radius: 999px; background: linear-gradient(120deg, #f1d67a 0%, #d4af37 55%, #b8922a 100%); color: #070604; font-size: 15px; font-weight: 700;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="#070604"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413"></path></svg>
+        <span>Escríbeme por WhatsApp</span>
+      </a>
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <a href="https://wa.me/[NUMERO]" style="display: flex; align-items: center; justify-content: space-between; min-height: 64px; padding: 14px 18px; box-sizing: border-box; border-radius: 16px; background: rgba(255,255,255,0.03); border: 1px solid rgba(212,175,55,0.16); color: #f4efe4;">
+          <div style="display: flex; flex-direction: column; gap: 2px;"><span style="font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #b8b0a0;">WhatsApp</span><span style="font-family: 'Sora', 'Helvetica Neue', Arial, sans-serif; font-weight: 600; font-size: 17px; letter-spacing: -0.01em;">[NUMERO]</span></div>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"></path></svg>
+        </a>
+        <a href="mailto:[CORREO]" style="display: flex; align-items: center; justify-content: space-between; min-height: 64px; padding: 14px 18px; box-sizing: border-box; border-radius: 16px; background: rgba(255,255,255,0.03); border: 1px solid rgba(212,175,55,0.16); color: #f4efe4;">
+          <div style="display: flex; flex-direction: column; gap: 2px;"><span style="font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #b8b0a0;">Correo</span><span style="font-family: 'Sora', 'Helvetica Neue', Arial, sans-serif; font-weight: 600; font-size: 17px; letter-spacing: -0.01em;">[CORREO]</span></div>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"></path></svg>
+        </a>
+        <div style="display: flex; flex-direction: column; gap: 2px; min-height: 64px; padding: 14px 18px; box-sizing: border-box; border-radius: 16px; background: rgba(255,255,255,0.03); border: 1px solid rgba(212,175,55,0.16); color: #f4efe4;"><span style="font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #b8b0a0;">Base</span><span style="font-family: 'Sora', 'Helvetica Neue', Arial, sans-serif; font-weight: 600; font-size: 17px; letter-spacing: -0.01em;">[CIUDAD] · disponible para viajar</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div style="position: relative; overflow: hidden; margin-top: 64px; padding: 44px 20px 28px; border-top: 1px solid rgba(212,175,55,0.2); background: #050403;">
+    <div style="display: flex; flex-direction: column; gap: 10px;">
+      <div style="font-family: 'Sora', 'Helvetica Neue', Arial, sans-serif; font-weight: 800; font-size: 20px; letter-spacing: 0.06em; color: #f4efe4;">DJ<span style="color: #d4af37;">EDDY</span></div>
+      <p style="font-size: 14px; line-height: 1.6; color: #b8b0a0;">DJ para bodas, fiestas privadas y eventos corporativos.</p>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 22px;">
+      <a href="[URL INSTAGRAM]" class="glass" style="display: inline-flex; align-items: center; justify-content: center; gap: 10px; height: 48px; border-radius: 999px; font-size: 14px; font-weight: 600; color: #f4efe4;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.3" cy="6.7" r="0.9" fill="#d4af37" stroke="none"></circle></svg><span>Instagram</span></a>
+      <a href="[URL TIKTOK]" class="glass" style="display: inline-flex; align-items: center; justify-content: center; gap: 10px; height: 48px; border-radius: 999px; font-size: 14px; font-weight: 600; color: #f4efe4;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3v11.5a3.5 3.5 0 1 1-3.5-3.5"></path><path d="M14 3c.4 2.6 2.2 4.6 5 5"></path></svg><span>TikTok</span></a>
+      <a href="[URL YOUTUBE]" class="glass" style="display: inline-flex; align-items: center; justify-content: center; gap: 10px; height: 48px; border-radius: 999px; font-size: 14px; font-weight: 600; color: #f4efe4;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="5.5" width="19" height="13" rx="4"></rect><path d="M10 9.2v5.6l5-2.8z" fill="#d4af37" stroke="none"></path></svg><span>YouTube</span></a>
+      <a href="[URL FACEBOOK]" class="glass" style="display: inline-flex; align-items: center; justify-content: center; gap: 10px; height: 48px; border-radius: 999px; font-size: 14px; font-weight: 600; color: #f4efe4;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 8h2.5V4.5H14A3.5 3.5 0 0 0 10.5 8v2.5H8V14h2.5v6H14v-6h2.5l.5-3.5h-3V8z"></path></svg><span>Facebook</span></a>
+    </div>
+    <div class="wordmark" style="margin-top: 28px; font-family: 'Sora', 'Helvetica Neue', Arial, sans-serif; font-weight: 800; font-size: 88px; line-height: 0.85; letter-spacing: -0.06em; color: transparent; -webkit-text-stroke: 1px rgba(212,175,55,0.35); white-space: nowrap; user-select: none;">DJ EDDY</div>
+    <div style="margin-top: 20px; padding-top: 16px; border-top: 1px solid rgba(212,175,55,0.14); font-size: 12px; line-height: 1.6; color: #6f685c;">© 2026 DJ Eddy. Todos los derechos reservados.<br>[CIUDAD] · [CORREO]</div>
+  </div>
+
+  <a href="https://wa.me/[NUMERO]" class="pulse" style="position: absolute; right: 16px; top: 760px; z-index: 30; display: flex; align-items: center; justify-content: center; width: 60px; height: 60px; border-radius: 50%; background: #25d366; box-shadow: 0 16px 40px rgba(0,0,0,0.55);">
+    <svg width="30" height="30" viewBox="0 0 24 24" fill="#ffffff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413"></path></svg>
+  </a>
+</div>
+</x-dc>
+</body>
+</html>

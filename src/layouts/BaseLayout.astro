@@ -1,0 +1,46 @@
+---
+import '@fontsource-variable/sora'
+import '@fontsource-variable/manrope'
+import '@/styles/tokens.css'
+import '@/styles/global.css'
+import manropeWoff2 from '@fontsource-variable/manrope/files/manrope-latin-wght-normal.woff2?url'
+import soraWoff2 from '@fontsource-variable/sora/files/sora-latin-wght-normal.woff2?url'
+
+export interface Props {
+  title: string
+  description: string
+  ogImage?: string
+}
+
+const { title, description, ogImage = '/og.jpg' } = Astro.props
+const canonical = new URL(Astro.url.pathname, Astro.site)
+const ogImageUrl = new URL(ogImage, Astro.site)
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#070604" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preload" as="font" type="font/woff2" href={soraWoff2} crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href={manropeWoff2} crossorigin />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:locale" content="es_ES" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <slot name="head" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Saltar al contenido</a>
+    <slot />
+  </body>
+</html>

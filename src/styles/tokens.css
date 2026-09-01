@@ -1,0 +1,58 @@
+:root {
+  --color-bg: #070604;
+  --color-bg-elevated: #0c0a07;
+  --color-bg-footer: #050403;
+  --color-surface: rgba(20, 17, 12, 0.55);
+  --color-surface-row: rgba(255, 255, 255, 0.03);
+
+  --color-gold: #d4af37;
+  --color-gold-light: #f1d67a;
+  --color-gold-dark: #b8922a;
+  --color-gold-text: #e6c463;
+  --color-gold-deep: #9a7a1e;
+
+  --color-text: #f4efe4;
+  --color-text-muted: #b8b0a0;
+  --color-text-dim: #8a8272;
+  --color-text-badge: #e6dcc3;
+
+  --color-whatsapp: #25d366;
+
+  --border-gold-14: rgba(212, 175, 55, 0.14);
+  --border-gold-16: rgba(212, 175, 55, 0.16);
+  --border-gold-18: rgba(212, 175, 55, 0.18);
+  --border-gold-20: rgba(212, 175, 55, 0.2);
+  --border-gold-22: rgba(212, 175, 55, 0.22);
+  --border-gold-25: rgba(212, 175, 55, 0.25);
+  --border-gold-35: rgba(212, 175, 55, 0.35);
+
+  --gradient-gold: linear-gradient(120deg, #f1d67a 0%, #d4af37 55%, #b8922a 100%);
+  --gradient-photo: linear-gradient(165deg, #33291a 0%, #17130d 50%, #0a0806 100%);
+  --gradient-card: linear-gradient(140deg, #201a11 0%, #0d0b08 60%, #070604 100%);
+  --gradient-card-alt: linear-gradient(200deg, #1a1610 0%, #0a0806 100%);
+  --gradient-event-a: linear-gradient(180deg, #2a2216 0%, #12100b 55%, #070604 100%);
+  --gradient-event-b: linear-gradient(180deg, #1f1a12 0%, #100e0a 55%, #070604 100%);
+
+  --shadow-card: 0 40px 120px rgba(0, 0, 0, 0.65);
+  --shadow-cta: 0 20px 50px rgba(212, 175, 55, 0.25);
+  --shadow-float: 0 16px 40px rgba(0, 0, 0, 0.55);
+
+  --font-display: "Sora Variable", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "Manrope Variable", "Helvetica Neue", Arial, sans-serif;
+
+  --gutter: 20px;
+  --section-gap: 64px;
+  --radius-pill: 999px;
+  --radius-card: 24px;
+  --radius-inner: 14px;
+  --tap-min: 44px;
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --gutter: 80px;
+    --section-gap: 128px;
+    --radius-card: 28px;
+    --radius-inner: 18px;
+  }
+}
