@@ -18,12 +18,12 @@ Estimaciones para una persona.
 3. Adelantado de la Fase 5 por prioridad SEO: `robots.txt` y `<meta name="robots">`.
 **Hecho cuando**: criterios de la Parte 2. (Cumplido: build sin JS, CSS 5,4 KB gzip.)
 
-## Fase 3 · Contenido tipado (½ día) — Parte 3
-1. `site.ts` con `SiteConfig` y `assertNoPlaceholders`.
-2. `content.config.ts` + `events.json` con 3 eventos de ejemplo y una imagen placeholder en `src/assets/events/`.
-3. `lib/whatsapp.ts`, `lib/phone.ts` (`formatPhone`), `lib/dates.ts` (`formatEventDate` → `{ day, month }`).
-4. Comprobaciones mínimas: un `src/lib/*.test.ts` por función con `node:test` (`pnpm test` = `node --test --experimental-strip-types src/lib`), sin framework.
-**Hecho cuando**: criterios de la Parte 3 + tests en verde.
+## Fase 3 · Contenido tipado (½ día) — Parte 3 ✅
+1. `site.ts` con `SiteConfig` (+ campos SEO) y `lib/placeholders.ts` con `assertNoPlaceholders`; `pnpm build` bloqueado con 18 placeholders, `pnpm build:draft` para desarrollo.
+2. `content.config.ts` + `events.json` con 3 eventos de ejemplo y `src/assets/events/placeholder-evento.svg`.
+3. `lib/whatsapp.ts`, `lib/dates.ts` (`formatEventDate`, `upcoming`), `lib/seo.ts` (`buildJsonLd`, adelantado de la Fase 5 por prioridad SEO).
+4. `src/lib/lib.test.ts` con `node:test` (5 pruebas), sin framework.
+**Hecho cuando**: criterios de la Parte 3 + tests en verde. (Cumplido.)
 
 ## Fase 4 · Secciones, escritorio primero en móvil-first (2 días) — Parte 4
 Orden: `Header` → `Hero` + `Marquee` → `WhatsAppButton` → `Videos` → `Events` → `Contact` → `Footer`.

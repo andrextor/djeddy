@@ -5,12 +5,16 @@ import '@/styles/tokens.css'
 import '@/styles/global.css'
 import manropeWoff2 from '@fontsource-variable/manrope/files/manrope-latin-wght-normal.woff2?url'
 import soraWoff2 from '@fontsource-variable/sora/files/sora-latin-wght-normal.woff2?url'
+import { site } from '@/data/site'
+import { assertNoPlaceholders } from '@/lib/placeholders'
 
 export interface Props {
   title: string
   description: string
   ogImage?: string
 }
+
+if (import.meta.env.PROD && process.env.ALLOW_PLACEHOLDERS !== '1') assertNoPlaceholders(site)
 
 const { title, description, ogImage = '/og.jpg' } = Astro.props
 const canonical = new URL(Astro.url.pathname, Astro.site)

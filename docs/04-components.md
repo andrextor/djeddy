@@ -65,7 +65,7 @@ salen de `tokens.css` (Parte 2). "D" = escritorio ≥1024, "M" = móvil.
   - Izquierda: eyebrow, `<h2>` "Reserva`<br>`tu fecha.", párrafo "Cuéntame qué celebras, dónde y cuándo. Te respondo el mismo día con disponibilidad y propuesta.", botón primario WhatsApp 60px.
   - Derecha: tres filas (`padding: 24px 28px`, radius 20, fondo `--color-surface-row`, borde `--border-gold-16`, `gap: 16px` entre filas): WhatsApp (número formateado, `<a>` wa.me) · Correo (`<a mailto>`) · Base ("{city} · disponible para viajar", sin enlace). Las dos primeras llevan `ArrowUpRight` 22 gold.
 - M: `padding: 64px 20px 0`; tarjeta radius 28, `padding: 28px 22px`, columna `gap: 20px`; H2 44px; botón 56px ancho completo; filas `min-height: 64px; padding: 14px 18px`, radius 16 (todo el área es el enlace).
-- Número mostrado con formato local legible (p. ej. `+57 300 123 4567`) a partir del E.164 mediante una función `formatPhone(number)` en `lib/`.
+- Número mostrado tal cual `site.whatsapp.display` (p. ej. `+57 300 123 4567`); el enlace usa `site.whatsapp.number` (E.164).
 
 ## `Footer.astro`
 - D: `padding: 72px 80px 40px`, borde superior `--border-gold-20`, fondo `--color-bg-footer`, `overflow: hidden`.
