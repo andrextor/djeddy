@@ -16,6 +16,8 @@ export interface Video {
   youtubeId: string
   title: string
   duration?: string
+  /** ISO date; needed for VideoObject rich results */
+  uploadDate: string
 }
 
 export interface SiteConfig {
@@ -23,7 +25,10 @@ export interface SiteConfig {
   legalName: string             // para © y JSON-LD
   domain: string                // https://[DOMINIO]
   city: string                  // "[CIUDAD]"
-  tagline: string               // meta description (≤ 155 chars)
+  countryCode: string           // ISO-3166 alpha-2, p. ej. "CO"
+  tagline: string               // meta description (≤ 155 chars), incluye "DJ en {city}"
+  keywords: readonly string[]   // servicios para H2/JSON-LD: ['DJ para bodas', 'DJ para fiestas privadas', 'DJ para eventos corporativos']
+  founderName: string           // "Eddy [APELLIDO]" para JSON-LD
   whatsapp: {
     /** E.164 sin '+': 573001234567 */
     number: string
@@ -40,6 +45,9 @@ export const site = {
   legalName: 'DJ Eddy',
   domain: 'https://[DOMINIO]',
   city: '[CIUDAD]',
+  countryCode: '[PAIS_ISO2]',
+  keywords: ['DJ para bodas', 'DJ para fiestas privadas', 'DJ para eventos corporativos'],
+  founderName: 'Eddy [APELLIDO]',
   tagline: 'DJ para bodas, fiestas privadas y eventos corporativos en [CIUDAD]. Sonido, luces y la lectura de pista que mantiene a todos bailando.',
   whatsapp: {
     number: '[NUMERO_E164]',
@@ -53,8 +61,8 @@ export const site = {
     { network: 'facebook', label: 'Facebook', url: '[URL_FACEBOOK]' },
   ],
   videos: [
-    { youtubeId: '[ID_VIDEO_1]', title: 'Boda en [LUGAR]', duration: '[DURACION]' },
-    { youtubeId: '[ID_VIDEO_2]', title: 'Fiesta privada en [LUGAR]' },
+    { youtubeId: '[ID_VIDEO_1]', title: 'Boda en [LUGAR]', duration: '[DURACION]', uploadDate: '[FECHA_ISO]' },
+    { youtubeId: '[ID_VIDEO_2]', title: 'Fiesta privada en [LUGAR]', uploadDate: '[FECHA_ISO]' },
   ],
 } as const satisfies SiteConfig
 ```

@@ -30,6 +30,7 @@ cuenta regresiva, aviso superior (posibles v2; ver Parte 6).
 | 10 | **Despliegue estático** en [HOSTING: Vercel / Netlify / Cloudflare Pages] | Cualquiera sirve; decidir con el cliente | — |
 
 ## Requisitos no funcionales (resumen; detalle en Parte 5)
+- **SEO es prioridad de primer nivel**: estrategia de palabra clave local, datos estructurados de negocio local + eventos + videos, y una puerta SEO al cierre de cada fase.
 - Lighthouse móvil ≥ 95 en Performance, A11y, Best Practices y SEO.
 - LCP < 2,5 s en 4G simulada; 0 KB de JS de aplicación.
 - WCAG 2.2 AA en contraste, foco y `prefers-reduced-motion`.
