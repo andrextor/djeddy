@@ -1,0 +1,85 @@
+---
+export interface Props {
+  index: '01' | '02' | '03'
+  label: string
+  title: string
+  lead?: string
+  id?: string
+}
+
+const { index, label, title, lead, id } = Astro.props
+---
+
+<div class="heading">
+  <div class="stack">
+    <p class="eyebrow"><span class="index">{index}</span><span class="rule"></span><span>{label}</span></p>
+    <h2 id={id}>{title}</h2>
+  </div>
+  {lead && <p class="lead">{lead}</p>}
+  <slot />
+</div>
+
+<style>
+  .heading {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+  }
+  .stack {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--color-gold);
+  }
+  .index {
+    font-family: var(--font-display);
+    opacity: 0.6;
+  }
+  .rule {
+    width: 24px;
+    height: 1px;
+    background: var(--color-gold);
+  }
+  h2 {
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: var(--color-text);
+  }
+  .lead {
+    display: none;
+    max-width: 360px;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--color-text-muted);
+  }
+  @media (min-width: 1024px) {
+    .stack {
+      gap: 16px;
+    }
+    .eyebrow {
+      font-size: 12px;
+      gap: 12px;
+    }
+    .rule {
+      width: 32px;
+    }
+    h2 {
+      font-size: 68px;
+    }
+    .lead {
+      display: block;
+    }
+  }
+</style>

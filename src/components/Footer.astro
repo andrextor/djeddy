@@ -1,0 +1,180 @@
+---
+import { type SocialNetwork, site } from '@/data/site'
+import type { IconName } from './Icon.astro'
+import Icon from './Icon.astro'
+
+const year = new Date().getFullYear()
+const iconFor = (network: SocialNetwork): IconName => network
+---
+
+<footer class="footer">
+  <div class="top">
+    <div class="brand">
+      <p class="wordmark-small">DJ<span>EDDY</span></p>
+      <p class="about">
+        DJ para bodas, fiestas privadas y eventos corporativos. {site.city} y donde haga falta.
+      </p>
+    </div>
+    <div class="social">
+      <p class="label">Sígueme</p>
+      <ul>
+        {site.socials.map((social) => (
+          <li>
+            <a class="glass" href={social.url} target="_blank" rel="noopener">
+              <Icon name={iconFor(social.network)} size={20} class="icon" />
+              <span>{social.label}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+  <p class="wordmark" aria-hidden="true">DJ EDDY</p>
+  <div class="legal">
+    <span>© {year} {site.legalName}. Todos los derechos reservados.</span>
+    <span>{site.city} · {site.email}</span>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    position: relative;
+    margin-top: 64px;
+    padding: 44px var(--gutter) 28px;
+    border-top: 1px solid var(--border-gold-20);
+    background: var(--color-bg-footer);
+    overflow: hidden;
+  }
+  .top {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+  }
+  .brand {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .wordmark-small {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 20px;
+    letter-spacing: 0.06em;
+    color: var(--color-text);
+  }
+  .wordmark-small span {
+    color: var(--color-gold);
+  }
+  .about {
+    max-width: 360px;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--color-text-muted);
+  }
+  .social {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .label {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+  }
+  ul {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  li a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    height: 48px;
+    border-radius: var(--radius-pill);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-text);
+  }
+  li a:hover {
+    color: var(--color-gold-light);
+    border-color: var(--border-gold-35);
+  }
+  .icon {
+    color: var(--color-gold);
+  }
+  .wordmark {
+    margin-top: 28px;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 88px;
+    line-height: 0.85;
+    letter-spacing: -0.06em;
+    white-space: nowrap;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(212, 175, 55, 0.35);
+    -webkit-mask-image: linear-gradient(180deg, #000 20%, transparent 95%);
+    mask-image: linear-gradient(180deg, #000 20%, transparent 95%);
+    user-select: none;
+  }
+  .legal {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border-gold-14);
+    font-size: 12px;
+    line-height: 1.6;
+    color: var(--color-text-dim);
+  }
+
+  @media (min-width: 1024px) {
+    .footer {
+      margin-top: 0;
+      padding: 72px var(--gutter) 40px;
+    }
+    .top {
+      flex-direction: row;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 48px;
+    }
+    .wordmark-small {
+      font-size: 24px;
+      letter-spacing: 0.08em;
+    }
+    .about {
+      font-size: 15px;
+    }
+    .social {
+      gap: 16px;
+    }
+    ul {
+      display: flex;
+      gap: 12px;
+    }
+    li a {
+      width: auto;
+      padding: 0 20px 0 14px;
+    }
+    .wordmark {
+      margin-top: 56px;
+      font-size: 220px;
+    }
+    .legal {
+      flex-direction: row;
+      justify-content: space-between;
+      margin-top: 40px;
+      padding-top: 24px;
+      font-size: 13px;
+    }
+  }
+</style>

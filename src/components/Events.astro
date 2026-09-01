@@ -1,0 +1,279 @@
+---
+import { Image } from 'astro:assets'
+import { getCollection } from 'astro:content'
+import { site } from '@/data/site'
+import { formatEventDate, upcoming } from '@/lib/dates'
+import { buildWhatsAppUrl } from '@/lib/whatsapp'
+import Icon from './Icon.astro'
+import SectionHeading from './SectionHeading.astro'
+
+const events = upcoming(await getCollection('events'))
+const whatsappUrl = buildWhatsAppUrl(site.whatsapp.number, site.whatsapp.message)
+---
+
+<section id="eventos" class="events" aria-labelledby="events-title">
+  <SectionHeading index="02" label="Agenda" title={`Próximos eventos en ${site.city}`} id="events-title" />
+
+  {
+    events.length > 0 ? (
+      <ul class="list focus-group">
+        {events.map((event, index) => {
+          const date = formatEventDate(event.data.date)
+          const Wrapper = event.data.url ? 'a' : 'div'
+          const wrapperProps = event.data.url
+            ? { href: event.data.url, target: '_blank', rel: 'noopener' }
+            : {}
+          return (
+            <li>
+              <Wrapper class:list={['card', { alt: index % 2 === 1 }]} {...wrapperProps}>
+                <div class="media">
+                  {event.data.image ? (
+                    <Image
+                      src={event.data.image}
+                      alt=""
+                      widths={[420, 840]}
+                      sizes="(min-width: 1024px) 420px, 96px"
+                      loading="lazy"
+                    />
+                  ) : (
+                    <div class="grain" />
+                  )}
+                  <time class="date" datetime={date.iso}>
+                    <span class="day">{date.day}</span>
+                    <span class="month">{date.month}</span>
+                  </time>
+                </div>
+                <div class="body">
+                  <h3>{event.data.title}</h3>
+                  <p class="meta">
+                    {event.data.venue} · <span class="city">{event.data.city} · </span>
+                    {event.data.time}
+                  </p>
+                </div>
+                {event.data.url && <Icon name="arrow-up-right" size={20} class="arrow" />}
+              </Wrapper>
+            </li>
+          )
+        })}
+      </ul>
+    ) : (
+      <div class="empty glass">
+        <p>Agenda 2026 abierta: consulta disponibilidad para tu fecha.</p>
+        <a href={whatsappUrl} target="_blank" rel="noopener">
+          <Icon name="whatsapp" size={18} />
+          <span>Escríbeme por WhatsApp</span>
+        </a>
+      </div>
+    )
+  }
+</section>
+
+<style>
+  .events {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    padding: 64px var(--gutter) 0;
+    scroll-margin-top: 90px;
+  }
+  .list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .card {
+    position: relative;
+    display: flex;
+    align-items: stretch;
+    gap: 16px;
+    padding: 14px;
+    border-radius: 20px;
+    border: 1px solid var(--border-gold-22);
+    background: linear-gradient(120deg, #1f1a12 0%, #0d0b08 100%);
+    color: var(--color-text);
+  }
+  .card.alt {
+    background: linear-gradient(120deg, #181410 0%, #0d0b08 100%);
+  }
+  .media {
+    position: relative;
+    flex: 0 0 96px;
+    border-radius: var(--radius-inner);
+    overflow: hidden;
+    background: var(--gradient-event-a);
+  }
+  .alt .media {
+    background: var(--gradient-event-b);
+  }
+  .media img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.55;
+  }
+  .date {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    color: var(--color-gold-light);
+  }
+  .day {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 30px;
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  .month {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+  .body {
+    display: flex;
+    flex: 1 1 0;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+    min-height: 96px;
+  }
+  h3 {
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+    color: var(--color-text);
+  }
+  .meta {
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--color-text-muted);
+  }
+  .city {
+    display: none;
+  }
+  .arrow {
+    align-self: center;
+    flex: 0 0 auto;
+    color: var(--color-gold);
+  }
+  .empty {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 24px;
+    border-radius: var(--radius-card);
+    font-size: 16px;
+    color: var(--color-text-muted);
+  }
+  .empty a {
+    display: inline-flex;
+    align-self: flex-start;
+    align-items: center;
+    gap: 10px;
+    height: 52px;
+    padding: 0 24px;
+    border-radius: var(--radius-pill);
+    background: var(--gradient-gold);
+    color: var(--color-bg);
+    font-weight: 700;
+    font-size: 15px;
+  }
+
+  @media (min-width: 1024px) {
+    .events {
+      gap: 48px;
+      padding: 32px var(--gutter) var(--section-gap);
+      scroll-margin-top: 120px;
+    }
+    .list {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 24px;
+    }
+    .card {
+      flex-direction: column;
+      justify-content: flex-end;
+      height: 520px;
+      padding: 28px;
+      border-radius: var(--radius-card);
+      overflow: hidden;
+      background: var(--gradient-event-a);
+    }
+    .card.alt {
+      background: var(--gradient-event-b);
+    }
+    .media {
+      position: absolute;
+      inset: 0;
+      flex: none;
+      border-radius: 0;
+      background: transparent;
+    }
+    .media img {
+      opacity: 1;
+    }
+    .media::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(7, 6, 4, 0.1) 0%, rgba(7, 6, 4, 0.2) 45%, rgba(7, 6, 4, 0.92) 100%);
+    }
+    .date {
+      inset: 24px auto auto 24px;
+      z-index: 1;
+      padding: 12px 16px 10px;
+      border-radius: 16px;
+      background: var(--color-gold);
+      color: var(--color-bg);
+    }
+    .day {
+      font-size: 32px;
+    }
+    .month {
+      font-size: 12px;
+      letter-spacing: 0.16em;
+    }
+    .body {
+      position: relative;
+      z-index: 1;
+      flex: none;
+      gap: 10px;
+      min-height: 0;
+    }
+    h3 {
+      font-size: 26px;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+    }
+    .meta {
+      font-size: 15px;
+    }
+    .city {
+      display: inline;
+    }
+    .arrow {
+      position: absolute;
+      top: 28px;
+      right: 28px;
+      z-index: 1;
+    }
+    .empty {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      padding: 40px;
+      font-size: 18px;
+    }
+  }
+</style>

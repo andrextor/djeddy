@@ -84,3 +84,7 @@ export const buildJsonLd = (
     ...site.videos.map(video),
   ],
 })
+
+/** Safe for inline <script>: a "</script>" inside a string cannot break out. */
+export const serializeJsonLd = (data: JsonLd): string =>
+  JSON.stringify(data).replace(/</g, '\\u003c')
