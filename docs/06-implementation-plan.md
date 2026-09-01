@@ -39,11 +39,37 @@ Notas de implementación: un icono compartido `Icon.astro` (mapa de paths) en lu
 4. CI de GitHub Actions.
 **Hecho cuando**: criterios de la Parte 5. (Cumplido salvo la validación del CI en el primer push y el recorrido manual por teclado; ver resultados medidos en la Parte 5. Hallazgo principal: los iframes de YouTube destrozaban el LCP móvil → fachada.)
 
-## Fase 6 · Contenido real y publicación (½ día)
-1. Sustituir todos los `[CORCHETES]` (el build falla mientras queden).
-2. Foto hero real, flyers de eventos, IDs de YouTube, enlaces sociales, número E.164.
-3. Desplegar en [HOSTING]; configurar dominio y cabeceras.
-4. Alta en Google Search Console y envío del sitemap; crear/optimizar el perfil de Google Business Profile con el mismo nombre, teléfono y ciudad que el JSON-LD.
+## Fase 6 · Contenido real y publicación (½ día) — en curso
+Preparado sin datos del cliente (hecho):
+- Nombres de archivo de las fotos fijados en el código (`src/assets/dj-eddy-en-cabina.jpg`, `src/assets/events/AAAA-MM-DD-nombre.jpg`, `public/og.jpg`) y guía de entrega en la Parte 7.
+- `pnpm check:content` lista los textos que faltan; `pnpm build` sigue bloqueado mientras quede alguno.
+
+### Checklist de datos que debe entregar el cliente
+| Dato | Dónde se escribe | Formato / ejemplo |
+|------|------------------|-------------------|
+| Ciudad base | `src/data/site.ts` → `city` | `Medellín` |
+| País | `site.ts` → `countryCode` | ISO-2: `CO`, `ES`, `MX` |
+| Apellido (para la ficha de negocio) | `site.ts` → `founderName` | `Eddy Ramírez` |
+| Número de WhatsApp | `site.ts` → `whatsapp.number` y `whatsapp.display` | `573001234567` y `+57 300 123 4567` |
+| Mensaje prellenado (opcional cambiarlo) | `site.ts` → `whatsapp.message` | texto corto |
+| Correo | `site.ts` → `email` | `hola@djeddy.com` |
+| Redes | `site.ts` → `socials[].url` | URL completa de Instagram, TikTok, YouTube, Facebook (borrar la fila de la red que no tenga) |
+| Dos videos | `site.ts` → `videos[]` | ID de YouTube (11 caracteres), título corto, duración `3:12`, fecha de subida `2026-05-20` |
+| Eventos próximos | `src/data/events.json` | `title`, `date` `AAAA-MM-DD`, `venue`, `city`, `time` `HH:MM`, `image` (ver Parte 7), `url` (entradas, opcional) |
+| Dominio | `astro.config.mjs` → `site`, `public/robots.txt` → `Sitemap:`, `site.ts` → `domain` | `https://djeddy.com` |
+| Fotos | ver Parte 7 | — |
+
+### Pasos de publicación (cuando lleguen los datos)
+1. Rellenar la tabla anterior; `pnpm check:content` debe decir que no queda nada.
+2. `pnpm lint && pnpm test && pnpm build` (build de publicación, sin `ALLOW_PLACEHOLDERS`).
+3. Cambiar en `.github/workflows/ci.yml` `pnpm build:draft` por `pnpm build`.
+4. Recorrido manual por teclado (Tab desde el skip link hasta el botón flotante) y prueba del menú móvil en Safari iOS.
+5. Elegir hosting [Vercel / Netlify / Cloudflare Pages]; conectar el repo, comando `pnpm build`, carpeta `dist/`. Si es Vercel, trasladar `public/_headers` a `vercel.json`.
+6. Dominio: apuntar DNS al hosting; forzar HTTPS y redirección `www` → raíz (o al revés, pero una sola).
+7. Google Search Console: verificar el dominio, enviar `https://[DOMINIO]/sitemap-index.xml`, pedir indexación de `/`.
+8. Google Business Profile: crear/actualizar la ficha con **el mismo nombre, teléfono y ciudad** que el JSON-LD; categoría "DJ"; enlazar la web.
+9. Comprobar con Rich Results Test (`EntertainmentBusiness`, `Event`, `VideoObject`) y con el depurador de compartir de Facebook/WhatsApp que `og.jpg` se ve.
+10. Lighthouse en producción: ≥ 95 en las cuatro categorías (referencia de la Parte 5).
 **Hecho cuando**: el sitio está en el dominio, Lighthouse ≥ 95 en producción y el botón de WhatsApp abre la conversación con el mensaje prellenado.
 
 ## Backlog v2 (no iniciar sin decisión del cliente)
