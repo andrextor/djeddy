@@ -10,7 +10,8 @@ export interface Props {
 
 const { videos, moreClipsUrl } = Astro.props
 const [first, second] = videos
-const embedUrl = (id: string): string => `https://www.youtube-nocookie.com/embed/${id}`
+const embedUrl = (id: string): string => `https://www.youtube-nocookie.com/embed/${id}?autoplay=1`
+const thumbnailUrl = (id: string): string => `https://i.ytimg.com/vi/${id}/hqdefault.jpg`
 ---
 
 <section id="videos" class="videos" aria-labelledby="videos-title">
@@ -27,13 +28,15 @@ const embedUrl = (id: string): string => `https://www.youtube-nocookie.com/embed
 
   <div class="layout">
     <article class="card video main">
-      <iframe
-        src={embedUrl(first.youtubeId)}
-        title={first.title}
-        loading="lazy"
-        allow="accelerometer; encrypted-media; picture-in-picture"
-        allowfullscreen
-      ></iframe>
+      <button
+        class="facade"
+        type="button"
+        data-embed={embedUrl(first.youtubeId)}
+        aria-label={`Reproducir: ${first.title}`}
+      >
+        <img src={thumbnailUrl(first.youtubeId)} alt="" loading="lazy" width="480" height="360" />
+        <span class="play glass"><Icon name="play" size={34} class="gold" /></span>
+      </button>
       <div class="caption glass">
         <div>
           <span class="label">Video 1</span>
@@ -44,13 +47,15 @@ const embedUrl = (id: string): string => `https://www.youtube-nocookie.com/embed
     </article>
 
     <article class="card video secondary">
-      <iframe
-        src={embedUrl(second.youtubeId)}
-        title={second.title}
-        loading="lazy"
-        allow="accelerometer; encrypted-media; picture-in-picture"
-        allowfullscreen
-      ></iframe>
+      <button
+        class="facade"
+        type="button"
+        data-embed={embedUrl(second.youtubeId)}
+        aria-label={`Reproducir: ${second.title}`}
+      >
+        <img src={thumbnailUrl(second.youtubeId)} alt="" loading="lazy" width="480" height="360" />
+        <span class="play glass"><Icon name="play" size={26} class="gold" /></span>
+      </button>
       <div class="caption glass">
         <div>
           <span class="label">Video 2</span>
@@ -69,6 +74,20 @@ const embedUrl = (id: string): string => `https://www.youtube-nocookie.com/embed
     </a>
   </div>
 </section>
+
+<script is:inline>
+  // YouTube facade: the player (~1 MB of third-party JS) loads only when a viewer asks for it.
+  for (const facade of document.querySelectorAll('.facade[data-embed]')) {
+    facade.addEventListener('click', () => {
+      const iframe = document.createElement('iframe')
+      iframe.src = facade.dataset.embed
+      iframe.title = facade.getAttribute('aria-label')
+      iframe.allow = 'accelerometer; autoplay; encrypted-media; picture-in-picture'
+      iframe.allowFullscreen = true
+      facade.replaceWith(iframe)
+    })
+  }
+</script>
 
 <style>
   .videos {
@@ -116,12 +135,56 @@ const embedUrl = (id: string): string => `https://www.youtube-nocookie.com/embed
   .secondary {
     background: var(--gradient-card-alt);
   }
+  .facade,
   iframe {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
+    padding: 0;
     border: 0;
+    background: transparent;
+    cursor: pointer;
+  }
+  .facade img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.6;
+  }
+  .facade::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(7, 6, 4, 0.25) 0%, rgba(7, 6, 4, 0.75) 100%);
+  }
+  .facade .play {
+    z-index: 1;
+  }
+  .play {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition:
+      transform 0.35s ease,
+      background 0.35s ease;
+  }
+  .gold {
+    color: var(--color-gold);
+  }
+  .facade:hover .play {
+    background: rgba(212, 175, 55, 0.9);
+    transform: translate(-50%, -50%) scale(1.12);
+  }
+  .facade:hover .gold {
+    color: var(--color-bg);
   }
   .caption {
     position: absolute;
@@ -240,6 +303,14 @@ const embedUrl = (id: string): string => `https://www.youtube-nocookie.com/embed
     }
     .duration {
       display: inline;
+    }
+    .main .play {
+      width: 104px;
+      height: 104px;
+    }
+    .secondary .play {
+      width: 80px;
+      height: 80px;
     }
     .more {
       flex-direction: row-reverse;

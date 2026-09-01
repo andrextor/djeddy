@@ -25,13 +25,13 @@ const whatsappUrl = buildWhatsAppUrl(site.whatsapp.number, site.whatsapp.message
     height: 60px;
     border-radius: var(--radius-pill);
     background: var(--color-whatsapp);
-    color: #ffffff;
+    color: var(--color-bg);
     font-size: 15px;
     font-weight: 700;
     box-shadow: var(--shadow-float);
   }
   .float:hover {
-    color: #ffffff;
+    color: var(--color-bg);
     filter: brightness(1.05);
   }
   .disc {
@@ -52,7 +52,7 @@ const whatsappUrl = buildWhatsAppUrl(site.whatsapp.number, site.whatsapp.message
       width: 44px;
       height: 44px;
       border-radius: 50%;
-      background: rgba(255, 255, 255, 0.18);
+      background: rgba(255, 255, 255, 0.28);
     }
     .disc :global(svg) {
       width: 26px;

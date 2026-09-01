@@ -32,12 +32,12 @@ Para cada una: escribir móvil, luego `@media (min-width: 1024px)`; comparar con
 
 Notas de implementación: un icono compartido `Icon.astro` (mapa de paths) en lugar de un archivo por icono; `Icon` debe propagar `...rest` al `<svg>` para recibir el atributo de scope del padre, si no las clases pasadas desde el padre no reciben estilo.
 
-## Fase 5 · Calidad (1 día) — Parte 5
+## Fase 5 · Calidad (1 día) — Parte 5 ✅
 1. SEO (`<head>`, JSON-LD, `robots.txt`, sitemap), `og.jpg`.
 2. Auditoría Lighthouse + axe; corregir hasta cumplir presupuesto.
 3. Revisión de contraste y reduced-motion.
 4. CI de GitHub Actions.
-**Hecho cuando**: criterios de la Parte 5.
+**Hecho cuando**: criterios de la Parte 5. (Cumplido salvo la validación del CI en el primer push y el recorrido manual por teclado; ver resultados medidos en la Parte 5. Hallazgo principal: los iframes de YouTube destrozaban el LCP móvil → fachada.)
 
 ## Fase 6 · Contenido real y publicación (½ día)
 1. Sustituir todos los `[CORCHETES]` (el build falla mientras queden).
@@ -50,7 +50,6 @@ Notas de implementación: un icono compartido `Icon.astro` (mapa de paths) en lu
 - Cuenta regresiva al próximo evento en el hero (requiere JS mínimo o render en build con fecha fija).
 - Aviso superior descartable ("Últimas fechas de diciembre").
 - Hover en evento que revela detalle (line-up, entradas).
-- Facade para los videos si el presupuesto de LCP no se cumple.
 - Analítica sin cookies.
 - Sección de testimonios (solo con testimonios reales del cliente).
 - Fondo fotográfico con fundido en hero/footer cuando haya fotos.
@@ -59,6 +58,6 @@ Notas de implementación: un icono compartido `Icon.astro` (mapa de paths) en lu
 | Riesgo | Mitigación |
 |--------|-----------|
 | Cierre del popover del menú móvil en Safari | Probar en Fase 4; excepción de JS de 3 líneas documentada |
-| Iframes de YouTube penalizan LCP/TBT | Medir en Fase 5; facade en v2 |
+| Iframes de YouTube penalizan LCP/TBT | Medido en Fase 5 (LCP 10 s) → fachada implementada |
 | `backdrop-filter` en Android de gama baja | Fallback: `@supports not (backdrop-filter: blur(1px))` → `background: rgba(20,17,12,.92)` |
 | Datos del cliente tardan | El build falla con placeholders: no se puede publicar a medias por accidente |
