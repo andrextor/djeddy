@@ -1,12 +1,41 @@
 ---
+import { getCollection } from 'astro:content'
+import Contact from '@/components/Contact.astro'
+import Events from '@/components/Events.astro'
+import Footer from '@/components/Footer.astro'
+import Header from '@/components/Header.astro'
+import Hero from '@/components/Hero.astro'
+import Videos from '@/components/Videos.astro'
+import WhatsAppButton from '@/components/WhatsAppButton.astro'
+import { site } from '@/data/site'
 import BaseLayout from '@/layouts/BaseLayout.astro'
+import { upcoming } from '@/lib/dates'
+import { buildJsonLd, serializeJsonLd } from '@/lib/seo'
+
+const title = `${site.name} · DJ para bodas, fiestas y eventos en ${site.city}`
+const ogImageUrl = new URL('/og.jpg', Astro.site).href
+const events = upcoming(await getCollection('events')).map((event) => ({
+  title: event.data.title,
+  date: event.data.date,
+  venue: event.data.venue,
+  city: event.data.city,
+  time: event.data.time,
+  imageUrl: event.data.image ? new URL(event.data.image.src, Astro.site).href : undefined,
+  url: event.data.url,
+}))
+const jsonLd = serializeJsonLd(buildJsonLd(site, events, ogImageUrl))
+const instagram = site.socials.find((social) => social.network === 'instagram')
 ---
 
-<BaseLayout
-  title="DJ Eddy · DJ para bodas, fiestas y eventos"
-  description="DJ para bodas, fiestas privadas y eventos corporativos. Sonido, luces y la lectura de pista que mantiene a todos bailando."
->
+<BaseLayout title={title} description={site.tagline}>
+  <script is:inline slot="head" type="application/ld+json" set:html={jsonLd} />
+  <Header />
   <main id="main">
-    <h1 style="font-family: var(--font-display); padding: var(--gutter);">DJ Eddy</h1>
+    <Hero />
+    <Videos videos={site.videos} moreClipsUrl={instagram?.url ?? site.socials[0].url} />
+    <Events />
+    <Contact />
   </main>
+  <Footer />
+  <WhatsAppButton />
 </BaseLayout>

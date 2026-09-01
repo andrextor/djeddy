@@ -25,10 +25,12 @@ Estimaciones para una persona.
 4. `src/lib/lib.test.ts` con `node:test` (5 pruebas), sin framework.
 **Hecho cuando**: criterios de la Parte 3 + tests en verde. (Cumplido.)
 
-## Fase 4 · Secciones, escritorio primero en móvil-first (2 días) — Parte 4
+## Fase 4 · Secciones, escritorio primero en móvil-first (2 días) — Parte 4 ✅
 Orden: `Header` → `Hero` + `Marquee` → `WhatsAppButton` → `Videos` → `Events` → `Contact` → `Footer`.
 Para cada una: escribir móvil, luego `@media (min-width: 1024px)`; comparar con el artboard a 390 y 1440 (captura superpuesta); ajustar hasta coincidir.
-**Hecho cuando**: criterios de la Parte 4 en todas las secciones.
+**Hecho cuando**: criterios de la Parte 4 en todas las secciones. (Cumplido: capturas a 1440 y 390 con Chrome headless comparadas con el lienzo; el menú móvil usa Popover API + un script inline de 3 líneas para cerrarse al navegar por ancla, la única excepción de JS; el JSON-LD ya se emite desde `index.astro`.)
+
+Notas de implementación: un icono compartido `Icon.astro` (mapa de paths) en lugar de un archivo por icono; `Icon` debe propagar `...rest` al `<svg>` para recibir el atributo de scope del padre, si no las clases pasadas desde el padre no reciben estilo.
 
 ## Fase 5 · Calidad (1 día) — Parte 5
 1. SEO (`<head>`, JSON-LD, `robots.txt`, sitemap), `og.jpg`.

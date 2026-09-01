@@ -8,7 +8,7 @@
 ## Comando de arranque
 ```bash
 pnpm create astro@latest . --template minimal --install --no-git --yes   # crea una subcarpeta con nombre aleatorio: mover su contenido a la raíz
-pnpm add @fontsource-variable/sora @fontsource-variable/manrope @astrojs/sitemap
+pnpm add @fontsource-variable/sora @fontsource-variable/manrope @astrojs/sitemap sharp   # Astro 7 exige sharp como dependencia directa para astro:assets
 pnpm add -D @biomejs/biome @astrojs/check typescript@^5
 ```
 

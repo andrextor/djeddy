@@ -1,0 +1,65 @@
+---
+import { site } from '@/data/site'
+import { buildWhatsAppUrl } from '@/lib/whatsapp'
+import Icon from './Icon.astro'
+
+const whatsappUrl = buildWhatsAppUrl(site.whatsapp.number, site.whatsapp.message)
+---
+
+<a class="float pulse" href={whatsappUrl} target="_blank" rel="noopener" aria-label="Escríbeme por WhatsApp">
+  <span class="disc"><Icon name="whatsapp" size={30} /></span>
+  <span class="text">Escríbeme</span>
+</a>
+
+<style>
+  .float {
+    position: fixed;
+    right: 16px;
+    bottom: 24px;
+    z-index: 30;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: 60px;
+    height: 60px;
+    border-radius: var(--radius-pill);
+    background: var(--color-whatsapp);
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 700;
+    box-shadow: var(--shadow-float);
+  }
+  .float:hover {
+    color: #ffffff;
+    filter: brightness(1.05);
+  }
+  .disc {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .text {
+    display: none;
+  }
+  @media (min-width: 1024px) {
+    .float {
+      right: 32px;
+      width: auto;
+      padding: 0 22px 0 8px;
+    }
+    .disc {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.18);
+    }
+    .disc :global(svg) {
+      width: 26px;
+      height: 26px;
+    }
+    .text {
+      display: inline;
+    }
+  }
+</style>

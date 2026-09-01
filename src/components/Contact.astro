@@ -1,0 +1,204 @@
+---
+import { site } from '@/data/site'
+import { buildWhatsAppUrl } from '@/lib/whatsapp'
+import Icon from './Icon.astro'
+import SectionHeading from './SectionHeading.astro'
+
+const whatsappUrl = buildWhatsAppUrl(site.whatsapp.number, site.whatsapp.message)
+---
+
+<section id="contacto" class="contact" aria-labelledby="contact-title">
+  <div class="glow" aria-hidden="true"></div>
+  <div class="panel glass">
+    <div class="intro">
+      <SectionHeading index="03" label="Contacto" title="Reserva tu fecha." id="contact-title" />
+      <p class="lead">
+        Cuéntame qué celebras, dónde y cuándo. Te respondo el mismo día con disponibilidad y propuesta.
+      </p>
+      <a class="primary" href={whatsappUrl} target="_blank" rel="noopener">
+        <Icon name="whatsapp" size={20} />
+        <span>Escríbeme por WhatsApp</span>
+      </a>
+    </div>
+    <dl class="rows">
+      <a class="row" href={whatsappUrl} target="_blank" rel="noopener">
+        <div>
+          <dt>WhatsApp</dt>
+          <dd>{site.whatsapp.display}</dd>
+        </div>
+        <Icon name="arrow-up-right" size={22} class="arrow" />
+      </a>
+      <a class="row" href={`mailto:${site.email}`}>
+        <div>
+          <dt>Correo</dt>
+          <dd>{site.email}</dd>
+        </div>
+        <Icon name="arrow-up-right" size={22} class="arrow" />
+      </a>
+      <div class="row">
+        <div>
+          <dt>Base</dt>
+          <dd>{site.city} · disponible para viajar</dd>
+        </div>
+      </div>
+    </dl>
+  </div>
+</section>
+
+<style>
+  .contact {
+    position: relative;
+    padding: 64px var(--gutter) 0;
+    scroll-margin-top: 90px;
+  }
+  .glow {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 420px;
+    height: 420px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(212, 175, 55, 0.22), rgba(212, 175, 55, 0) 65%);
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+  .panel {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 28px 22px;
+    border-radius: 28px;
+  }
+  .intro {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .intro :global(h2) {
+    font-size: 44px;
+    line-height: 0.98;
+    letter-spacing: -0.035em;
+  }
+  .lead {
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--color-text-muted);
+  }
+  .primary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    height: 56px;
+    border-radius: var(--radius-pill);
+    background: var(--gradient-gold);
+    color: var(--color-bg);
+    font-size: 15px;
+    font-weight: 700;
+  }
+  .primary:hover {
+    color: var(--color-bg);
+    filter: brightness(1.06);
+  }
+  .rows {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 0;
+  }
+  .row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    min-height: 64px;
+    padding: 14px 18px;
+    border-radius: 16px;
+    background: var(--color-surface-row);
+    border: 1px solid var(--border-gold-16);
+    color: var(--color-text);
+  }
+  a.row:hover {
+    border-color: var(--border-gold-35);
+    color: var(--color-text);
+  }
+  .row > div {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+  }
+  dt {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+  }
+  dd {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 17px;
+    letter-spacing: -0.01em;
+    overflow-wrap: anywhere;
+  }
+  .arrow {
+    flex: 0 0 auto;
+    color: var(--color-gold);
+  }
+
+  @media (min-width: 1024px) {
+    .contact {
+      padding: 0 var(--gutter) var(--section-gap);
+      scroll-margin-top: 120px;
+    }
+    .glow {
+      top: 40%;
+      width: 900px;
+      height: 500px;
+    }
+    .panel {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 64px;
+      align-items: center;
+      padding: 72px;
+      border-radius: 36px;
+    }
+    .intro {
+      gap: 28px;
+    }
+    .intro :global(h2) {
+      font-size: 72px;
+    }
+    .lead {
+      max-width: 440px;
+      font-size: 17px;
+    }
+    .primary {
+      align-self: flex-start;
+      height: 60px;
+      padding: 0 32px;
+      box-shadow: var(--shadow-cta);
+    }
+    .rows {
+      gap: 16px;
+    }
+    .row {
+      padding: 24px 28px;
+      border-radius: 20px;
+    }
+    .row > div {
+      gap: 4px;
+    }
+    dt {
+      font-size: 12px;
+      letter-spacing: 0.18em;
+    }
+    dd {
+      font-size: 22px;
+    }
+  }
+</style>

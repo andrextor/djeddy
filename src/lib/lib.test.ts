@@ -2,7 +2,7 @@ import assert from 'node:assert/strict'
 import { test } from 'node:test'
 import { formatEventDate, upcoming } from './dates.ts'
 import { assertNoPlaceholders, findPlaceholders } from './placeholders.ts'
-import { buildJsonLd } from './seo.ts'
+import { buildJsonLd, serializeJsonLd } from './seo.ts'
 import { buildWhatsAppUrl } from './whatsapp.ts'
 
 test('buildWhatsAppUrl encodes the message', () => {
@@ -79,4 +79,8 @@ test('buildJsonLd links events and videos to the business entity', () => {
   const eventNode = graph[2] as Record<string, unknown>
   assert.equal(eventNode.startDate, '2026-09-12T21:00:00')
   assert.deepEqual(eventNode.performer, { '@id': 'https://djeddy.test/#business' })
+})
+
+test('serializeJsonLd escapes closing script tags', () => {
+  assert.equal(serializeJsonLd({ name: '</script><b>' }), '{"name":"\\u003c/script>\\u003cb>"}')
 })

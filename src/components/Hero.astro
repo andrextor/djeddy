@@ -1,0 +1,363 @@
+---
+import { Image } from 'astro:assets'
+import heroImage from '@/assets/dj-eddy-hero-placeholder.jpg'
+import { site } from '@/data/site'
+import { buildWhatsAppUrl } from '@/lib/whatsapp'
+import Icon from './Icon.astro'
+import Marquee from './Marquee.astro'
+
+const whatsappUrl = buildWhatsAppUrl(site.whatsapp.number, site.whatsapp.message)
+const services = [
+  'Bodas',
+  'Fiestas privadas',
+  'Eventos corporativos',
+  'Sonido e iluminación',
+] as const
+---
+
+<section class="hero" aria-labelledby="hero-title">
+  <div class="grain"></div>
+  <div class="grid-lines" aria-hidden="true"></div>
+
+  <div class="inner">
+    <div class="copy">
+      <p class="badge glass rise delay-1">
+        <span class="live"></span>
+        <span>Agenda 2026 abierta<span class="badge-long"> · bodas, privadas y corporativos</span></span>
+      </p>
+      <h1 id="hero-title" class="rise delay-2">Enciende<br /><span>tu evento.</span></h1>
+      <p class="lead rise delay-3">
+        DJ en {site.city} para bodas, fiestas privadas y eventos corporativos: sets a medida, sonido e
+        iluminación propios y una lectura de pista que no deja a nadie sentado. Disponible para viajar.
+      </p>
+      <div class="actions rise delay-4">
+        <a class="primary" href={whatsappUrl} target="_blank" rel="noopener">
+          <Icon name="whatsapp" size={20} />
+          <span>Escríbeme por WhatsApp</span>
+        </a>
+        <a class="secondary glass" href="#videos">
+          <Icon name="play" size={16} class="gold" />
+          <span>Ver en acción</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="stage">
+      <div class="beams" aria-hidden="true">
+        <span class="beam"></span>
+        <span class="beam"></span>
+        <span class="beam"></span>
+        <span class="floor"></span>
+      </div>
+      <figure class="photo fade-right delay-3">
+        <Image
+          src={heroImage}
+          alt={`${site.name} en cabina durante un evento en ${site.city}`}
+          widths={[520, 1040]}
+          sizes="(min-width: 1024px) 520px, calc(100vw - 64px)"
+          loading="eager"
+          fetchpriority="high"
+        />
+        <figcaption>
+          <span class="tag">DJ Eddy</span>
+          <span class="place">En cabina, {site.city}</span>
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <Marquee items={services} />
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    overflow: hidden;
+    background:
+      radial-gradient(520px 420px at 0% 0%, rgba(212, 175, 55, 0.22), rgba(212, 175, 55, 0) 60%),
+      linear-gradient(180deg, var(--color-bg-elevated) 0%, var(--color-bg) 100%);
+  }
+  .grid-lines {
+    display: none;
+  }
+  .inner {
+    position: relative;
+  }
+  .copy {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 104px var(--gutter) 0;
+  }
+  .badge {
+    display: inline-flex;
+    align-self: flex-start;
+    align-items: center;
+    gap: 10px;
+    height: 36px;
+    padding: 0 14px 0 10px;
+    border-radius: var(--radius-pill);
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--color-text-badge);
+  }
+  .live {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--color-whatsapp);
+    box-shadow: 0 0 12px var(--color-whatsapp);
+  }
+  .badge-long {
+    display: none;
+  }
+  h1 {
+    font-size: 62px;
+    font-weight: 800;
+    line-height: 0.96;
+    letter-spacing: -0.035em;
+    color: var(--color-text);
+  }
+  h1 span {
+    font-weight: 700;
+    color: var(--color-gold-text);
+    text-shadow: 0 0 40px rgba(212, 175, 55, 0.35);
+  }
+  .lead {
+    max-width: 320px;
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--color-text-muted);
+  }
+  .actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .primary,
+  .secondary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    border-radius: var(--radius-pill);
+    font-weight: 700;
+    font-size: 15px;
+  }
+  .primary {
+    height: 56px;
+    background: var(--gradient-gold);
+    color: var(--color-bg);
+    box-shadow: 0 16px 40px rgba(212, 175, 55, 0.25);
+  }
+  .primary:hover {
+    color: var(--color-bg);
+    filter: brightness(1.06);
+  }
+  .secondary {
+    height: 52px;
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--color-text);
+  }
+  .secondary:hover {
+    color: var(--color-gold-light);
+  }
+  .gold {
+    color: var(--color-gold);
+  }
+  .stage {
+    position: relative;
+    height: 470px;
+    margin-top: 28px;
+    overflow: hidden;
+  }
+  .beams {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+  .beams .beam:nth-child(1) {
+    left: 20%;
+  }
+  .beams .beam:nth-child(2) {
+    left: 50%;
+    opacity: 0.7;
+    animation-delay: -2.5s;
+  }
+  .beams .beam:nth-child(3) {
+    left: 80%;
+    animation-delay: -5s;
+  }
+  .floor {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 220px;
+    background: radial-gradient(ellipse at 50% 100%, rgba(212, 175, 55, 0.35), rgba(212, 175, 55, 0) 70%);
+  }
+  .photo {
+    --tilt: 3deg;
+    position: absolute;
+    left: 32px;
+    right: 32px;
+    top: 24px;
+    height: 420px;
+    margin: 0;
+    border-radius: 28px;
+    overflow: hidden;
+    border: 1px solid var(--border-gold-35);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.65);
+    transform: rotate(var(--tilt));
+  }
+  .photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .photo::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(7, 6, 4, 0) 50%, rgba(7, 6, 4, 0.85) 100%);
+  }
+  figcaption {
+    position: absolute;
+    left: 22px;
+    bottom: 22px;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .tag {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(244, 239, 228, 0.55);
+  }
+  .place {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 18px;
+    color: var(--color-text);
+  }
+
+  @media (min-width: 1024px) {
+    .hero {
+      background:
+        radial-gradient(900px 600px at 15% 10%, rgba(212, 175, 55, 0.22), rgba(212, 175, 55, 0) 60%),
+        radial-gradient(700px 500px at 90% 85%, rgba(154, 122, 30, 0.28), rgba(154, 122, 30, 0) 60%),
+        linear-gradient(180deg, var(--color-bg-elevated) 0%, var(--color-bg) 100%);
+    }
+    .grid-lines {
+      display: block;
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(212, 175, 55, 0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(212, 175, 55, 0.06) 1px, transparent 1px);
+      background-size: 120px 120px;
+      -webkit-mask-image: radial-gradient(ellipse at 50% 40%, #000 30%, transparent 75%);
+      mask-image: radial-gradient(ellipse at 50% 40%, #000 30%, transparent 75%);
+      pointer-events: none;
+    }
+    .inner {
+      height: 836px;
+      max-width: 1440px;
+      margin: 0 auto;
+    }
+    .copy {
+      position: absolute;
+      left: var(--gutter);
+      top: 200px;
+      z-index: 2;
+      max-width: 900px;
+      gap: 36px;
+      padding: 0;
+    }
+    .badge {
+      height: 40px;
+      padding: 0 18px 0 10px;
+      gap: 12px;
+      font-size: 13px;
+    }
+    .badge-long {
+      display: inline;
+    }
+    h1 {
+      font-size: 132px;
+      line-height: 0.94;
+    }
+    h1 span {
+      text-shadow: 0 0 60px rgba(212, 175, 55, 0.35);
+    }
+    .lead {
+      max-width: 440px;
+      font-size: 18px;
+    }
+    .actions {
+      flex-direction: row;
+      align-items: center;
+      gap: 16px;
+    }
+    .primary,
+    .secondary {
+      height: 60px;
+      font-size: 15px;
+    }
+    .primary {
+      padding: 0 32px;
+      box-shadow: var(--shadow-cta);
+    }
+    .secondary {
+      padding: 0 28px;
+    }
+    .stage {
+      position: absolute;
+      right: 60px;
+      top: 0;
+      width: 620px;
+      height: 100%;
+      margin: 0;
+      overflow: visible;
+    }
+    .beams {
+      overflow: hidden;
+    }
+    .beams .beam:nth-child(1) {
+      left: 18%;
+    }
+    .beams .beam:nth-child(2) {
+      left: 42%;
+    }
+    .beams .beam:nth-child(3) {
+      left: 66%;
+    }
+    .floor {
+      height: 320px;
+    }
+    .photo {
+      --tilt: 4deg;
+      left: auto;
+      right: 36px;
+      top: 150px;
+      width: 520px;
+      height: 660px;
+      border-radius: 32px;
+      box-shadow: var(--shadow-card);
+    }
+    figcaption {
+      left: 28px;
+      bottom: 28px;
+    }
+    .tag {
+      font-size: 12px;
+    }
+    .place {
+      font-size: 22px;
+    }
+  }
+</style>

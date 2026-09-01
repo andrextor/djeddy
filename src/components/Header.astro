@@ -1,0 +1,186 @@
+---
+import { site } from '@/data/site'
+import { buildWhatsAppUrl } from '@/lib/whatsapp'
+import Icon from './Icon.astro'
+
+const whatsappUrl = buildWhatsAppUrl(site.whatsapp.number, site.whatsapp.message)
+const links = [
+  { href: '#videos', label: 'Videos' },
+  { href: '#eventos', label: 'Eventos' },
+  { href: '#contacto', label: 'Contacto' },
+] as const
+---
+
+<header class="header glass rise">
+  <a class="wordmark" href="#main" aria-label={`${site.name}, inicio`}>DJ<span>EDDY</span></a>
+  <nav class="links" aria-label="Secciones">
+    {links.map((link) => <a href={link.href}>{link.label}</a>)}
+  </nav>
+  <div class="actions">
+    <a class="cta" href={whatsappUrl} target="_blank" rel="noopener">
+      <Icon name="whatsapp" size={16} />
+      <span class="cta-long">Reservar fecha</span>
+      <span class="cta-short">Reservar</span>
+    </a>
+    <button class="menu-button" type="button" popovertarget="nav-menu" aria-label="Abrir menú">
+      <Icon name="menu" size={22} />
+    </button>
+  </div>
+</header>
+
+<nav id="nav-menu" popover aria-label="Menú">
+  <div class="menu glass">
+    {links.map((link) => <a href={link.href}>{link.label}</a>)}
+  </div>
+</nav>
+
+<script is:inline>
+  // Popover API cannot close on in-page anchor navigation without this.
+  document.getElementById('nav-menu')?.addEventListener('click', (event) => {
+    if (event.target instanceof HTMLAnchorElement) event.currentTarget.hidePopover()
+  })
+</script>
+
+<style>
+  .header {
+    position: fixed;
+    top: 14px;
+    left: 14px;
+    right: 14px;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    height: 56px;
+    padding: 0 6px 0 18px;
+    border-radius: var(--radius-pill);
+  }
+  .wordmark {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 17px;
+    letter-spacing: 0.06em;
+    color: var(--color-text);
+  }
+  .wordmark span {
+    color: var(--color-gold);
+  }
+  .links {
+    display: none;
+    align-items: center;
+    gap: 36px;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .links a {
+    color: var(--color-text-muted);
+  }
+  .links a:hover {
+    color: var(--color-text);
+  }
+  .actions {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    height: var(--tap-min);
+    padding: 0 16px;
+    border-radius: var(--radius-pill);
+    background: var(--color-gold);
+    color: var(--color-bg);
+    font-size: 13px;
+    font-weight: 700;
+  }
+  .cta:hover {
+    background: var(--color-gold-light);
+    color: var(--color-bg);
+  }
+  .cta-long {
+    display: none;
+  }
+  .menu-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--tap-min);
+    height: var(--tap-min);
+    padding: 0;
+    border: 0;
+    border-radius: var(--radius-pill);
+    background: transparent;
+    color: var(--color-text);
+    cursor: pointer;
+  }
+  #nav-menu {
+    position: fixed;
+    inset: 82px 14px auto;
+    z-index: 25;
+    width: auto;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: inherit;
+  }
+  #nav-menu::backdrop {
+    background: rgba(7, 6, 4, 0.55);
+  }
+  .menu {
+    display: flex;
+    flex-direction: column;
+    padding: 8px;
+    border-radius: 24px;
+  }
+  .menu a {
+    display: flex;
+    align-items: center;
+    min-height: 52px;
+    padding: 0 18px;
+    border-radius: 16px;
+    font-family: var(--font-display);
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--color-text);
+  }
+  .menu a:hover {
+    background: var(--color-surface-row);
+    color: var(--color-gold-light);
+  }
+  @media (min-width: 1024px) {
+    .header {
+      top: 24px;
+      left: 0;
+      right: 0;
+      width: min(1120px, calc(100% - 48px));
+      height: 68px;
+      margin-inline: auto;
+      gap: 48px;
+      padding: 0 12px 0 28px;
+    }
+    .wordmark {
+      font-size: 20px;
+      letter-spacing: 0.08em;
+    }
+    .links {
+      display: flex;
+    }
+    .cta {
+      height: 46px;
+      padding: 0 22px;
+      font-size: 14px;
+    }
+    .cta-long {
+      display: inline;
+    }
+    .cta-short,
+    .menu-button,
+    #nav-menu {
+      display: none;
+    }
+  }
+</style>
