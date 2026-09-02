@@ -82,7 +82,7 @@ export const site = {
     display: '+57 318 272 0357',
     message: 'Hola Eddy, quiero reservar una fecha para mi evento.',
   },
-  email: 'hola@djeddy.example.com',
+  email: 'edisonayalaramirez17@gmail.com',
   socials: [
     { network: 'instagram', label: 'Instagram', url: 'https://www.instagram.com/djeddy007' },
     { network: 'tiktok', label: 'TikTok', url: 'https://www.tiktok.com/@dj.eddy07' },
