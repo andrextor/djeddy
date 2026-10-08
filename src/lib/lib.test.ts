@@ -26,7 +26,7 @@ test('findPlaceholders reports nested bracket tokens with their path', () => {
   assert.throws(() => assertNoPlaceholders({ a: '[CIUDAD]' }), /1 placeholder/)
 })
 
-test('buildJsonLd links videos and FAQ to the business entity', () => {
+test('buildJsonLd links videos to the business entity', () => {
   const site = {
     name: 'DJ Eddy',
     legalName: 'DJ Eddy',
@@ -43,7 +43,6 @@ test('buildJsonLd links videos and FAQ to the business entity', () => {
     stats: [],
     included: [{ icon: 'speaker', label: 'Sonido propio' }],
     testimonials: [],
-    faq: [{ question: '¿Viajas?', answer: 'Sí.' }],
     videos: [
       { kind: 'youtube', youtubeId: 'a', title: 'A', uploadDate: '2026-01-01' },
       {
@@ -65,18 +64,8 @@ test('buildJsonLd links videos and FAQ to the business entity', () => {
   assert.ok(Array.isArray(graph))
   assert.deepEqual(
     graph.map((node: Record<string, unknown>) => node['@type']),
-    ['EntertainmentBusiness', 'WebSite', 'VideoObject', 'VideoObject', 'FAQPage'],
+    ['EntertainmentBusiness', 'WebSite', 'VideoObject', 'VideoObject'],
   )
-  assert.deepEqual((graph[4] as Record<string, unknown>).mainEntity, [
-    { '@type': 'Question', name: '¿Viajas?', acceptedAnswer: { '@type': 'Answer', text: 'Sí.' } },
-  ])
-  const withoutFaq = buildJsonLd(
-    { ...site, faq: [] },
-    'https://djeddy.test/',
-    'https://djeddy.test/og.jpg',
-  )
-  assert.ok(Array.isArray(withoutFaq['@graph']))
-  assert.equal(withoutFaq['@graph'].length, 4)
   const business = graph[0] as Record<string, unknown>
   assert.equal(business.logo, 'https://djeddy.test/logo.png')
   const fileVideo = graph[3] as Record<string, unknown>

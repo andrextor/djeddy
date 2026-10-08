@@ -1,7 +1,6 @@
 ---
 import logo from '@/assets/dj-eddy-logo-dark.png'
 import Contact from '@/components/Contact.astro'
-import Faq from '@/components/Faq.astro'
 import Footer from '@/components/Footer.astro'
 import Header from '@/components/Header.astro'
 import Hero from '@/components/Hero.astro'
@@ -20,9 +19,8 @@ const ogImageUrl = new URL('/og.jpg', Astro.site).href
 const logoUrl = new URL(logo.src, Astro.site).href
 const siteUrl = new URL('/', Astro.site).href
 const jsonLd = serializeJsonLd(buildJsonLd(site, siteUrl, ogImageUrl, logoUrl))
-// Section numbers stay consecutive while the testimonials section is hidden.
-const afterTestimonials =
-  site.testimonials.length > 0 ? (['05', '06'] as const) : (['04', '05'] as const)
+// Contact's number stays consecutive while the testimonials section is hidden.
+const contactIndex = site.testimonials.length > 0 ? '05' : '04'
 const instagram = site.socials.find((social) => social.network === 'instagram')
 ---
 
@@ -36,8 +34,7 @@ const instagram = site.socials.find((social) => social.network === 'instagram')
     <Services />
     <Process included={site.included} />
     <Testimonials testimonials={site.testimonials} />
-    <Faq faq={site.faq} index={afterTestimonials[0]} />
-    <Contact index={afterTestimonials[1]} />
+    <Contact index={contactIndex} />
   </main>
   <Footer />
   <WhatsAppButton />

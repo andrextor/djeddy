@@ -47,11 +47,6 @@ export interface Testimonial {
   event: string
 }
 
-export interface FaqItem {
-  question: string
-  answer: string
-}
-
 export interface SiteConfig {
   name: string
   legalName: string
@@ -80,8 +75,6 @@ export interface SiteConfig {
   included: readonly { icon: IconName; label: string }[]
   /** Real client quotes; the section is hidden while empty */
   testimonials: readonly Testimonial[]
-  /** Also emitted as FAQPage JSON-LD; only questions Eddy's own claims answer */
-  faq: readonly FaqItem[]
   /** Shown as 9:16 cards; real-event clips first */
   videos: readonly Video[]
 }
@@ -119,20 +112,6 @@ export const site = {
   ],
   stats: [],
   testimonials: [],
-  faq: [
-    {
-      question: '¿Viajas fuera de Cali?',
-      answer: 'Sí, a Medellín, Bogotá, Cartagena, Pereira y todo Colombia.',
-    },
-    {
-      question: '¿Qué música pones?',
-      answer: 'Salsa clásica y romántica, crossover y lo que pida tu pista.',
-    },
-    {
-      question: '¿Puedo pedir canciones?',
-      answer: 'Claro. Mándame tu lista y las que no pueden faltar.',
-    },
-  ],
   included: [
     { icon: 'speaker', label: 'Sonido propio' },
     { icon: 'light', label: 'Iluminación' },
