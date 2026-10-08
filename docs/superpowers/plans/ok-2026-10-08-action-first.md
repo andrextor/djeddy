@@ -1,6 +1,6 @@
 # Action first, less text: plan
 
-Spec: [`specs/2026-10-08-action-first-design.md`](../specs/2026-10-08-action-first-design.md) · Branch: `feat/action-first` (from `main` at `9cdb5ed`, v0.3.0) · Status: **approved 2026-10-08**
+Spec: [`specs/2026-10-08-action-first-design.md`](../specs/2026-10-08-action-first-design.md) · Branch: `feat/action-first` (from `main` at `9cdb5ed`, v0.3.0) · Status: **approved 2026-10-08, done**
 
 ## How every task is checked
 
@@ -34,3 +34,24 @@ Spec: [`specs/2026-10-08-action-first-design.md`](../specs/2026-10-08-action-fir
    - `CHANGELOG.md`: a `Changed` entry for the shorter sections and the extra WhatsApp buttons.
    - `package.json`: version 0.4.0.
    - The plan records the page-height result.
+
+## Result
+
+- `pnpm ci:check` passes.
+- Page height at 390 px went from **5355 px to about 4270 px** (−20 %).
+
+**Changes Iván asked for during review,** all on this branch:
+
+1. **The FAQ section was removed** (task 4 had first cut it to 3 questions). This also removed `site.faq`, the `FAQPage` JSON-LD, the "Preguntas" nav link and the `plus` icon.
+2. **The floating WhatsApp button became `ContactDock.astro`,** following Iván's reference image. On desktop it's a right-edge tab with "CONECTA", every social network and WhatsApp. On phones it's a bottom bar: a vertical dock covered the hero text at 390 px. The unused `pulse` animation and `--overlay-light` token were deleted, and the footer gained bottom padding so the bar doesn't cover its last line.
+3. **Weddings merged into the private-parties card** ("Bodas y fiestas privadas", with the existing photo). No wedding photo exists, and the empty gradient card looked broken. Events went back to 3 columns on desktop.
+4. **A "Creado por Landak Studio ↗" credit was added to the footer,** as in neoteam-social-run. It uses the new `--landak-500` primitive and `--color-credit` token (#7c5cff, 4.7:1 on the footer background).
+
+Checks:
+
+- A 61-character event description fails the build with `Too big: expected string to have <=60 characters`.
+- `QuoteButton.astro` (new) is the single WhatsApp CTA that Process and Contact share.
+
+**Screenshot note:** fixed elements don't render in the iframe screenshot method. The dock was checked with a direct 500 px screenshot.
+
+**Found, not fixed (out of scope):** `pnpm check:content` fails before and after this branch. `src/data/site.ts` imports image assets through the `@/` alias, and plain Node can't resolve them (`ERR_MODULE_NOT_FOUND: @/assets`). That needs its own small fix plan.
