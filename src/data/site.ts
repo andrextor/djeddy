@@ -61,7 +61,8 @@ export interface SiteConfig {
   socials: readonly SocialLink[]
   /** Proof strip under the hero; hidden while empty. Only figures Eddy has confirmed. */
   stats: readonly Stat[]
-  videos: readonly [Video, Video]
+  /** Shown as 9:16 cards; real-event clips first */
+  videos: readonly Video[]
 }
 
 /** Set to false once the client's real data replaces the sample values below; release builds refuse it. */
@@ -99,19 +100,19 @@ export const site = {
   videos: [
     {
       kind: 'file',
-      src: '/videos/dj-eddy-hablame-carangano.mp4',
-      poster: hablamePoster,
-      title: 'Háblame Carangano · DJ Eddy',
-      duration: '3:39',
-      uploadDate: '2025-04-09',
-    },
-    {
-      kind: 'file',
       src: '/videos/dj-eddy-evento.mp4',
       poster: eventVideoPoster,
       title: 'En vivo en un evento',
       duration: '0:22',
       uploadDate: '2026-08-31',
+    },
+    {
+      kind: 'file',
+      src: '/videos/dj-eddy-hablame-carangano.mp4',
+      poster: hablamePoster,
+      title: 'Háblame Carangano · DJ Eddy',
+      duration: '3:39',
+      uploadDate: '2025-04-09',
     },
   ],
 } as const satisfies SiteConfig
