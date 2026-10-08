@@ -42,7 +42,8 @@ const iconFor = (network: SocialNetwork): IconName => network
   .footer {
     position: relative;
     margin-top: 64px;
-    padding: 44px var(--gutter) 28px;
+    /* Bottom space keeps the legal line clear of the mobile contact bar. */
+    padding: 44px var(--gutter) 96px;
     border-top: 1px solid var(--border-default);
     background: var(--color-bg-footer);
     overflow: hidden;

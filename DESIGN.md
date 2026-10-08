@@ -11,7 +11,7 @@ Direction: dark, warm, nocturnal. Black ink, gold light and cream text, like a b
 3. **Colors only through semantic tokens** (see *Color*). Components never contain a hex, `rgb()` or `hsl()` literal, and never use a primitive (`--gold-500`) where a role exists. A test enforces this.
 4. **Text size:** body and meta text ≥ 12 px. Only the uppercase labels listed in `docs/02` (eyebrows, video tags) go down to 10–11 px, and they always use bold weight with wide tracking.
 5. **Contrast:** WCAG 2.2 AA. Use only the text/background pairs in the contrast table.
-6. **Motion** uses the named animations in `docs/02` (`rise`, `fadeRight`, `sway`, `marquee`, `pulse`). With `prefers-reduced-motion: reduce`, nothing animates. The global rule in `global.css` must stay.
+6. **Motion** uses the named animations in `docs/02` (`rise`, `fadeRight`, `sway`, `marquee`). With `prefers-reduced-motion: reduce`, nothing animates. The global rule in `global.css` must stay.
 7. **Focus:** every interactive element is keyboard-reachable and shows `:focus-visible` in `--color-focus`.
 8. **Icons** come only from `src/components/Icon.astro` (24 box, 1.6 stroke, `currentColor`). No emoji and no ad-hoc inline SVG in components.
 9. **Typography:** `--font-display` (Sora) for headings, numerals and the wordmark; `--font-body` (Manrope) for everything else. Headings use `text-wrap: balance` and paragraphs use `text-wrap: pretty`.
@@ -55,9 +55,8 @@ The warm dark stops that only exist inside gradients (#12100b … #2a2216) stay 
 | | `--color-accent-dark` | gold-600 | Section index numerals |
 | | `--color-on-accent` | ink-900 | Text and icons on gold |
 | | `--color-focus` | gold-500 | Every `:focus-visible` outline |
-| WhatsApp | `--color-whatsapp` | whatsapp-500 | Floating button, "available" dot |
+| WhatsApp | `--color-whatsapp` | whatsapp-500 | WhatsApp button in the floating dock, "available" dot |
 | | `--color-on-whatsapp` | ink-900 | Icon/text on green |
-| | `--overlay-light` | white · 28 % | Icon disc inside the green button |
 | Borders | `--border-subtle` | gold · 16 % | Dividers, quiet outlines |
 | | `--border-default` | gold · 22 % | Cards, glass, marquee |
 | | `--border-strong` | gold · 35 % | Photo frame, hover outlines, footer wordmark stroke |
@@ -88,6 +87,6 @@ The warm dark stops that only exist inside gradients (#12100b … #2a2216) stay 
 | `--color-text-muted` | 9.4 | anything |
 | `--color-text-dim` | 5.3 | text ≥ 12 px |
 | `--color-on-accent` on `--color-accent` | 9.6 | buttons, tags |
-| `--color-on-whatsapp` on `--color-whatsapp` | 10.2 | floating button |
+| `--color-on-whatsapp` on `--color-whatsapp` | 10.2 | dock WhatsApp button (mobile) |
 
 **Forbidden:** white on WhatsApp green (2.0), and the canvas's original #6f685c for text (3.7). The canvas's #6f685c is why `--color-text-dim` was raised to sand-600. Text over photos always sits on a scrim.

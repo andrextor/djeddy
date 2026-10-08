@@ -47,7 +47,6 @@
 
   --color-whatsapp: var(--whatsapp-500);
   --color-on-whatsapp: var(--ink-900);
-  --overlay-light: color-mix(in srgb, var(--white) 28%, transparent);
 
   --border-subtle: color-mix(in srgb, var(--gold-500) 16%, transparent);
   --border-default: color-mix(in srgb, var(--gold-500) 22%, transparent);
