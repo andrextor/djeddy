@@ -32,8 +32,8 @@ const instagram = site.socials.find((social) => social.network === 'instagram')
   <main id="main">
     <Hero />
     <Proof stats={site.stats} />
-    <Services />
     <Videos videos={site.videos} moreClipsUrl={instagram?.url ?? site.socials[0].url} />
+    <Services />
     <Process included={site.included} />
     <Testimonials testimonials={site.testimonials} />
     <Faq faq={site.faq} index={afterTestimonials[0]} />
