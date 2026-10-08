@@ -122,28 +122,15 @@ export const site = {
   faq: [
     {
       question: '¿Viajas fuera de Cali?',
-      answer:
-        'Sí. Mi base es Cali y viajo a Medellín, Bogotá, Cartagena, Pereira y cualquier ciudad de Colombia. Cuéntame dónde es tu evento y lo incluyo en la propuesta.',
-    },
-    {
-      question: '¿Llevas sonido e iluminación?',
-      answer:
-        'Sí. Llevo sonido e iluminación propios, así que no tienes que contratar equipo aparte.',
+      answer: 'Sí, a Medellín, Bogotá, Cartagena, Pereira y todo Colombia.',
     },
     {
       question: '¿Qué música pones?',
-      answer:
-        'Salsa clásica y romántica, crossover y lo que pida tu pista. Leo al público en vivo para que nadie se quede sentado.',
+      answer: 'Salsa clásica y romántica, crossover y lo que pida tu pista.',
     },
     {
       question: '¿Puedo pedir canciones?',
-      answer:
-        'Claro. El set se arma con tu música y la de tus invitados: mándame tu lista y las canciones que no pueden faltar (o las que no quieres oír).',
-    },
-    {
-      question: '¿Cómo reservo mi fecha?',
-      answer:
-        'Escríbeme por WhatsApp con el tipo de evento, la fecha, la ciudad y cuántos invitados esperas. Te respondo el mismo día con disponibilidad y propuesta.',
+      answer: 'Claro. Mándame tu lista y las que no pueden faltar.',
     },
   ],
   included: [

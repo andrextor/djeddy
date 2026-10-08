@@ -1,6 +1,7 @@
 ---
 import type { FaqItem } from '@/data/site'
 import Icon from './Icon.astro'
+import QuoteButton from './QuoteButton.astro'
 import type { Props as HeadingProps } from './SectionHeading.astro'
 import SectionHeading from './SectionHeading.astro'
 
@@ -15,12 +16,7 @@ const { faq, index } = Astro.props
 {
   faq.length > 0 && (
     <section id="preguntas" class="faq" aria-labelledby="faq-title">
-      <SectionHeading
-        index={index}
-        label="Preguntas"
-        title="Antes de reservar"
-        id="faq-title"
-      />
+      <SectionHeading index={index} label="Preguntas" title="Antes de reservar" id="faq-title" />
       <div class="list">
         {faq.map((item) => (
           <details name="faq">
@@ -31,6 +27,10 @@ const { faq, index } = Astro.props
             <p>{item.answer}</p>
           </details>
         ))}
+      </div>
+      <div class="ask">
+        <p>¿Otra pregunta?</p>
+        <QuoteButton label="Pregúntame por WhatsApp" />
       </div>
     </section>
   )
@@ -43,6 +43,18 @@ const { faq, index } = Astro.props
     gap: 22px;
     padding: 64px var(--gutter) 0;
     scroll-margin-top: 90px;
+  }
+  .ask {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .ask p {
+    padding: 0;
+    font-family: var(--font-display);
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--color-text);
   }
   .list {
     display: flex;
@@ -90,7 +102,7 @@ const { faq, index } = Astro.props
   details[open] .toggle {
     transform: rotate(45deg);
   }
-  p {
+  details p {
     padding: 0 18px 18px;
     font-size: 15px;
     line-height: 1.6;
@@ -101,10 +113,19 @@ const { faq, index } = Astro.props
     .faq {
       display: grid;
       grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+      grid-template-rows: auto 1fr;
       align-items: start;
-      gap: 64px;
+      gap: 32px 64px;
       padding: 0 var(--gutter) var(--section-gap);
       scroll-margin-top: 120px;
+    }
+    .list {
+      grid-column: 2;
+      grid-row: 1 / 3;
+    }
+    .ask {
+      grid-column: 1;
+      grid-row: 2;
     }
     summary {
       padding: 20px 24px;
@@ -112,7 +133,7 @@ const { faq, index } = Astro.props
     h3 {
       font-size: 18px;
     }
-    p {
+    details p {
       padding: 0 24px 22px;
       font-size: 16px;
     }
