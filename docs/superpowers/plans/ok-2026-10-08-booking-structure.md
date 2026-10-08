@@ -1,6 +1,6 @@
 # Booking-focused page structure: plan
 
-Spec: [`specs/2026-10-08-booking-structure-design.md`](../specs/2026-10-08-booking-structure-design.md) · Branch: `feat/booking-structure` (stacked on `chore/professional-tooling`, not yet merged) · Status: **approved 2026-10-08**
+Spec: [`specs/2026-10-08-booking-structure-design.md`](../specs/2026-10-08-booking-structure-design.md) · Branch: `feat/booking-structure` (stacked on `chore/professional-tooling`, not yet merged) · Status: **approved 2026-10-08, done**
 
 ## How every task is checked
 
@@ -65,3 +65,9 @@ Spec: [`specs/2026-10-08-booking-structure-design.md`](../specs/2026-10-08-booki
     - `CHANGELOG.md`: `Added` covers weddings, quote links, proof, process, testimonials and FAQ; `Changed` covers the hero headline, vertical videos and section order.
     - `package.json`: version 0.2.0.
     - Final full check: Lighthouse mobile ≥ 95 in all four categories.
+
+## Result
+
+- `pnpm ci:check` passes.
+- Lighthouse (local, headless): Accessibility, Best Practices and SEO 100, CLS 0, FCP 0.9 s. Page weight went from 281 KB to 264 KB.
+- Performance reports `NO_LCP` in local headless Chrome, both before this branch (`a3850d4`) and after it. This is a measuring artifact, not a regression. Confirm the score with PageSpeed Insights on the Vercel preview.

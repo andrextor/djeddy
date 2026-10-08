@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-10-08
+
+### Added
+
+- **Weddings** as a fourth event type, with "DJ para bodas" in the page keywords.
+- **Quote links on every event card:** each one opens WhatsApp with a message ready to fill in (event type, date, city, guests). The other WhatsApp buttons use the same template.
+- **"Cómo trabajo" section:** what is included and the three steps to book.
+- **Questions section** with five answers about travel, equipment, music, song requests and booking, also published as `FAQPage` structured data.
+- **Stats strip and testimonials section,** both hidden until Eddy's real figures and quotes are added (see `docs/07`).
+
+### Changed
+
+- **Hero headline** now says "DJ en Cali para bodas y eventos", and the intro is shorter so the button and photo fit on the first phone screen.
+- **Videos** are shown as vertical 9:16 cards with the live-event clip first; any number of clips is supported.
+- **Section order** puts event types before videos, and the menu gains "Preguntas".
+
 ## [0.1.0] - 2026-10-08
 
 ### Added
