@@ -10,7 +10,7 @@ const services = defineCollection({
       order: z.number().int().positive(),
       tag: z.string().min(1).max(12),
       title: z.string().min(1),
-      description: z.string().min(1).max(160),
+      description: z.string().min(1).max(60),
       image: image().optional(),
       url: z.url().optional(),
     }),
