@@ -1,6 +1,7 @@
 import activationPoster from '@/assets/dj-eddy-activacion-de-marca-poster.jpg'
 import hablamePoster from '@/assets/dj-eddy-hablame-carangano-poster.jpg'
 import introPoster from '@/assets/dj-eddy-presentacion-poster.jpg'
+import type { IconName } from '@/components/Icon.astro'
 
 export type SocialNetwork = 'instagram' | 'tiktok' | 'youtube' | 'facebook'
 
@@ -75,8 +76,8 @@ export interface SiteConfig {
   socials: readonly SocialLink[]
   /** Proof strip under the hero; hidden while empty. Only figures Eddy has confirmed. */
   stats: readonly Stat[]
-  /** "Qué incluye" list; only claims Eddy has made */
-  included: readonly string[]
+  /** "Qué incluye" tiles; only claims Eddy has made, 2–3 words each */
+  included: readonly { icon: IconName; label: string }[]
   /** Real client quotes; the section is hidden while empty */
   testimonials: readonly Testimonial[]
   /** Also emitted as FAQPage JSON-LD; only questions Eddy's own claims answer */
@@ -146,11 +147,10 @@ export const site = {
     },
   ],
   included: [
-    'Sonido e iluminación propios',
-    'Salsa clásica y romántica, crossover y lo que pida tu pista',
-    'Set armado con tu música y la de tus invitados',
-    'Lectura de pista para que nadie se quede sentado',
-    'Base en Cali, viajo a todo Colombia',
+    { icon: 'speaker', label: 'Sonido propio' },
+    { icon: 'light', label: 'Iluminación' },
+    { icon: 'music', label: 'Tu música' },
+    { icon: 'pin', label: 'Todo Colombia' },
   ],
   videos: [
     {

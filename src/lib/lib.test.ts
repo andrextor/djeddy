@@ -41,7 +41,7 @@ test('buildJsonLd links videos and FAQ to the business entity', () => {
     email: 'hola@djeddy.test',
     socials: [{ network: 'instagram', label: 'Instagram', url: 'https://instagram.com/djeddy' }],
     stats: [],
-    included: [],
+    included: [{ icon: 'speaker', label: 'Sonido propio' }],
     testimonials: [],
     faq: [{ question: '¿Viajas?', answer: 'Sí.' }],
     videos: [
