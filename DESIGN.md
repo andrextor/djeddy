@@ -30,7 +30,7 @@ These are the only raw values. Components never reference them directly.
 | Ink (backgrounds) | `--ink-950` #050403 · `--ink-900` #070604 · `--ink-850` #0a0806 · `--ink-800` #0c0a07 · `--ink-750` #0d0b08 · `--ink-700` #14110c |
 | Gold (brand light) | `--gold-300` #f1d67a · `--gold-400` #e6c463 · `--gold-500` #d4af37 · `--gold-600` #b8922a · `--gold-700` #9a7a1e |
 | Cream / sand (text) | `--cream-100` #f4efe4 · `--cream-200` #e6dcc3 · `--sand-400` #b8b0a0 · `--sand-600` #8a8272 |
-| Fixed | `--whatsapp-500` #25d366 (brand-mandated) · `--white` · `--black` |
+| Fixed | `--whatsapp-500` #25d366 (brand-mandated) · `--landak-500` #7c5cff (Landak Studio brand) · `--white` · `--black` |
 
 The warm dark stops that only exist inside gradients (#12100b … #2a2216) stay inside their gradient tokens.
 
@@ -57,6 +57,7 @@ The warm dark stops that only exist inside gradients (#12100b … #2a2216) stay 
 | | `--color-focus` | gold-500 | Every `:focus-visible` outline |
 | WhatsApp | `--color-whatsapp` | whatsapp-500 | WhatsApp button in the floating dock, "available" dot |
 | | `--color-on-whatsapp` | ink-900 | Icon/text on green |
+| Credit | `--color-credit` | landak-500 | "Landak Studio" in the footer credit |
 | Borders | `--border-subtle` | gold · 16 % | Dividers, quiet outlines |
 | | `--border-default` | gold · 22 % | Cards, glass, marquee |
 | | `--border-strong` | gold · 35 % | Photo frame, hover outlines, footer wordmark stroke |
@@ -87,6 +88,7 @@ The warm dark stops that only exist inside gradients (#12100b … #2a2216) stay 
 | `--color-text-muted` | 9.4 | anything |
 | `--color-text-dim` | 5.3 | text ≥ 12 px |
 | `--color-on-accent` on `--color-accent` | 9.6 | buttons, tags |
+| `--color-credit` on `--color-bg-footer` | 4.7 | footer credit (≥ 12 px) |
 | `--color-on-whatsapp` on `--color-whatsapp` | 10.2 | dock WhatsApp button (mobile) |
 
 **Forbidden:** white on WhatsApp green (2.0), and the canvas's original #6f685c for text (3.7). The canvas's #6f685c is why `--color-text-dim` was raised to sand-600. Text over photos always sits on a scrim.

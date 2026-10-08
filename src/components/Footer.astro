@@ -35,6 +35,16 @@ const iconFor = (network: SocialNetwork): IconName => network
   <div class="legal">
     <span>© {year} {site.legalName}. Todos los derechos reservados.</span>
     <span>{site.city} · {site.email}</span>
+    <a
+      class="credit"
+      href="https://landak.pro/"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Creado por Landak Studio (abre en una nueva pestaña)"
+    >
+      <span>Creado por <span class="studio">Landak Studio</span></span>
+      <Icon name="arrow-up-right" size={14} />
+    </a>
   </div>
 </footer>
 
@@ -121,6 +131,20 @@ const iconFor = (network: SocialNetwork): IconName => network
     mask-image: linear-gradient(180deg, black 20%, transparent 95%);
     user-select: none;
   }
+  .credit {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: var(--tap-min);
+    color: var(--color-text-dim);
+  }
+  .credit:hover {
+    color: var(--color-text);
+  }
+  .studio {
+    font-weight: 700;
+    color: var(--color-credit);
+  }
   .legal {
     display: flex;
     flex-direction: column;
@@ -168,6 +192,7 @@ const iconFor = (network: SocialNetwork): IconName => network
     .legal {
       flex-direction: row;
       justify-content: space-between;
+      align-items: center;
       margin-top: 40px;
       padding-top: 24px;
       font-size: 13px;
