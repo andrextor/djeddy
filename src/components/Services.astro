@@ -77,12 +77,12 @@ const services = (await getCollection('services')).sort((a, b) => a.data.order -
     gap: 16px;
     padding: 14px;
     border-radius: 20px;
-    border: 1px solid var(--border-gold-22);
-    background: linear-gradient(120deg, #1f1a12 0%, #0d0b08 100%);
+    border: 1px solid var(--border-default);
+    background: var(--gradient-row);
     color: var(--color-text);
   }
   .card.alt {
-    background: linear-gradient(120deg, #181410 0%, #0d0b08 100%);
+    background: var(--gradient-row-alt);
   }
   .media {
     position: relative;
@@ -107,8 +107,8 @@ const services = (await getCollection('services')).sort((a, b) => a.data.order -
     bottom: 8px;
     padding: 4px 8px;
     border-radius: var(--radius-pill);
-    background: var(--color-gold);
-    color: var(--color-bg);
+    background: var(--color-accent);
+    color: var(--color-on-accent);
     font-size: 10px;
     font-weight: 700;
     letter-spacing: 0.14em;
@@ -137,7 +137,7 @@ const services = (await getCollection('services')).sort((a, b) => a.data.order -
   .arrow {
     align-self: center;
     flex: 0 0 auto;
-    color: var(--color-gold);
+    color: var(--color-accent);
   }
 
   @media (min-width: 1024px) {
@@ -174,7 +174,7 @@ const services = (await getCollection('services')).sort((a, b) => a.data.order -
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(180deg, rgba(7, 6, 4, 0.1) 0%, rgba(7, 6, 4, 0.2) 45%, rgba(7, 6, 4, 0.92) 100%);
+      background: var(--scrim-card);
     }
     .tag {
       left: 24px;

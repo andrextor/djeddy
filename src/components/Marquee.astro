@@ -28,9 +28,9 @@ const { items } = Astro.props
     align-items: center;
     height: 48px;
     overflow: hidden;
-    border-top: 1px solid var(--border-gold-25);
-    border-bottom: 1px solid var(--border-gold-25);
-    background: rgba(7, 6, 4, 0.6);
+    border-top: 1px solid var(--border-default);
+    border-bottom: 1px solid var(--border-default);
+    background: color-mix(in srgb, var(--color-bg) 60%, transparent);
   }
   .run {
     display: flex;
@@ -41,13 +41,13 @@ const { items } = Astro.props
     letter-spacing: 0.22em;
     text-transform: uppercase;
     white-space: nowrap;
-    color: var(--color-gold);
+    color: var(--color-accent);
   }
   .item {
     padding: 0 18px;
   }
   .dot {
-    color: rgba(212, 175, 55, 0.4);
+    color: color-mix(in srgb, var(--color-accent) 40%, transparent);
   }
   @media (min-width: 1024px) {
     .band {

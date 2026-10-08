@@ -1,7 +1,7 @@
 {
   "name": "djeddy",
   "private": true,
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Landing page for DJ Eddy",
   "type": "module",
   "packageManager": "pnpm@10.33.0",
@@ -16,8 +16,10 @@
     "test": "node --experimental-strip-types --no-warnings=ExperimentalWarning --test \"src/lib/*.test.ts\"",
     "check:content": "node --experimental-strip-types --no-warnings=ExperimentalWarning scripts/list-placeholders.ts",
     "lint": "biome check .",
+    "lint:fix": "biome check --write .",
     "format": "biome format --write .",
     "typecheck": "astro check",
+    "ci:check": "pnpm lint && pnpm test && pnpm build",
     "astro": "astro"
   },
   "dependencies": {

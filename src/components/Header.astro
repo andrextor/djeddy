@@ -77,7 +77,7 @@ const links = [
   }
   .wordmark em {
     font-style: normal;
-    color: var(--color-gold);
+    color: var(--color-accent);
   }
   .links {
     display: none;
@@ -104,14 +104,14 @@ const links = [
     height: var(--tap-min);
     padding: 0 16px;
     border-radius: var(--radius-pill);
-    background: var(--color-gold);
-    color: var(--color-bg);
+    background: var(--color-accent);
+    color: var(--color-on-accent);
     font-size: 13px;
     font-weight: 700;
   }
   .cta:hover {
-    background: var(--color-gold-light);
-    color: var(--color-bg);
+    background: var(--color-accent-light);
+    color: var(--color-on-accent);
   }
   .cta-long {
     display: none;
@@ -141,7 +141,7 @@ const links = [
     color: inherit;
   }
   #nav-menu::backdrop {
-    background: rgba(7, 6, 4, 0.55);
+    background: color-mix(in srgb, var(--color-bg) 55%, transparent);
   }
   .menu {
     display: flex;
@@ -162,7 +162,7 @@ const links = [
   }
   .menu a:hover {
     background: var(--color-surface-row);
-    color: var(--color-gold-light);
+    color: var(--color-accent-light);
   }
   @media (min-width: 1024px) {
     .header {

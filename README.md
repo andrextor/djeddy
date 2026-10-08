@@ -6,7 +6,7 @@ the design canvas in [`design/`](design/).
 
 ## Content
 
-All business data lives in `src/data/site.ts` and `src/data/events.json`. Photos and their exact
+All business data lives in `src/data/site.ts` and `src/data/services.json`. Photos and their exact
 filenames are documented in [`docs/07-fotos-y-archivos.md`](docs/07-fotos-y-archivos.md).
 `pnpm build` always works (sample data included); `pnpm build:release` refuses to build while any `[PLACEHOLDER]` or sample data remains, so hosting must run that one.
 
@@ -30,7 +30,13 @@ URL comes from `SITE_URL` or Vercel's `VERCEL_PROJECT_PRODUCTION_URL`; nothing i
 | `pnpm build:release` | Same, but fails if placeholders or sample data remain (use in hosting) |
 | `pnpm preview`   | Preview the production build             |
 | `pnpm lint`      | Lint and format check (Biome)            |
+| `pnpm lint:fix`  | Lint and apply safe fixes (Biome)        |
 | `pnpm format`    | Format the codebase (Biome)              |
 | `pnpm typecheck` | `astro check`                            |
 | `pnpm test`      | Unit tests (`node:test`)                 |
 | `pnpm check:content` | List remaining `[PLACEHOLDER]` values |
+| `pnpm ci:check`  | Lint + tests + build (what CI runs)      |
+
+## Contributing
+
+Read [`AGENTS.md`](AGENTS.md) first: every change goes design → spec → plan → approval → code, on its own branch, with a `CHANGELOG.md` entry. Design rules and the color palette are in [`DESIGN.md`](DESIGN.md).

@@ -78,7 +78,7 @@ const services = [
     position: relative;
     overflow: hidden;
     background:
-      radial-gradient(520px 420px at 0% 0%, rgba(212, 175, 55, 0.22), rgba(212, 175, 55, 0) 60%),
+      radial-gradient(520px 420px at 0% 0%, var(--glow-accent), transparent 60%),
       linear-gradient(180deg, var(--color-bg-elevated) 0%, var(--color-bg) 100%);
   }
   .grid-lines {
@@ -124,8 +124,8 @@ const services = [
   }
   h1 span {
     font-weight: 700;
-    color: var(--color-gold-text);
-    text-shadow: 0 0 40px rgba(212, 175, 55, 0.35);
+    color: var(--color-text-accent);
+    text-shadow: 0 0 40px var(--glow-accent-strong);
   }
   .lead {
     max-width: 34ch;
@@ -151,11 +151,11 @@ const services = [
   .primary {
     height: 56px;
     background: var(--gradient-gold);
-    color: var(--color-bg);
-    box-shadow: 0 16px 40px rgba(212, 175, 55, 0.25);
+    color: var(--color-on-accent);
+    box-shadow: var(--shadow-cta-sm);
   }
   .primary:hover {
-    color: var(--color-bg);
+    color: var(--color-on-accent);
     filter: brightness(1.06);
   }
   .secondary {
@@ -165,10 +165,10 @@ const services = [
     color: var(--color-text);
   }
   .secondary:hover {
-    color: var(--color-gold-light);
+    color: var(--color-accent-light);
   }
   .gold {
-    color: var(--color-gold);
+    color: var(--color-accent);
   }
   .stage {
     position: relative;
@@ -199,7 +199,7 @@ const services = [
     right: 0;
     bottom: 0;
     height: 220px;
-    background: radial-gradient(ellipse at 50% 100%, rgba(212, 175, 55, 0.35), rgba(212, 175, 55, 0) 70%);
+    background: radial-gradient(ellipse at 50% 100%, var(--glow-accent-strong), transparent 70%);
   }
   .photo {
     --tilt: 3deg;
@@ -211,8 +211,8 @@ const services = [
     margin: 0;
     border-radius: 28px;
     overflow: hidden;
-    border: 1px solid var(--border-gold-35);
-    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.65);
+    border: 1px solid var(--border-strong);
+    box-shadow: var(--shadow-photo);
     transform: rotate(var(--tilt));
   }
   .photo img {
@@ -224,7 +224,7 @@ const services = [
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg, rgba(7, 6, 4, 0) 50%, rgba(7, 6, 4, 0.85) 100%);
+    background: var(--scrim-photo);
   }
   figcaption {
     position: absolute;
@@ -240,7 +240,7 @@ const services = [
     font-weight: 600;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: rgba(244, 239, 228, 0.55);
+    color: color-mix(in srgb, var(--color-text) 55%, transparent);
   }
   .place {
     font-family: var(--font-display);
@@ -252,8 +252,8 @@ const services = [
   @media (min-width: 1024px) {
     .hero {
       background:
-        radial-gradient(900px 600px at 15% 10%, rgba(212, 175, 55, 0.22), rgba(212, 175, 55, 0) 60%),
-        radial-gradient(700px 500px at 90% 85%, rgba(154, 122, 30, 0.28), rgba(154, 122, 30, 0) 60%),
+        radial-gradient(900px 600px at 15% 10%, var(--glow-accent), transparent 60%),
+        radial-gradient(700px 500px at 90% 85%, var(--glow-deep), transparent 60%),
         linear-gradient(180deg, var(--color-bg-elevated) 0%, var(--color-bg) 100%);
     }
     .grid-lines {
@@ -261,11 +261,11 @@ const services = [
       position: absolute;
       inset: 0;
       background-image:
-        linear-gradient(rgba(212, 175, 55, 0.06) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(212, 175, 55, 0.06) 1px, transparent 1px);
+        linear-gradient(color-mix(in srgb, var(--color-accent) 6%, transparent) 1px, transparent 1px),
+        linear-gradient(90deg, color-mix(in srgb, var(--color-accent) 6%, transparent) 1px, transparent 1px);
       background-size: 120px 120px;
-      -webkit-mask-image: radial-gradient(ellipse at 50% 40%, #000 30%, transparent 75%);
-      mask-image: radial-gradient(ellipse at 50% 40%, #000 30%, transparent 75%);
+      -webkit-mask-image: radial-gradient(ellipse at 50% 40%, black 30%, transparent 75%);
+      mask-image: radial-gradient(ellipse at 50% 40%, black 30%, transparent 75%);
       pointer-events: none;
     }
     .inner {
@@ -296,7 +296,7 @@ const services = [
       line-height: 0.94;
     }
     h1 span {
-      text-shadow: 0 0 60px rgba(212, 175, 55, 0.35);
+      text-shadow: 0 0 60px var(--glow-accent-strong);
     }
     .lead {
       max-width: 440px;
