@@ -68,8 +68,9 @@ export const site = {
   countryName: 'Colombia',
   travelCities: ['Medellín', 'Bogotá', 'Cartagena', 'Pereira'],
   tagline:
-    'DJ en Cali para fiestas privadas, activaciones de marca y eventos corporativos. Salsa clásica y romántica, crossover y la lectura de pista que mantiene a todos bailando.',
+    'DJ en Cali para bodas, fiestas privadas, marcas y eventos corporativos. Salsa clásica y romántica, crossover y una pista que no se vacía.',
   keywords: [
+    'DJ para bodas',
     'DJ para fiestas privadas',
     'DJ para activaciones de marca',
     'DJ para eventos corporativos',

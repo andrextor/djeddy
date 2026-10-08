@@ -12,7 +12,7 @@ lee el nombre del archivo (SEO de imágenes).
 |---|--------|---------|---------------|---------------|---------|-----------|
 | 1 | Foto principal del DJ (hero) | `src/assets/` | `dj-eddy-en-cabina.webp` (entregada, 4000 × 6000) | 1040 × 1320 px (vertical, 4:5) | JPG o WebP (se recomprime al construir) | Portada, escritorio y móvil; también es la imagen de la ficha de Google |
 | 2 | Imagen para compartir en redes (Open Graph) | `public/` | `og.jpg` | exactamente 1200 × 630 px | JPG, ≤ 300 KB | Vista previa al compartir el enlace en WhatsApp, Instagram, Facebook |
-| 3 | Foto de cada tipo de evento | `src/assets/events/` | `evento-1.webp`, `evento-2.webp`, `evento-3.webp` (entregadas) | 840 × 1040 px (vertical, 4:5) | JPG o WebP | Tarjetas de "Fiestas, marcas y empresas" (1 privadas, 2 marcas, 3 corporativos/aire libre) |
+| 3 | Foto de cada tipo de evento | `src/assets/events/` | `evento-1.webp`, `evento-2.webp`, `evento-3.webp` (entregadas) · `evento-4.webp` (**pendiente**: bodas) | 840 × 1040 px (vertical, 4:5) | JPG o WebP | Tarjetas de "Bodas, fiestas y empresas" (1 privadas, 2 marcas, 3 corporativos/aire libre, 4 bodas) |
 | 4 | Favicon | `public/` | `favicon.svg` | vectorial | SVG | Pestaña del navegador (ya hay uno negro/dorado; solo cambiar si hay logo) |
 | 5 | Logo del DJ | `src/assets/` | `dj-eddy-logo.png` (original, entregado) · `dj-eddy-logo-dark.png` y `dj-eddy-mark.png` (derivados para fondo oscuro, generados) | 1338 × 1568 | PNG transparente | Icono en cabecera, logo completo en footer, favicon, icono iOS, `og.jpg`, JSON-LD `logo` |
 | 6 | Videos | *no se suben*: van en YouTube | — | 1080p, miniatura clara | Enlace de YouTube | Sección "En acción" (se muestran las miniaturas de YouTube) |
@@ -45,7 +45,10 @@ lee el nombre del archivo (SEO de imágenes).
 
 ### 3. `src/assets/events/evento-N.webp` — fotos de tipos de evento (entregadas)
 - Un archivo por tipo de evento: `evento-1` fiestas privadas, `evento-2`
-  activaciones de marca, `evento-3` corporativos / aire libre.
+  activaciones de marca, `evento-3` corporativos / aire libre, `evento-4`
+  bodas (pendiente: hasta que llegue, la tarjeta de bodas usa el degradado
+  dorado; al recibirla, añadir `"image": "../assets/events/evento-4.webp"`
+  a la entrada `bodas` de `src/data/services.json`).
 - Vertical 4:5, mínimo 840 × 1040 px. En escritorio la tarjeta muestra la
   imagen completa detrás del texto; en móvil, un recorte cuadrado a la
   izquierda con la fecha encima. Por eso el motivo principal debe estar
