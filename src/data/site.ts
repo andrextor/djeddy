@@ -61,6 +61,8 @@ export interface SiteConfig {
   socials: readonly SocialLink[]
   /** Proof strip under the hero; hidden while empty. Only figures Eddy has confirmed. */
   stats: readonly Stat[]
+  /** "Qué incluye" list; only claims Eddy has made */
+  included: readonly string[]
   /** Shown as 9:16 cards; real-event clips first */
   videos: readonly Video[]
 }
@@ -97,6 +99,13 @@ export const site = {
     { network: 'facebook', label: 'Facebook', url: 'https://www.facebook.com/edison.ayalaramirez' },
   ],
   stats: [],
+  included: [
+    'Sonido e iluminación propios',
+    'Salsa clásica y romántica, crossover y lo que pida tu pista',
+    'Set armado con tu música y la de tus invitados',
+    'Lectura de pista para que nadie se quede sentado',
+    'Base en Cali, viajo a todo Colombia',
+  ],
   videos: [
     {
       kind: 'file',
