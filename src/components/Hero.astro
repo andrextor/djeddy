@@ -2,11 +2,11 @@
 import { Image } from 'astro:assets'
 import heroImage from '@/assets/dj-eddy-en-cabina.webp'
 import { site } from '@/data/site'
-import { buildWhatsAppUrl } from '@/lib/whatsapp'
+import { buildQuoteMessage, buildWhatsAppUrl } from '@/lib/whatsapp'
 import Icon from './Icon.astro'
 import Marquee from './Marquee.astro'
 
-const whatsappUrl = buildWhatsAppUrl(site.whatsapp.number, site.whatsapp.message)
+const whatsappUrl = buildWhatsAppUrl(site.whatsapp.number, buildQuoteMessage())
 const services = [
   'Fiestas privadas',
   'Activaciones de marca',

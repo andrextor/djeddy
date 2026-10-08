@@ -1,10 +1,10 @@
 ---
 import { site } from '@/data/site'
-import { buildWhatsAppUrl } from '@/lib/whatsapp'
+import { buildQuoteMessage, buildWhatsAppUrl } from '@/lib/whatsapp'
 import Icon from './Icon.astro'
 import SectionHeading from './SectionHeading.astro'
 
-const whatsappUrl = buildWhatsAppUrl(site.whatsapp.number, site.whatsapp.message)
+const whatsappUrl = buildWhatsAppUrl(site.whatsapp.number, buildQuoteMessage())
 ---
 
 <section id="contacto" class="contact" aria-labelledby="contact-title">

@@ -2,13 +2,21 @@ import assert from 'node:assert/strict'
 import { test } from 'node:test'
 import { assertNoPlaceholders, findPlaceholders } from './placeholders.ts'
 import { buildJsonLd, serializeJsonLd } from './seo.ts'
-import { buildWhatsAppUrl } from './whatsapp.ts'
+import { buildQuoteMessage, buildWhatsAppUrl } from './whatsapp.ts'
 
 test('buildWhatsAppUrl encodes the message', () => {
   assert.equal(
     buildWhatsAppUrl('573001234567', 'Hola Eddy, ¿tienes fecha?'),
     'https://wa.me/573001234567?text=Hola%20Eddy%2C%20%C2%BFtienes%20fecha%3F',
   )
+})
+
+test('buildQuoteMessage prefills the event type and leaves the facts to fill in', () => {
+  assert.equal(
+    buildQuoteMessage('Bodas'),
+    'Hola Eddy, quiero cotizar un evento.\nTipo: Bodas\nFecha: \nCiudad: \nInvitados: ',
+  )
+  assert.match(buildQuoteMessage(), /\nTipo: \nFecha: /)
 })
 
 test('findPlaceholders reports nested bracket tokens with their path', () => {
@@ -29,7 +37,7 @@ test('buildJsonLd links videos to the business entity', () => {
     travelCities: ['Bogotá'],
     tagline: 'DJ en Medellín',
     keywords: ['DJ para fiestas privadas'],
-    whatsapp: { number: '573001234567', display: '+57 300 123 4567', message: 'Hola' },
+    whatsapp: { number: '573001234567', display: '+57 300 123 4567' },
     email: 'hola@djeddy.test',
     socials: [{ network: 'instagram', label: 'Instagram', url: 'https://instagram.com/djeddy' }],
     videos: [

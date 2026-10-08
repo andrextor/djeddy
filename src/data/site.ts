@@ -50,8 +50,6 @@ export interface SiteConfig {
     number: string
     /** Human-readable form shown on the page */
     display: string
-    /** Pre-filled message */
-    message: string
   }
   email: string
   socials: readonly SocialLink[]
@@ -80,7 +78,6 @@ export const site = {
   whatsapp: {
     number: '573182720357',
     display: '+57 318 272 0357',
-    message: 'Hola Eddy, quiero reservar una fecha para mi evento.',
   },
   email: 'edisonayalaramirez17@gmail.com',
   socials: [

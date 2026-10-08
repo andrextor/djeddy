@@ -2,10 +2,10 @@
 import { Image } from 'astro:assets'
 import mark from '@/assets/dj-eddy-mark.png'
 import { site } from '@/data/site'
-import { buildWhatsAppUrl } from '@/lib/whatsapp'
+import { buildQuoteMessage, buildWhatsAppUrl } from '@/lib/whatsapp'
 import Icon from './Icon.astro'
 
-const whatsappUrl = buildWhatsAppUrl(site.whatsapp.number, site.whatsapp.message)
+const whatsappUrl = buildWhatsAppUrl(site.whatsapp.number, buildQuoteMessage())
 const links = [
   { href: '#videos', label: 'Videos' },
   { href: '#eventos', label: 'Eventos' },
