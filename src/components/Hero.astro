@@ -26,13 +26,15 @@ const services = [
     <div class="copy">
       <p class="badge glass rise delay-1">
         <span class="live"></span>
-        <span>Agenda abierta<span class="badge-long"> · fiestas privadas, marcas y empresas</span></span>
+        <span>Agenda abierta<span class="badge-long"> · bodas, fiestas y empresas</span></span>
       </p>
-      <h1 id="hero-title" class="rise delay-2">Enciende<br /><span>tu evento.</span></h1>
+      <h1 id="hero-title" class="rise delay-2">
+        <span class="kicker">DJ en {site.city} para bodas y eventos</span>
+        Enciende<br /><span class="accent">tu evento.</span>
+      </h1>
       <p class="lead rise delay-3">
-        DJ en {site.city} para fiestas privadas, activaciones de marca y eventos corporativos: salsa
-        clásica y romántica, crossover, sonido e iluminación propios y una lectura de pista que no deja a
-        nadie sentado. Base en {site.city}, disponible en todo {site.countryName}.
+        Salsa clásica y romántica, crossover y sonido e iluminación propios. Base en {site.city}, viajo a
+        todo {site.countryName}.
       </p>
       <div class="actions rise delay-4">
         <a class="primary" href={whatsappUrl} target="_blank" rel="noopener">
@@ -123,7 +125,16 @@ const services = [
     letter-spacing: -0.035em;
     color: var(--color-text);
   }
-  h1 span {
+  .kicker {
+    display: block;
+    margin-bottom: 14px;
+    font-size: clamp(17px, 4.6vw, 20px);
+    font-weight: 600;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+    color: var(--color-text-badge);
+  }
+  .accent {
     font-weight: 700;
     color: var(--color-text-accent);
     text-shadow: 0 0 40px var(--glow-accent-strong);
@@ -296,7 +307,11 @@ const services = [
       font-size: clamp(88px, 9.2vw, 132px);
       line-height: 0.94;
     }
-    h1 span {
+    .kicker {
+      margin-bottom: 18px;
+      font-size: 22px;
+    }
+    .accent {
       text-shadow: 0 0 60px var(--glow-accent-strong);
     }
     .lead {
