@@ -1,5 +1,7 @@
+import activationPoster from '@/assets/dj-eddy-activacion-de-marca-poster.jpg'
 import eventVideoPoster from '@/assets/dj-eddy-evento-poster.jpg'
 import hablamePoster from '@/assets/dj-eddy-hablame-carangano-poster.jpg'
+import introPoster from '@/assets/dj-eddy-presentacion-poster.jpg'
 
 export type SocialNetwork = 'instagram' | 'tiktok' | 'youtube' | 'facebook'
 
@@ -152,6 +154,22 @@ export const site = {
     'Base en Cali, viajo a todo Colombia',
   ],
   videos: [
+    {
+      kind: 'file',
+      src: '/videos/dj-eddy-presentacion.mp4',
+      poster: introPoster,
+      title: 'Haz que tu evento se sienta diferente',
+      duration: '0:24',
+      uploadDate: '2026-10-08',
+    },
+    {
+      kind: 'file',
+      src: '/videos/dj-eddy-activacion-de-marca.mp4',
+      poster: activationPoster,
+      title: 'Activación de marca en Cali',
+      duration: '0:42',
+      uploadDate: '2026-10-08',
+    },
     {
       kind: 'file',
       src: '/videos/dj-eddy-evento.mp4',
