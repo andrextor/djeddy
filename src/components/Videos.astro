@@ -166,7 +166,7 @@ const facadeData = (video: Video): Record<string, string> =>
     height: 380px;
     border-radius: var(--radius-card);
     overflow: hidden;
-    border: 1px solid var(--border-gold-22);
+    border: 1px solid var(--border-default);
     background: var(--gradient-card);
   }
   .secondary {
@@ -193,7 +193,7 @@ const facadeData = (video: Video): Record<string, string> =>
   }
   video {
     object-fit: contain;
-    background: #000;
+    background: var(--color-media-bg);
   }
   .card.playing,
   .card.playing:hover {
@@ -207,7 +207,7 @@ const facadeData = (video: Video): Record<string, string> =>
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg, rgba(7, 6, 4, 0.25) 0%, rgba(7, 6, 4, 0.75) 100%);
+    background: var(--scrim-video);
   }
   .facade .play {
     z-index: 1;
@@ -228,14 +228,14 @@ const facadeData = (video: Video): Record<string, string> =>
       background 0.35s ease;
   }
   .gold {
-    color: var(--color-gold);
+    color: var(--color-accent);
   }
   .facade:hover .play {
-    background: rgba(212, 175, 55, 0.9);
+    background: color-mix(in srgb, var(--color-accent) 90%, transparent);
     transform: translate(-50%, -50%) scale(1.12);
   }
   .facade:hover .gold {
-    color: var(--color-bg);
+    color: var(--color-on-accent);
   }
   .caption {
     position: absolute;
@@ -260,7 +260,7 @@ const facadeData = (video: Video): Record<string, string> =>
     font-weight: 700;
     letter-spacing: 0.22em;
     text-transform: uppercase;
-    color: var(--color-gold);
+    color: var(--color-accent);
   }
   h3 {
     font-size: 17px;
@@ -282,10 +282,10 @@ const facadeData = (video: Video): Record<string, string> =>
     padding: 22px;
     border-radius: var(--radius-card);
     background: var(--gradient-gold);
-    color: var(--color-bg);
+    color: var(--color-on-accent);
   }
   .more:hover {
-    color: var(--color-bg);
+    color: var(--color-on-accent);
     filter: brightness(1.06);
   }
   .more > div {

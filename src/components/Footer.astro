@@ -43,7 +43,7 @@ const iconFor = (network: SocialNetwork): IconName => network
     position: relative;
     margin-top: 64px;
     padding: 44px var(--gutter) 28px;
-    border-top: 1px solid var(--border-gold-20);
+    border-top: 1px solid var(--border-default);
     background: var(--color-bg-footer);
     overflow: hidden;
   }
@@ -100,11 +100,11 @@ const iconFor = (network: SocialNetwork): IconName => network
     color: var(--color-text);
   }
   li a:hover {
-    color: var(--color-gold-light);
-    border-color: var(--border-gold-35);
+    color: var(--color-accent-light);
+    border-color: var(--border-strong);
   }
   .icon {
-    color: var(--color-gold);
+    color: var(--color-accent);
   }
   .wordmark {
     margin-top: 28px;
@@ -115,9 +115,9 @@ const iconFor = (network: SocialNetwork): IconName => network
     letter-spacing: -0.06em;
     white-space: nowrap;
     color: transparent;
-    -webkit-text-stroke: 1px rgba(212, 175, 55, 0.35);
-    -webkit-mask-image: linear-gradient(180deg, #000 20%, transparent 95%);
-    mask-image: linear-gradient(180deg, #000 20%, transparent 95%);
+    -webkit-text-stroke: 1px var(--border-strong);
+    -webkit-mask-image: linear-gradient(180deg, black 20%, transparent 95%);
+    mask-image: linear-gradient(180deg, black 20%, transparent 95%);
     user-select: none;
   }
   .legal {
@@ -126,7 +126,7 @@ const iconFor = (network: SocialNetwork): IconName => network
     gap: 2px;
     margin-top: 20px;
     padding-top: 16px;
-    border-top: 1px solid var(--border-gold-14);
+    border-top: 1px solid var(--border-subtle);
     font-size: 12px;
     line-height: 1.6;
     color: var(--color-text-dim);

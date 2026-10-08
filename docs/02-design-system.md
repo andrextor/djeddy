@@ -6,55 +6,9 @@ consumen desde los estilos scoped de cada componente. **No redondear ni
 "normalizar" a una rejilla**.
 
 ## Color
-```css
-:root {
-  --color-bg: #070604;            /* fondo de página */
-  --color-bg-elevated: #0c0a07;   /* inicio del degradado del hero */
-  --color-bg-footer: #050403;
-  --color-surface: rgba(20, 17, 12, 0.55);  /* cristal */
-  --color-surface-row: rgba(255, 255, 255, 0.03);  /* filas de contacto */
-
-  --color-gold: #d4af37;          /* acento principal */
-  --color-gold-light: #f1d67a;
-  --color-gold-dark: #b8922a;
-  --color-gold-text: #e6c463;     /* segunda línea del titular */
-  --color-gold-deep: #9a7a1e;     /* glow inferior derecho del hero */
-
-  --color-text: #f4efe4;
-  --color-text-muted: #b8b0a0;
-  --color-text-dim: #8a8272;      /* copyright; el diseño usa #6f685c, se sube por contraste AA (ver Parte 5) */
-  --color-text-badge: #e6dcc3;
-
-  --color-whatsapp: #25d366;
-
-  --border-gold-14: rgba(212, 175, 55, 0.14);
-  --border-gold-16: rgba(212, 175, 55, 0.16);
-  --border-gold-18: rgba(212, 175, 55, 0.18);
-  --border-gold-20: rgba(212, 175, 55, 0.20);
-  --border-gold-22: rgba(212, 175, 55, 0.22);
-  --border-gold-25: rgba(212, 175, 55, 0.25);
-  --border-gold-35: rgba(212, 175, 55, 0.35);
-
-  --gradient-gold: linear-gradient(120deg, #f1d67a 0%, #d4af37 55%, #b8922a 100%);
-  --gradient-photo: linear-gradient(165deg, #33291a 0%, #17130d 50%, #0a0806 100%);
-  --gradient-card: linear-gradient(140deg, #201a11 0%, #0d0b08 60%, #070604 100%);
-  --gradient-card-alt: linear-gradient(200deg, #1a1610 0%, #0a0806 100%);
-  --gradient-event-a: linear-gradient(180deg, #2a2216 0%, #12100b 55%, #070604 100%);
-  --gradient-event-b: linear-gradient(180deg, #1f1a12 0%, #100e0a 55%, #070604 100%);
-  --shadow-card: 0 40px 120px rgba(0, 0, 0, 0.65);
-  --shadow-cta: 0 20px 50px rgba(212, 175, 55, 0.25);
-  --shadow-float: 0 16px 40px rgba(0, 0, 0, 0.55);
-}
-```
-
-Fondo del hero (escritorio):
-```css
-background:
-  radial-gradient(900px 600px at 15% 10%, rgba(212,175,55,.22), rgba(212,175,55,0) 60%),
-  radial-gradient(700px 500px at 90% 85%, rgba(154,122,30,.28), rgba(154,122,30,0) 60%),
-  linear-gradient(180deg, #0c0a07 0%, #070604 100%);
-```
-Móvil: `radial-gradient(520px 420px at 0% 0%, …)` + el mismo lineal.
+La paleta (primitivos, tokens semánticos por rol, contraste y reglas) vive en
+[`DESIGN.md`](../DESIGN.md#color); los valores, en `src/styles/tokens.css`.
+No se duplica aquí para que no diverjan.
 
 ## Tipografía
 - **Display**: `Sora Variable` (pesos usados: 600, 700, 800). Fallback: `'Helvetica Neue', Arial, sans-serif`.
@@ -63,7 +17,7 @@ Móvil: `radial-gradient(520px 420px at 0% 0%, …)` + el mismo lineal.
 
 | Rol | Escritorio (≥1024) | Móvil (<1024) | Familia / peso | Tracking |
 |-----|-------------------|---------------|----------------|----------|
-| H1 hero | 132px / 0.94 | 62px / 0.96 | Sora 800; 2.ª línea 700 en `--color-gold-text` con `text-shadow: 0 0 60px rgba(212,175,55,.35)` (40px en móvil) | -0.035em |
+| H1 hero | 132px / 0.94 | 62px / 0.96 | Sora 800; 2.ª línea 700 en `--color-text-accent` con `text-shadow: 0 0 60px var(--glow-accent-strong)` (40px en móvil) | -0.035em |
 | H2 sección | 68px / 1 | 40px / 1 | Sora 700 | -0.03em |
 | H2 contacto | 72px / 0.98 | 44px / 0.98 | Sora 700 | -0.035em |
 | H3 tarjeta evento | 26px / 1.15 | 18px / 1.2 | Sora 700 | -0.02em / -0.015em |
@@ -78,7 +32,7 @@ Móvil: `radial-gradient(520px 420px at 0% 0%, …)` + el mismo lineal.
 | Botón | 15px | 15px (13px nav) | Manrope 700 | — |
 | Enlaces nav | 14px | — | Manrope 600, `--color-text-muted` | — |
 | Marquesina | 15px | 12px | Sora 600, uppercase, gold | 0.22em |
-| Wordmark footer | 220px / 0.85 | 88px / 0.85 | Sora 800, `color: transparent; -webkit-text-stroke: 1px rgba(212,175,55,.35)` | -0.06em |
+| Wordmark footer | 220px / 0.85 | 88px / 0.85 | Sora 800, `color: transparent; -webkit-text-stroke: 1px var(--border-strong)` | -0.06em |
 | Wordmark nav | 20px | 17px | Sora 800, "DJ" texto + "EDDY" gold | 0.08em / 0.06em |
 | Copyright | 13px | 12px / 1.6 | Manrope 400, `--color-text-dim` | — |
 
@@ -117,22 +71,22 @@ móvil escala en fluido (contenedores `max-width: 100%`, tipografía con
 
 ## Efectos (utilidades globales en `global.css`)
 ```css
-.glass { background: var(--color-surface); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); border: 1px solid var(--border-gold-22); }
+.glass { background: var(--color-surface); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); border: 1px solid var(--border-default); }
 
 .grain { background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/></svg>"); mix-blend-mode: soft-light; opacity: .35; pointer-events: none; }
 
-.beam { position: absolute; top: -10%; width: 14px; height: 120%; border-radius: 999px; filter: blur(10px); opacity: .55; background: linear-gradient(180deg, rgba(241,214,122,0) 0%, rgba(241,214,122,.9) 35%, rgba(212,175,55,.7) 70%, rgba(212,175,55,0) 100%); transform-origin: top center; animation: sway 7s ease-in-out infinite alternate; }
+.beam { position: absolute; top: -10%; width: 14px; height: 120%; border-radius: 999px; filter: blur(10px); opacity: .55; background: var(--gradient-beam); transform-origin: top center; animation: sway 7s ease-in-out infinite alternate; }
 
 .card { transition: transform .4s cubic-bezier(.2,.7,.2,1), border-color .4s ease, filter .4s ease; }
-.card:hover { transform: translateY(-6px) scale(1.02); border-color: rgba(212,175,55,.7); }
+.card:hover { transform: translateY(-6px) scale(1.02); border-color: var(--border-hover); }
 .focus-group:hover .card { filter: blur(2px) grayscale(.7) brightness(.6); }
 .focus-group .card:hover { filter: none; }
 
-.wordmark { -webkit-mask-image: linear-gradient(180deg, #000 20%, transparent 95%); mask-image: linear-gradient(180deg, #000 20%, transparent 95%); }
+.wordmark { -webkit-mask-image: linear-gradient(180deg, black 20%, transparent 95%); mask-image: linear-gradient(180deg, black 20%, transparent 95%); }
 ```
 Rejilla tenue del hero (solo escritorio): dos `linear-gradient` de 1px en
-`rgba(212,175,55,.06)` con `background-size: 120px 120px` y máscara radial
-`ellipse at 50% 40%, #000 30%, transparent 75%`.
+`--color-accent` al 6 % con `background-size: 120px 120px` y máscara radial
+`ellipse at 50% 40%, black 30%, transparent 75%`.
 
 ## Movimiento
 | Nombre | Definición | Uso |
@@ -142,7 +96,7 @@ Rejilla tenue del hero (solo escritorio): dos `linear-gradient` de 1px en
 | `sway` | `7s ease-in-out infinite alternate`; `rotate(-4deg)` → `rotate(4deg)`; delays `0 / -2.5s / -5s` | haces de luz |
 | `marquee` | `26s linear infinite`; `translateX(0)` → `translateX(-50%)`; contenido duplicado | marquesina |
 | `pulse` | `2s ease-out infinite` en `::before` (`inset:-8px`, borde 2px verde .6); `scale(.85), opacity 1` → `scale(1.35), opacity 0` | botón flotante |
-| hover play | `.play` `transform .35s, background .35s` → `scale(1.12)`, fondo `rgba(212,175,55,.9)`, icono `#070604` | tarjetas de video |
+| hover play | `.play` `transform .35s, background .35s` → `scale(1.12)`, fondo `--color-accent` al 90 %, icono `--color-on-accent` | tarjetas de video |
 
 **Obligatorio**:
 ```css
@@ -154,7 +108,7 @@ Rejilla tenue del hero (solo escritorio): dos `linear-gradient` de 1px en
 
 ## Iconografía
 SVG inline, trazo 1.6px (`stroke-linecap/linejoin: round`), caja 24, tamaños
-16/18/20/22/26/30/34 según contexto. Color por `currentColor` o `--color-gold`.
+16/18/20/22/26/30/34 según contexto. Color por `currentColor` o `--color-accent`.
 Nunca emoji. Iconos: WhatsApp (relleno, path oficial simplificado), Play,
 ArrowUpRight, Instagram, TikTok, YouTube, Facebook, Menu.
 

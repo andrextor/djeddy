@@ -59,7 +59,7 @@ The warm dark stops used only inside gradients (#12100b … #33291a) stay inside
 | WhatsApp | `--color-whatsapp`, `--color-on-whatsapp` |
 | Gradients / shadows | existing `--gradient-*` and `--shadow-*`, rewritten to reference primitives |
 
-Opacity variants are built with `color-mix(in srgb, var(--gold-500) 22%, transparent)` inside `tokens.css`. This is Baseline 2023, so no fallback is needed. One-off alphas that don't match a role, such as a single glow, use `color-mix` on a primitive inside the component, never `rgba()` with typed numbers.
+Opacity variants are built with `color-mix(in srgb, var(--gold-500) 22%, transparent)` inside `tokens.css`. This is Baseline 2023, so no fallback is needed. One-off alphas that don't match a role, such as a single glow, use `color-mix` on a semantic token inside the component, never `rgba()` with typed numbers.
 
 **Visual change (accepted):** the seven gold border alphas (14, 16, 18, 20, 22, 25, 35 %) collapse into three steps (16, 22, 35 %). A shift of a few percent in alpha on a hairline border can't be seen. Everything else keeps its computed color.
 
