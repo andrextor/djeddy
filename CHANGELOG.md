@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-10-08
+
+### Added
+
+- **Two new vertical videos:** Eddy's own presentation ("Haz que tu evento se sienta diferente") and a brand activation in Cali. They lead the video section and load only when tapped (4.1 MB and 7.6 MB).
+
+### Changed
+
+- **Videos come first,** right after the hero, and the menu starts with "Videos".
+- **Desktop video grid:** three clips plus the "Más clips" card fill one row from 1280 px (two per row from 1024 px).
+
+### Removed
+
+- The low-quality "En vivo en un evento" clip, replaced by the two new videos.
+
 ## [0.2.0] - 2026-10-08
 
 ### Added

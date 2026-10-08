@@ -1,7 +1,7 @@
 {
   "name": "djeddy",
   "private": true,
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Landing page for DJ Eddy",
   "type": "module",
   "packageManager": "pnpm@10.33.0",

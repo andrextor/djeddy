@@ -1,6 +1,6 @@
 # New videos first: plan
 
-Spec: [`specs/2026-10-08-new-videos-design.md`](../specs/2026-10-08-new-videos-design.md) · Branch: `feat/new-videos` (from `main` at `0c3523c`) · Status: **approved 2026-10-08**
+Spec: [`specs/2026-10-08-new-videos-design.md`](../specs/2026-10-08-new-videos-design.md) · Branch: `feat/new-videos` (from `main` at `0c3523c`) · Status: **approved 2026-10-08, done**
 
 ## How every task is checked
 
@@ -29,3 +29,18 @@ Spec: [`specs/2026-10-08-new-videos-design.md`](../specs/2026-10-08-new-videos-d
 4. **`chore(release): 0.3.0`.**
    - `CHANGELOG.md`: `Added` covers the two new clips; `Changed` covers videos first and the desktop grid.
    - `package.json`: version 0.3.0.
+
+## Result
+
+- `pnpm ci:check` passes.
+- No `<video>` or `<iframe>` in the HTML before a tap.
+- 3 `VideoObject`s in the JSON-LD.
+- Both MP4s have `moov` before `mdat`.
+
+Change requested by Iván after review: the old "En vivo en un evento" clip was removed, together with its MP4 and poster. "Más clips" went back to being the fourth card, so on desktop three videos and that card fill one row.
+
+Deviation, found in the 1024 px check: four columns left the captions cramped over the play button. The grid now uses two columns from 1024 px and four from 1280 px.
+
+The first activation poster (second 12) showed parked cars. It was replaced by the frame at second 5, where Eddy is on the mic.
+
+Not checked here: playback in Safari. The encode is H.264 High / AAC LC / yuv420p, which Safari supports, but it should be confirmed on an iPhone in the Vercel preview.
