@@ -21,7 +21,7 @@ const facadeData = (video: Video): Record<string, string> =>
 <section id="videos" class="videos" aria-labelledby="videos-title">
   <div class="head">
     <SectionHeading
-      index="01"
+      index="02"
       label="Videos"
       title="En acción"
       id="videos-title"
@@ -287,7 +287,7 @@ const facadeData = (video: Video): Record<string, string> =>
   @media (min-width: 1024px) {
     .videos {
       gap: 48px;
-      padding: var(--section-gap) var(--gutter);
+      padding: 0 var(--gutter) var(--section-gap);
       scroll-margin-top: 120px;
     }
     .head {

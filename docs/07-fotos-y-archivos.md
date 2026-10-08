@@ -77,6 +77,21 @@ lee el nombre del archivo (SEO de imágenes).
 - Se necesita también el título corto de cada video ("Boda en Hacienda El
   Roble"), la duración ("3:12") y la fecha de subida.
 
+### 7. Datos que solo Eddy puede dar (pendientes)
+Van en `src/data/site.ts`. Mientras un bloque está vacío, su sección **no se
+muestra** en la página (no aparece texto de relleno). Solo datos reales.
+
+| Dato | Campo | Ejemplo | Se ve en |
+|------|-------|---------|----------|
+| 3 cifras que no caduquen | `stats` | `{ value: '+300', label: 'eventos animados' }`, años en cabina, ciudades | Franja bajo la portada |
+| 3 testimonios reales con permiso | `testimonials` | `{ quote: '…', name: 'Laura', event: 'Boda en Cali' }` (solo nombre de pila) | Sección "Testimonios" |
+| Más clips verticales (9:16, 15–60 s, pista llena) | `videos` | MP4 en `public/videos/` + póster en `src/assets/`, o ID de YouTube | Sección "En acción" |
+| Foto de boda | `services.json` → `bodas.image` | `evento-4.webp` (ver punto 3) | Tarjeta "Bodas" |
+| Forma de pago y con cuánta antelación reservar | `faq` | Nueva pregunta + respuesta | Sección "Preguntas" |
+| ¿Hace de animador / maestro de ceremonias? ¿Horas incluidas? | `included` | `'Animación y micrófono'` | "Qué incluye" |
+
+No se publican cifras, opiniones ni servicios que Eddy no haya confirmado.
+
 ## Recomendaciones generales
 - Exportar en JPG calidad 80–85; peso orientativo indicado en la tabla. No
   hace falta convertir a WebP: se hace solo al construir la web (excepto

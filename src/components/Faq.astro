@@ -1,20 +1,22 @@
 ---
 import type { FaqItem } from '@/data/site'
 import Icon from './Icon.astro'
+import type { Props as HeadingProps } from './SectionHeading.astro'
 import SectionHeading from './SectionHeading.astro'
 
 export interface Props {
   faq: readonly FaqItem[]
+  index: HeadingProps['index']
 }
 
-const { faq } = Astro.props
+const { faq, index } = Astro.props
 ---
 
 {
   faq.length > 0 && (
     <section id="preguntas" class="faq" aria-labelledby="faq-title">
       <SectionHeading
-        index="05"
+        index={index}
         label="Preguntas"
         title="Antes de reservar"
         id="faq-title"

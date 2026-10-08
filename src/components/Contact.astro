@@ -2,7 +2,14 @@
 import { site } from '@/data/site'
 import { buildQuoteMessage, buildWhatsAppUrl } from '@/lib/whatsapp'
 import Icon from './Icon.astro'
+import type { Props as HeadingProps } from './SectionHeading.astro'
 import SectionHeading from './SectionHeading.astro'
+
+export interface Props {
+  index: HeadingProps['index']
+}
+
+const { index } = Astro.props
 
 const whatsappUrl = buildWhatsAppUrl(site.whatsapp.number, buildQuoteMessage())
 ---
@@ -11,7 +18,7 @@ const whatsappUrl = buildWhatsAppUrl(site.whatsapp.number, buildQuoteMessage())
   <div class="glow" aria-hidden="true"></div>
   <div class="panel glass">
     <div class="intro">
-      <SectionHeading index="03" label="Contacto" title="Reserva tu fecha." id="contact-title" />
+      <SectionHeading index={index} label="Contacto" title="Reserva tu fecha." id="contact-title" />
       <p class="lead">
         Cuéntame qué celebras, dónde y cuándo. Te respondo el mismo día con disponibilidad y propuesta.
       </p>

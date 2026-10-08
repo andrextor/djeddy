@@ -20,6 +20,9 @@ const ogImageUrl = new URL('/og.jpg', Astro.site).href
 const logoUrl = new URL(logo.src, Astro.site).href
 const siteUrl = new URL('/', Astro.site).href
 const jsonLd = serializeJsonLd(buildJsonLd(site, siteUrl, ogImageUrl, logoUrl))
+// Section numbers stay consecutive while the testimonials section is hidden.
+const afterTestimonials =
+  site.testimonials.length > 0 ? (['05', '06'] as const) : (['04', '05'] as const)
 const instagram = site.socials.find((social) => social.network === 'instagram')
 ---
 
@@ -29,12 +32,12 @@ const instagram = site.socials.find((social) => social.network === 'instagram')
   <main id="main">
     <Hero />
     <Proof stats={site.stats} />
-    <Videos videos={site.videos} moreClipsUrl={instagram?.url ?? site.socials[0].url} />
     <Services />
+    <Videos videos={site.videos} moreClipsUrl={instagram?.url ?? site.socials[0].url} />
     <Process included={site.included} />
     <Testimonials testimonials={site.testimonials} />
-    <Faq faq={site.faq} />
-    <Contact />
+    <Faq faq={site.faq} index={afterTestimonials[0]} />
+    <Contact index={afterTestimonials[1]} />
   </main>
   <Footer />
   <WhatsAppButton />
