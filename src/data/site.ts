@@ -1,6 +1,7 @@
 import activationPoster from '@/assets/dj-eddy-activacion-de-marca-poster.jpg'
 import hablamePoster from '@/assets/dj-eddy-hablame-carangano-poster.jpg'
 import introPoster from '@/assets/dj-eddy-presentacion-poster.jpg'
+import type { IconName } from '@/components/Icon.astro'
 
 export type SocialNetwork = 'instagram' | 'tiktok' | 'youtube' | 'facebook'
 
@@ -46,11 +47,6 @@ export interface Testimonial {
   event: string
 }
 
-export interface FaqItem {
-  question: string
-  answer: string
-}
-
 export interface SiteConfig {
   name: string
   legalName: string
@@ -75,12 +71,10 @@ export interface SiteConfig {
   socials: readonly SocialLink[]
   /** Proof strip under the hero; hidden while empty. Only figures Eddy has confirmed. */
   stats: readonly Stat[]
-  /** "Qué incluye" list; only claims Eddy has made */
-  included: readonly string[]
+  /** "Qué incluye" tiles; only claims Eddy has made, 2–3 words each */
+  included: readonly { icon: IconName; label: string }[]
   /** Real client quotes; the section is hidden while empty */
   testimonials: readonly Testimonial[]
-  /** Also emitted as FAQPage JSON-LD; only questions Eddy's own claims answer */
-  faq: readonly FaqItem[]
   /** Shown as 9:16 cards; real-event clips first */
   videos: readonly Video[]
 }
@@ -118,39 +112,11 @@ export const site = {
   ],
   stats: [],
   testimonials: [],
-  faq: [
-    {
-      question: '¿Viajas fuera de Cali?',
-      answer:
-        'Sí. Mi base es Cali y viajo a Medellín, Bogotá, Cartagena, Pereira y cualquier ciudad de Colombia. Cuéntame dónde es tu evento y lo incluyo en la propuesta.',
-    },
-    {
-      question: '¿Llevas sonido e iluminación?',
-      answer:
-        'Sí. Llevo sonido e iluminación propios, así que no tienes que contratar equipo aparte.',
-    },
-    {
-      question: '¿Qué música pones?',
-      answer:
-        'Salsa clásica y romántica, crossover y lo que pida tu pista. Leo al público en vivo para que nadie se quede sentado.',
-    },
-    {
-      question: '¿Puedo pedir canciones?',
-      answer:
-        'Claro. El set se arma con tu música y la de tus invitados: mándame tu lista y las canciones que no pueden faltar (o las que no quieres oír).',
-    },
-    {
-      question: '¿Cómo reservo mi fecha?',
-      answer:
-        'Escríbeme por WhatsApp con el tipo de evento, la fecha, la ciudad y cuántos invitados esperas. Te respondo el mismo día con disponibilidad y propuesta.',
-    },
-  ],
   included: [
-    'Sonido e iluminación propios',
-    'Salsa clásica y romántica, crossover y lo que pida tu pista',
-    'Set armado con tu música y la de tus invitados',
-    'Lectura de pista para que nadie se quede sentado',
-    'Base en Cali, viajo a todo Colombia',
+    { icon: 'speaker', label: 'Sonido propio' },
+    { icon: 'light', label: 'Iluminación' },
+    { icon: 'music', label: 'Tu música' },
+    { icon: 'pin', label: 'Todo Colombia' },
   ],
   videos: [
     {

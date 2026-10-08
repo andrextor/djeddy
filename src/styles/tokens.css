@@ -22,6 +22,7 @@
   --sand-600: #8a8272;
 
   --whatsapp-500: #25d366;
+  --landak-500: #7c5cff;
   --white: #fff;
   --black: #000;
 
@@ -46,8 +47,8 @@
   --color-focus: var(--gold-500);
 
   --color-whatsapp: var(--whatsapp-500);
+  --color-credit: var(--landak-500);
   --color-on-whatsapp: var(--ink-900);
-  --overlay-light: color-mix(in srgb, var(--white) 28%, transparent);
 
   --border-subtle: color-mix(in srgb, var(--gold-500) 16%, transparent);
   --border-default: color-mix(in srgb, var(--gold-500) 22%, transparent);

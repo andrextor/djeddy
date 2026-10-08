@@ -1,7 +1,7 @@
 ---
 import { site } from '@/data/site'
 import { buildQuoteMessage, buildWhatsAppUrl } from '@/lib/whatsapp'
-import Icon from './Icon.astro'
+import QuoteButton from './QuoteButton.astro'
 import type { Props as HeadingProps } from './SectionHeading.astro'
 import SectionHeading from './SectionHeading.astro'
 
@@ -12,46 +12,27 @@ export interface Props {
 const { index } = Astro.props
 
 const whatsappUrl = buildWhatsAppUrl(site.whatsapp.number, buildQuoteMessage())
+const instagram = site.socials.find((social) => social.network === 'instagram')
 ---
 
 <section id="contacto" class="contact" aria-labelledby="contact-title">
   <div class="glow" aria-hidden="true"></div>
   <div class="panel glass">
-    <div class="intro">
-      <SectionHeading index={index} label="Contacto" title="Reserva tu fecha." id="contact-title" />
-      <p class="lead">
-        Cuéntame qué celebras, dónde y cuándo. Te respondo el mismo día con disponibilidad y propuesta.
-      </p>
-      <a class="primary" href={whatsappUrl} target="_blank" rel="noopener">
-        <Icon name="whatsapp" size={20} />
-        <span>Escríbeme por WhatsApp</span>
-      </a>
-    </div>
-    <ul class="rows">
-      <li>
-        <a class="row" href={whatsappUrl} target="_blank" rel="noopener">
-          <div>
-            <span class="key">WhatsApp</span>
-            <span class="value">{site.whatsapp.display}</span>
-          </div>
-          <Icon name="arrow-up-right" size={22} class="arrow" />
-        </a>
-      </li>
-      <li>
-        <a class="row" href={`mailto:${site.email}`}>
-          <div>
-            <span class="key">Correo</span>
-            <span class="value">{site.email}</span>
-          </div>
-          <Icon name="arrow-up-right" size={22} class="arrow" />
-        </a>
-      </li>
-      <li class="row">
-        <div>
-          <span class="key">Base</span>
-          <span class="value">{site.city} · viaja a todo {site.countryName}</span>
-        </div>
-      </li>
+    <SectionHeading index={index} label="Contacto" title="Reserva tu fecha." id="contact-title" />
+    <p class="lead">Te respondo el mismo día.</p>
+    <QuoteButton />
+    <ul class="links">
+      <li><a href={whatsappUrl} target="_blank" rel="noopener">{site.whatsapp.display}</a></li>
+      <li><a href={`mailto:${site.email}`}>Correo</a></li>
+      {
+        instagram && (
+          <li>
+            <a href={instagram.url} target="_blank" rel="noopener">
+              Instagram
+            </a>
+          </li>
+        )
+      }
     </ul>
   </div>
 </section>
@@ -77,87 +58,46 @@ const whatsappUrl = buildWhatsAppUrl(site.whatsapp.number, buildQuoteMessage())
     position: relative;
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    padding: 28px 22px;
+    align-items: stretch;
+    gap: 18px;
+    padding: 32px 22px 22px;
     border-radius: 28px;
+    text-align: center;
   }
-  .intro {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+  .panel :global(.heading),
+  .panel :global(.eyebrow) {
+    justify-content: center;
   }
-  .intro :global(h2) {
+  .panel :global(h2) {
     font-size: 44px;
     line-height: 0.98;
     letter-spacing: -0.035em;
   }
   .lead {
-    font-size: 15px;
-    line-height: 1.65;
+    font-size: 16px;
     color: var(--color-text-muted);
   }
-  .primary {
+  .links {
     display: flex;
-    align-items: center;
+    flex-wrap: wrap;
     justify-content: center;
-    gap: 10px;
-    height: 56px;
-    border-radius: var(--radius-pill);
-    background: var(--gradient-gold);
-    color: var(--color-on-accent);
-    font-size: 15px;
-    font-weight: 700;
-  }
-  .primary:hover {
-    color: var(--color-on-accent);
-    filter: brightness(1.06);
-  }
-  .rows {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+    gap: 0 20px;
     margin: 0;
     padding: 0;
     list-style: none;
   }
-  .row {
-    display: flex;
+  .links a {
+    display: inline-flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    min-height: 64px;
-    padding: 14px 18px;
-    border-radius: 16px;
-    background: var(--color-surface-row);
-    border: 1px solid var(--border-subtle);
-    color: var(--color-text);
-  }
-  a.row:hover {
-    border-color: var(--border-strong);
-    color: var(--color-text);
-  }
-  .row > div {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    min-width: 0;
-  }
-  .key {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--color-text-muted);
-  }
-  .value {
-    font-family: var(--font-display);
+    min-height: var(--tap-min);
+    font-size: 14px;
     font-weight: 600;
-    font-size: 17px;
-    letter-spacing: -0.01em;
-    overflow-wrap: anywhere;
+    color: var(--color-text-muted);
+    text-decoration: underline;
+    text-decoration-color: var(--border-strong);
+    text-underline-offset: 4px;
   }
-  .arrow {
-    flex: 0 0 auto;
+  .links a:hover {
     color: var(--color-accent);
   }
 
@@ -172,45 +112,25 @@ const whatsappUrl = buildWhatsAppUrl(site.whatsapp.number, buildQuoteMessage())
       height: 500px;
     }
     .panel {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 64px;
       align-items: center;
+      gap: 24px;
       padding: 72px;
       border-radius: 36px;
     }
-    .intro {
-      gap: 28px;
-    }
-    .intro :global(h2) {
+    .panel :global(h2) {
       font-size: 72px;
     }
-    .lead {
-      max-width: 440px;
-      font-size: 17px;
-    }
-    .primary {
-      align-self: flex-start;
+    .panel :global(.quote-button) {
+      align-self: center;
       height: 60px;
-      padding: 0 32px;
+      padding: 0 36px;
       box-shadow: var(--shadow-cta);
     }
-    .rows {
-      gap: 16px;
+    .lead {
+      font-size: 18px;
     }
-    .row {
-      padding: 24px 28px;
-      border-radius: 20px;
-    }
-    .row > div {
-      gap: 4px;
-    }
-    .key {
-      font-size: 12px;
-      letter-spacing: 0.18em;
-    }
-    .value {
-      font-size: 22px;
+    .links a {
+      font-size: 15px;
     }
   }
 </style>

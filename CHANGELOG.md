@@ -7,6 +7,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-10-08
+
+### Added
+
+- **Floating "Conecta" dock** with Instagram, TikTok, YouTube, Facebook and WhatsApp: a side tab on desktop, a bar at the bottom on phones. It replaces the single WhatsApp button.
+- **"Creado por Landak Studio"** credit in the footer.
+
+### Changed
+
+- **Less text, more action:** the page is about 20 % shorter on phones.
+- **"Cómo trabajo"** is now four icon tiles, three short steps and a WhatsApp button.
+- **Contact** is a single panel: one WhatsApp button, with the number, email and Instagram as small links.
+- **Events:** weddings and private parties share one card with a photo, and every card has a one-line description.
+- **Section titles** are smaller on desktop, without the side texts.
+
+### Removed
+
+- **The questions section.** Its answers were already on the page.
+
 ## [0.3.0] - 2026-10-08
 
 ### Added

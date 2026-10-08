@@ -1,0 +1,45 @@
+---
+import { site } from '@/data/site'
+import { buildQuoteMessage, buildWhatsAppUrl } from '@/lib/whatsapp'
+import Icon from './Icon.astro'
+
+export interface Props {
+  label?: string
+}
+
+const { label = 'Escríbeme por WhatsApp' } = Astro.props
+const href = buildWhatsAppUrl(site.whatsapp.number, buildQuoteMessage())
+---
+
+<a class="quote-button" href={href} target="_blank" rel="noopener">
+  <Icon name="whatsapp" size={20} />
+  <span>{label}</span>
+</a>
+
+<style>
+  .quote-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    height: 56px;
+    padding: 0 28px;
+    border-radius: var(--radius-pill);
+    background: var(--gradient-gold);
+    box-shadow: var(--shadow-cta-sm);
+    color: var(--color-on-accent);
+    font-size: 15px;
+    font-weight: 700;
+  }
+  .quote-button:hover {
+    color: var(--color-on-accent);
+    filter: brightness(1.06);
+  }
+
+  @media (min-width: 1024px) {
+    .quote-button {
+      display: inline-flex;
+      align-self: flex-start;
+    }
+  }
+</style>
