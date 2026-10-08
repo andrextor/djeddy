@@ -4,6 +4,7 @@ import Contact from '@/components/Contact.astro'
 import Footer from '@/components/Footer.astro'
 import Header from '@/components/Header.astro'
 import Hero from '@/components/Hero.astro'
+import Proof from '@/components/Proof.astro'
 import Services from '@/components/Services.astro'
 import Videos from '@/components/Videos.astro'
 import WhatsAppButton from '@/components/WhatsAppButton.astro'
@@ -24,6 +25,7 @@ const instagram = site.socials.find((social) => social.network === 'instagram')
   <Header />
   <main id="main">
     <Hero />
+    <Proof stats={site.stats} />
     <Videos videos={site.videos} moreClipsUrl={instagram?.url ?? site.socials[0].url} />
     <Services />
     <Contact />

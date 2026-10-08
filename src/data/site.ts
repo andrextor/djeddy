@@ -31,6 +31,12 @@ export interface FileVideo extends VideoBase {
 
 export type Video = YouTubeVideo | FileVideo
 
+export interface Stat {
+  /** Short figure that stays true over time, e.g. '+300' */
+  value: string
+  label: string
+}
+
 export interface SiteConfig {
   name: string
   legalName: string
@@ -53,6 +59,8 @@ export interface SiteConfig {
   }
   email: string
   socials: readonly SocialLink[]
+  /** Proof strip under the hero; hidden while empty. Only figures Eddy has confirmed. */
+  stats: readonly Stat[]
   videos: readonly [Video, Video]
 }
 
@@ -87,6 +95,7 @@ export const site = {
     { network: 'youtube', label: 'YouTube', url: 'https://www.youtube.com/@DjeddycrossoverCO' },
     { network: 'facebook', label: 'Facebook', url: 'https://www.facebook.com/edison.ayalaramirez' },
   ],
+  stats: [],
   videos: [
     {
       kind: 'file',

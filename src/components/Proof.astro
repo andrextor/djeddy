@@ -1,0 +1,77 @@
+---
+import type { Stat } from '@/data/site'
+
+export interface Props {
+  stats: readonly Stat[]
+}
+
+const { stats } = Astro.props
+---
+
+{
+  stats.length > 0 && (
+    <section class="proof" aria-label="Trayectoria">
+      <dl>
+        {stats.map((stat) => (
+          <div>
+            <dt>{stat.label}</dt>
+            <dd>{stat.value}</dd>
+          </div>
+        ))}
+      </dl>
+    </section>
+  )
+}
+
+<style>
+  .proof {
+    padding: 28px var(--gutter) 0;
+  }
+  dl {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    margin: 0;
+  }
+  div {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 4px;
+    padding: 14px 12px;
+    border-radius: var(--radius-inner);
+    border: 1px solid var(--border-subtle);
+    background: var(--color-surface-row);
+  }
+  dd {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(24px, 7vw, 30px);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--color-accent);
+  }
+  dt {
+    font-size: 12px;
+    line-height: 1.35;
+    color: var(--color-text-muted);
+  }
+
+  @media (min-width: 1024px) {
+    .proof {
+      padding-top: 48px;
+    }
+    dl {
+      gap: 24px;
+    }
+    div {
+      padding: 24px 28px;
+    }
+    dd {
+      font-size: 44px;
+    }
+    dt {
+      font-size: 15px;
+    }
+  }
+</style>

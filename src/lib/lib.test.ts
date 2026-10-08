@@ -40,6 +40,7 @@ test('buildJsonLd links videos to the business entity', () => {
     whatsapp: { number: '573001234567', display: '+57 300 123 4567' },
     email: 'hola@djeddy.test',
     socials: [{ network: 'instagram', label: 'Instagram', url: 'https://instagram.com/djeddy' }],
+    stats: [],
     videos: [
       { kind: 'youtube', youtubeId: 'a', title: 'A', uploadDate: '2026-01-01' },
       {
