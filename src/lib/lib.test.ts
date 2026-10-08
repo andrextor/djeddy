@@ -42,6 +42,7 @@ test('buildJsonLd links videos to the business entity', () => {
     socials: [{ network: 'instagram', label: 'Instagram', url: 'https://instagram.com/djeddy' }],
     stats: [],
     included: [],
+    testimonials: [],
     videos: [
       { kind: 'youtube', youtubeId: 'a', title: 'A', uploadDate: '2026-01-01' },
       {

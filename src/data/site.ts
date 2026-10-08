@@ -37,6 +37,14 @@ export interface Stat {
   label: string
 }
 
+export interface Testimonial {
+  quote: string
+  /** First name only */
+  name: string
+  /** e.g. 'Boda en Cali' */
+  event: string
+}
+
 export interface SiteConfig {
   name: string
   legalName: string
@@ -63,6 +71,8 @@ export interface SiteConfig {
   stats: readonly Stat[]
   /** "Qué incluye" list; only claims Eddy has made */
   included: readonly string[]
+  /** Real client quotes; the section is hidden while empty */
+  testimonials: readonly Testimonial[]
   /** Shown as 9:16 cards; real-event clips first */
   videos: readonly Video[]
 }
@@ -99,6 +109,7 @@ export const site = {
     { network: 'facebook', label: 'Facebook', url: 'https://www.facebook.com/edison.ayalaramirez' },
   ],
   stats: [],
+  testimonials: [],
   included: [
     'Sonido e iluminación propios',
     'Salsa clásica y romántica, crossover y lo que pida tu pista',

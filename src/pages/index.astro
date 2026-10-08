@@ -7,6 +7,7 @@ import Hero from '@/components/Hero.astro'
 import Process from '@/components/Process.astro'
 import Proof from '@/components/Proof.astro'
 import Services from '@/components/Services.astro'
+import Testimonials from '@/components/Testimonials.astro'
 import Videos from '@/components/Videos.astro'
 import WhatsAppButton from '@/components/WhatsAppButton.astro'
 import { site } from '@/data/site'
@@ -30,6 +31,7 @@ const instagram = site.socials.find((social) => social.network === 'instagram')
     <Videos videos={site.videos} moreClipsUrl={instagram?.url ?? site.socials[0].url} />
     <Services />
     <Process included={site.included} />
+    <Testimonials testimonials={site.testimonials} />
     <Contact />
   </main>
   <Footer />
