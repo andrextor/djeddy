@@ -20,8 +20,9 @@ Spec: [`specs/2026-10-08-action-first-design.md`](../specs/2026-10-08-action-fir
    - `Process.astro`: rewritten as described in the spec.
 4. **`feat(faq): shorter answers and an ask-me button`.**
    - `site.ts`: the `faq` answers are cut to 1–2 lines.
+   - Iván asked mid-implementation to remove whatever isn't needed. The questions on sound/lighting and on how to book repeat the Process tiles, the steps and Contact, so they are dropped and 3 questions remain. Proof and Testimonials stay: they render nothing until Eddy sends real data.
    - `Faq.astro`: *"¿Otra pregunta?"* + a WhatsApp button.
-   - Check: the JSON-LD still has 5 questions.
+   - Check: the JSON-LD has 3 questions.
 5. **`feat(contact): one panel, one action`.**
    - `Contact.astro`: a centered panel, a large WhatsApp button, and text links (phone, email, Instagram).
    - Check: `mailto:` and the Instagram link work.

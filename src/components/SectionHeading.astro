@@ -3,11 +3,10 @@ export interface Props {
   index: '01' | '02' | '03' | '04' | '05' | '06'
   label: string
   title: string
-  lead?: string
   id?: string
 }
 
-const { index, label, title, lead, id } = Astro.props
+const { index, label, title, id } = Astro.props
 ---
 
 <div class="heading">
@@ -15,7 +14,6 @@ const { index, label, title, lead, id } = Astro.props
     <p class="eyebrow"><span class="index">{index}</span><span class="rule"></span><span>{label}</span></p>
     <h2 id={id}>{title}</h2>
   </div>
-  {lead && <p class="lead">{lead}</p>}
   <slot />
 </div>
 
@@ -57,13 +55,6 @@ const { index, label, title, lead, id } = Astro.props
     letter-spacing: -0.03em;
     color: var(--color-text);
   }
-  .lead {
-    display: none;
-    max-width: 360px;
-    font-size: 16px;
-    line-height: 1.6;
-    color: var(--color-text-muted);
-  }
   @media (min-width: 1024px) {
     .stack {
       gap: 16px;
@@ -76,10 +67,7 @@ const { index, label, title, lead, id } = Astro.props
       width: 32px;
     }
     h2 {
-      font-size: 68px;
-    }
-    .lead {
-      display: block;
+      font-size: 56px;
     }
   }
 </style>
