@@ -1,22 +1,15 @@
 [
   {
-    "id": "bodas",
+    "id": "fiestas-privadas",
     "order": 1,
     "tag": "Bodas",
-    "title": "Bodas",
-    "description": "Del primer baile al cierre, con sus canciones."
-  },
-  {
-    "id": "fiestas-privadas",
-    "order": 2,
-    "tag": "Privado",
-    "title": "Fiestas privadas",
-    "description": "Cumpleaños y celebraciones en casa o finca.",
+    "title": "Bodas y fiestas privadas",
+    "description": "Del primer baile al cierre, en salón, casa o finca.",
     "image": "../assets/events/evento-1.webp"
   },
   {
     "id": "activaciones-de-marca",
-    "order": 3,
+    "order": 2,
     "tag": "Marcas",
     "title": "Activaciones de marca",
     "description": "Lanzamientos y ferias al ritmo de tu marca.",
@@ -24,7 +17,7 @@
   },
   {
     "id": "eventos-corporativos",
-    "order": 4,
+    "order": 3,
     "tag": "Empresas",
     "title": "Eventos corporativos y al aire libre",
     "description": "Fin de año, integraciones y sunset sessions.",

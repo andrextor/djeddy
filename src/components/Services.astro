@@ -155,14 +155,14 @@ const services = (await getCollection('services')).sort((a, b) => a.data.order -
     }
     .list {
       display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 24px;
     }
     .card {
       flex-direction: column;
       justify-content: flex-end;
-      height: 500px;
-      padding: 24px;
+      height: 520px;
+      padding: 28px;
       border-radius: var(--radius-card);
       overflow: hidden;
       background: var(--gradient-event-a);
@@ -200,7 +200,7 @@ const services = (await getCollection('services')).sort((a, b) => a.data.order -
       min-height: 0;
     }
     h3 {
-      font-size: 22px;
+      font-size: 26px;
       line-height: 1.15;
       letter-spacing: -0.02em;
     }
