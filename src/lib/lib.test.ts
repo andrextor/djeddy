@@ -2,13 +2,21 @@ import assert from 'node:assert/strict'
 import { test } from 'node:test'
 import { assertNoPlaceholders, findPlaceholders } from './placeholders.ts'
 import { buildJsonLd, serializeJsonLd } from './seo.ts'
-import { buildWhatsAppUrl } from './whatsapp.ts'
+import { buildQuoteMessage, buildWhatsAppUrl } from './whatsapp.ts'
 
 test('buildWhatsAppUrl encodes the message', () => {
   assert.equal(
     buildWhatsAppUrl('573001234567', 'Hola Eddy, ¿tienes fecha?'),
     'https://wa.me/573001234567?text=Hola%20Eddy%2C%20%C2%BFtienes%20fecha%3F',
   )
+})
+
+test('buildQuoteMessage prefills the event type and leaves the facts to fill in', () => {
+  assert.equal(
+    buildQuoteMessage('Bodas'),
+    'Hola Eddy, quiero cotizar un evento.\nTipo: Bodas\nFecha: \nCiudad: \nInvitados: ',
+  )
+  assert.match(buildQuoteMessage(), /\nTipo: \nFecha: /)
 })
 
 test('findPlaceholders reports nested bracket tokens with their path', () => {
@@ -18,7 +26,7 @@ test('findPlaceholders reports nested bracket tokens with their path', () => {
   assert.throws(() => assertNoPlaceholders({ a: '[CIUDAD]' }), /1 placeholder/)
 })
 
-test('buildJsonLd links videos to the business entity', () => {
+test('buildJsonLd links videos and FAQ to the business entity', () => {
   const site = {
     name: 'DJ Eddy',
     legalName: 'DJ Eddy',
@@ -29,9 +37,13 @@ test('buildJsonLd links videos to the business entity', () => {
     travelCities: ['Bogotá'],
     tagline: 'DJ en Medellín',
     keywords: ['DJ para fiestas privadas'],
-    whatsapp: { number: '573001234567', display: '+57 300 123 4567', message: 'Hola' },
+    whatsapp: { number: '573001234567', display: '+57 300 123 4567' },
     email: 'hola@djeddy.test',
     socials: [{ network: 'instagram', label: 'Instagram', url: 'https://instagram.com/djeddy' }],
+    stats: [],
+    included: [],
+    testimonials: [],
+    faq: [{ question: '¿Viajas?', answer: 'Sí.' }],
     videos: [
       { kind: 'youtube', youtubeId: 'a', title: 'A', uploadDate: '2026-01-01' },
       {
@@ -53,8 +65,18 @@ test('buildJsonLd links videos to the business entity', () => {
   assert.ok(Array.isArray(graph))
   assert.deepEqual(
     graph.map((node: Record<string, unknown>) => node['@type']),
-    ['EntertainmentBusiness', 'WebSite', 'VideoObject', 'VideoObject'],
+    ['EntertainmentBusiness', 'WebSite', 'VideoObject', 'VideoObject', 'FAQPage'],
   )
+  assert.deepEqual((graph[4] as Record<string, unknown>).mainEntity, [
+    { '@type': 'Question', name: '¿Viajas?', acceptedAnswer: { '@type': 'Answer', text: 'Sí.' } },
+  ])
+  const withoutFaq = buildJsonLd(
+    { ...site, faq: [] },
+    'https://djeddy.test/',
+    'https://djeddy.test/og.jpg',
+  )
+  assert.ok(Array.isArray(withoutFaq['@graph']))
+  assert.equal(withoutFaq['@graph'].length, 4)
   const business = graph[0] as Record<string, unknown>
   assert.equal(business.logo, 'https://djeddy.test/logo.png')
   const fileVideo = graph[3] as Record<string, unknown>

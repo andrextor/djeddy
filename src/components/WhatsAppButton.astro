@@ -1,9 +1,9 @@
 ---
 import { site } from '@/data/site'
-import { buildWhatsAppUrl } from '@/lib/whatsapp'
+import { buildQuoteMessage, buildWhatsAppUrl } from '@/lib/whatsapp'
 import Icon from './Icon.astro'
 
-const whatsappUrl = buildWhatsAppUrl(site.whatsapp.number, site.whatsapp.message)
+const whatsappUrl = buildWhatsAppUrl(site.whatsapp.number, buildQuoteMessage())
 ---
 
 <a class="float pulse" href={whatsappUrl} target="_blank" rel="noopener" aria-label="Escríbeme por WhatsApp">

@@ -62,6 +62,17 @@ const video = (siteUrl: string, item: Video): JsonLd => ({
       }),
 })
 
+const faqPage = (site: SiteConfig, siteUrl: string): JsonLd => ({
+  '@type': 'FAQPage',
+  '@id': `${siteUrl}#faq`,
+  inLanguage: 'es',
+  mainEntity: site.faq.map((item) => ({
+    '@type': 'Question',
+    name: item.question,
+    acceptedAnswer: { '@type': 'Answer', text: item.answer },
+  })),
+})
+
 export const buildJsonLd = (
   site: SiteConfig,
   siteUrl: string,
@@ -73,6 +84,7 @@ export const buildJsonLd = (
     business(site, siteUrl, ogImageUrl, logoUrl),
     website(site, siteUrl),
     ...site.videos.map((item) => video(siteUrl, item)),
+    ...(site.faq.length > 0 ? [faqPage(site, siteUrl)] : []),
   ],
 })
 

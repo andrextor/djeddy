@@ -1,7 +1,14 @@
 [
   {
-    "id": "fiestas-privadas",
+    "id": "bodas",
     "order": 1,
+    "tag": "Bodas",
+    "title": "Bodas",
+    "description": "Del primer baile al cierre: un set armado con sus canciones y las de sus invitados, con sonido e iluminación propios."
+  },
+  {
+    "id": "fiestas-privadas",
+    "order": 2,
     "tag": "Privado",
     "title": "Fiestas privadas",
     "description": "Cumpleaños, aniversarios y celebraciones en casa o finca. El set se arma con tu música y la de tus invitados.",
@@ -9,7 +16,7 @@
   },
   {
     "id": "activaciones-de-marca",
-    "order": 2,
+    "order": 3,
     "tag": "Marcas",
     "title": "Activaciones de marca",
     "description": "Lanzamientos, ferias y experiencias de marca con sonido, luces y energía al ritmo del guion del evento.",
@@ -17,7 +24,7 @@
   },
   {
     "id": "eventos-corporativos",
-    "order": 3,
+    "order": 4,
     "tag": "Empresas",
     "title": "Eventos corporativos y al aire libre",
     "description": "Fiestas de fin de año, integraciones, brunches y sunset sessions: música para todas las edades y un cierre memorable.",

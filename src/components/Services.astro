@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets'
 import { getCollection } from 'astro:content'
 import { site } from '@/data/site'
+import { buildQuoteMessage, buildWhatsAppUrl } from '@/lib/whatsapp'
 import Icon from './Icon.astro'
 import SectionHeading from './SectionHeading.astro'
 
@@ -10,9 +11,9 @@ const services = (await getCollection('services')).sort((a, b) => a.data.order -
 
 <section id="eventos" class="services" aria-labelledby="services-title">
   <SectionHeading
-    index="02"
+    index="01"
     label="Eventos"
-    title={`Fiestas, marcas y empresas en ${site.city}`}
+    title={`Bodas, fiestas y empresas en ${site.city}`}
     id="services-title"
     lead="Un set distinto para cada tipo de evento."
   />
@@ -20,13 +21,11 @@ const services = (await getCollection('services')).sort((a, b) => a.data.order -
   <ul class="list focus-group">
     {
       services.map((service, index) => {
-        const Wrapper = service.data.url ? 'a' : 'div'
-        const wrapperProps = service.data.url
-          ? { href: service.data.url, target: '_blank', rel: 'noopener' }
-          : {}
+        const href =
+          service.data.url ?? buildWhatsAppUrl(site.whatsapp.number, buildQuoteMessage(service.data.title))
         return (
           <li>
-            <Wrapper class:list={['card', { alt: index % 2 === 1 }]} {...wrapperProps}>
+            <a class:list={['card', { alt: index % 2 === 1 }]} href={href} target="_blank" rel="noopener">
               <div class="media">
                 {service.data.image ? (
                   <Image
@@ -44,9 +43,11 @@ const services = (await getCollection('services')).sort((a, b) => a.data.order -
               <div class="body">
                 <h3>{service.data.title}</h3>
                 <p class="meta">{service.data.description}</p>
+                <span class="quote">
+                  Cotizar <Icon name="arrow-up-right" size={16} />
+                </span>
               </div>
-              {service.data.url && <Icon name="arrow-up-right" size={20} class="arrow" />}
-            </Wrapper>
+            </a>
           </li>
         )
       })
@@ -134,28 +135,35 @@ const services = (await getCollection('services')).sort((a, b) => a.data.order -
     line-height: 1.5;
     color: var(--color-text-muted);
   }
-  .arrow {
-    align-self: center;
-    flex: 0 0 auto;
+  .quote {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 2px;
+    font-size: 13px;
+    font-weight: 700;
     color: var(--color-accent);
+  }
+  .card:hover .quote {
+    color: var(--color-accent-light);
   }
 
   @media (min-width: 1024px) {
     .services {
       gap: 48px;
-      padding: 32px var(--gutter) var(--section-gap);
+      padding: var(--section-gap) var(--gutter);
       scroll-margin-top: 120px;
     }
     .list {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 24px;
     }
     .card {
       flex-direction: column;
       justify-content: flex-end;
-      height: 520px;
-      padding: 28px;
+      height: 500px;
+      padding: 24px;
       border-radius: var(--radius-card);
       overflow: hidden;
       background: var(--gradient-event-a);
@@ -193,18 +201,15 @@ const services = (await getCollection('services')).sort((a, b) => a.data.order -
       min-height: 0;
     }
     h3 {
-      font-size: 26px;
+      font-size: 22px;
       line-height: 1.15;
       letter-spacing: -0.02em;
     }
     .meta {
       font-size: 15px;
     }
-    .arrow {
-      position: absolute;
-      top: 28px;
-      right: 28px;
-      z-index: 1;
+    .quote {
+      font-size: 14px;
     }
   }
 </style>

@@ -1,21 +1,28 @@
 ---
 import logo from '@/assets/dj-eddy-logo-dark.png'
 import Contact from '@/components/Contact.astro'
+import Faq from '@/components/Faq.astro'
 import Footer from '@/components/Footer.astro'
 import Header from '@/components/Header.astro'
 import Hero from '@/components/Hero.astro'
+import Process from '@/components/Process.astro'
+import Proof from '@/components/Proof.astro'
 import Services from '@/components/Services.astro'
+import Testimonials from '@/components/Testimonials.astro'
 import Videos from '@/components/Videos.astro'
 import WhatsAppButton from '@/components/WhatsAppButton.astro'
 import { site } from '@/data/site'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import { buildJsonLd, serializeJsonLd } from '@/lib/seo'
 
-const title = `${site.name} · DJ en ${site.city} para fiestas, marcas y empresas`
+const title = `${site.name} · DJ en ${site.city} para bodas, fiestas y empresas`
 const ogImageUrl = new URL('/og.jpg', Astro.site).href
 const logoUrl = new URL(logo.src, Astro.site).href
 const siteUrl = new URL('/', Astro.site).href
 const jsonLd = serializeJsonLd(buildJsonLd(site, siteUrl, ogImageUrl, logoUrl))
+// Section numbers stay consecutive while the testimonials section is hidden.
+const afterTestimonials =
+  site.testimonials.length > 0 ? (['05', '06'] as const) : (['04', '05'] as const)
 const instagram = site.socials.find((social) => social.network === 'instagram')
 ---
 
@@ -24,9 +31,13 @@ const instagram = site.socials.find((social) => social.network === 'instagram')
   <Header />
   <main id="main">
     <Hero />
-    <Videos videos={site.videos} moreClipsUrl={instagram?.url ?? site.socials[0].url} />
+    <Proof stats={site.stats} />
     <Services />
-    <Contact />
+    <Videos videos={site.videos} moreClipsUrl={instagram?.url ?? site.socials[0].url} />
+    <Process included={site.included} />
+    <Testimonials testimonials={site.testimonials} />
+    <Faq faq={site.faq} index={afterTestimonials[0]} />
+    <Contact index={afterTestimonials[1]} />
   </main>
   <Footer />
   <WhatsAppButton />

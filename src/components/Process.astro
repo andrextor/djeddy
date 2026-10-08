@@ -1,0 +1,184 @@
+---
+import Icon from './Icon.astro'
+import SectionHeading from './SectionHeading.astro'
+
+export interface Props {
+  included: readonly string[]
+}
+
+const { included } = Astro.props
+const steps = [
+  {
+    title: 'Escríbeme por WhatsApp',
+    text: 'Cuéntame qué celebras, la fecha, la ciudad y cuántos invitados esperas.',
+  },
+  {
+    title: 'Recibe tu propuesta',
+    text: 'Te respondo el mismo día con disponibilidad y propuesta.',
+  },
+  { title: 'A bailar', text: 'Llego con sonido e iluminación y armo el set con tu música.' },
+] as const
+---
+
+<section id="como-trabajo" class="process" aria-labelledby="process-title">
+  <SectionHeading
+    index="03"
+    label="Cómo trabajo"
+    title="Tú celebras, yo me encargo"
+    id="process-title"
+    lead="Lo que llevo a tu evento y cómo reservar tu fecha."
+  />
+
+  <div class="columns">
+    <div class="block glass">
+      <h3>Qué incluye</h3>
+      <ul class="checks">
+        {
+          included.map((item) => (
+            <li>
+              <span class="tick"><Icon name="check" size={16} /></span>
+              {item}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <div class="block">
+      <h3>Cómo reservar</h3>
+      <ol class="steps">
+        {
+          steps.map((step, index) => (
+            <li>
+              <span class="number">{String(index + 1).padStart(2, '0')}</span>
+              <div>
+                <p class="step-title">{step.title}</p>
+                <p class="step-text">{step.text}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </div>
+</section>
+
+<style>
+  .process {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    padding: 64px var(--gutter) 0;
+    scroll-margin-top: 90px;
+  }
+  .columns {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .block {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    padding: 22px 20px;
+    border-radius: var(--radius-card);
+    border: 1px solid var(--border-default);
+  }
+  h3 {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    color: var(--color-text);
+  }
+  ul,
+  ol {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .checks {
+    gap: 14px;
+  }
+  .checks li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 15px;
+    line-height: 1.45;
+    color: var(--color-text-muted);
+  }
+  .tick {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    color: var(--color-on-accent);
+  }
+  .steps {
+    gap: 20px;
+  }
+  .steps li {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .number {
+    flex: 0 0 auto;
+    min-width: 2.2ch;
+    font-family: var(--font-display);
+    font-variant-numeric: tabular-nums;
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--color-accent-dark);
+  }
+  .step-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--color-text);
+  }
+  .step-text {
+    margin-top: 4px;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--color-text-muted);
+  }
+
+  @media (min-width: 1024px) {
+    .process {
+      gap: 48px;
+      padding: 0 var(--gutter) var(--section-gap);
+      scroll-margin-top: 120px;
+    }
+    .columns {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 24px;
+    }
+    .block {
+      gap: 24px;
+      padding: 40px;
+    }
+    h3 {
+      font-size: 24px;
+    }
+    .checks li {
+      font-size: 17px;
+    }
+    .number {
+      font-size: 36px;
+    }
+    .step-title {
+      font-size: 19px;
+    }
+    .step-text {
+      font-size: 16px;
+    }
+  }
+</style>

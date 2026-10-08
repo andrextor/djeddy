@@ -31,6 +31,25 @@ export interface FileVideo extends VideoBase {
 
 export type Video = YouTubeVideo | FileVideo
 
+export interface Stat {
+  /** Short figure that stays true over time, e.g. '+300' */
+  value: string
+  label: string
+}
+
+export interface Testimonial {
+  quote: string
+  /** First name only */
+  name: string
+  /** e.g. 'Boda en Cali' */
+  event: string
+}
+
+export interface FaqItem {
+  question: string
+  answer: string
+}
+
 export interface SiteConfig {
   name: string
   legalName: string
@@ -50,12 +69,19 @@ export interface SiteConfig {
     number: string
     /** Human-readable form shown on the page */
     display: string
-    /** Pre-filled message */
-    message: string
   }
   email: string
   socials: readonly SocialLink[]
-  videos: readonly [Video, Video]
+  /** Proof strip under the hero; hidden while empty. Only figures Eddy has confirmed. */
+  stats: readonly Stat[]
+  /** "Qué incluye" list; only claims Eddy has made */
+  included: readonly string[]
+  /** Real client quotes; the section is hidden while empty */
+  testimonials: readonly Testimonial[]
+  /** Also emitted as FAQPage JSON-LD; only questions Eddy's own claims answer */
+  faq: readonly FaqItem[]
+  /** Shown as 9:16 cards; real-event clips first */
+  videos: readonly Video[]
 }
 
 /** Set to false once the client's real data replaces the sample values below; release builds refuse it. */
@@ -70,8 +96,9 @@ export const site = {
   countryName: 'Colombia',
   travelCities: ['Medellín', 'Bogotá', 'Cartagena', 'Pereira'],
   tagline:
-    'DJ en Cali para fiestas privadas, activaciones de marca y eventos corporativos. Salsa clásica y romántica, crossover y la lectura de pista que mantiene a todos bailando.',
+    'DJ en Cali para bodas, fiestas privadas, marcas y eventos corporativos. Salsa clásica y romántica, crossover y una pista que no se vacía.',
   keywords: [
+    'DJ para bodas',
     'DJ para fiestas privadas',
     'DJ para activaciones de marca',
     'DJ para eventos corporativos',
@@ -80,7 +107,6 @@ export const site = {
   whatsapp: {
     number: '573182720357',
     display: '+57 318 272 0357',
-    message: 'Hola Eddy, quiero reservar una fecha para mi evento.',
   },
   email: 'edisonayalaramirez17@gmail.com',
   socials: [
@@ -89,15 +115,43 @@ export const site = {
     { network: 'youtube', label: 'YouTube', url: 'https://www.youtube.com/@DjeddycrossoverCO' },
     { network: 'facebook', label: 'Facebook', url: 'https://www.facebook.com/edison.ayalaramirez' },
   ],
-  videos: [
+  stats: [],
+  testimonials: [],
+  faq: [
     {
-      kind: 'file',
-      src: '/videos/dj-eddy-hablame-carangano.mp4',
-      poster: hablamePoster,
-      title: 'Háblame Carangano · DJ Eddy',
-      duration: '3:39',
-      uploadDate: '2025-04-09',
+      question: '¿Viajas fuera de Cali?',
+      answer:
+        'Sí. Mi base es Cali y viajo a Medellín, Bogotá, Cartagena, Pereira y cualquier ciudad de Colombia. Cuéntame dónde es tu evento y lo incluyo en la propuesta.',
     },
+    {
+      question: '¿Llevas sonido e iluminación?',
+      answer:
+        'Sí. Llevo sonido e iluminación propios, así que no tienes que contratar equipo aparte.',
+    },
+    {
+      question: '¿Qué música pones?',
+      answer:
+        'Salsa clásica y romántica, crossover y lo que pida tu pista. Leo al público en vivo para que nadie se quede sentado.',
+    },
+    {
+      question: '¿Puedo pedir canciones?',
+      answer:
+        'Claro. El set se arma con tu música y la de tus invitados: mándame tu lista y las canciones que no pueden faltar (o las que no quieres oír).',
+    },
+    {
+      question: '¿Cómo reservo mi fecha?',
+      answer:
+        'Escríbeme por WhatsApp con el tipo de evento, la fecha, la ciudad y cuántos invitados esperas. Te respondo el mismo día con disponibilidad y propuesta.',
+    },
+  ],
+  included: [
+    'Sonido e iluminación propios',
+    'Salsa clásica y romántica, crossover y lo que pida tu pista',
+    'Set armado con tu música y la de tus invitados',
+    'Lectura de pista para que nadie se quede sentado',
+    'Base en Cali, viajo a todo Colombia',
+  ],
+  videos: [
     {
       kind: 'file',
       src: '/videos/dj-eddy-evento.mp4',
@@ -105,6 +159,14 @@ export const site = {
       title: 'En vivo en un evento',
       duration: '0:22',
       uploadDate: '2026-08-31',
+    },
+    {
+      kind: 'file',
+      src: '/videos/dj-eddy-hablame-carangano.mp4',
+      poster: hablamePoster,
+      title: 'Háblame Carangano · DJ Eddy',
+      duration: '3:39',
+      uploadDate: '2025-04-09',
     },
   ],
 } as const satisfies SiteConfig

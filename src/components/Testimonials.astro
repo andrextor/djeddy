@@ -1,0 +1,117 @@
+---
+import type { Testimonial } from '@/data/site'
+import SectionHeading from './SectionHeading.astro'
+
+export interface Props {
+  testimonials: readonly Testimonial[]
+}
+
+const { testimonials } = Astro.props
+---
+
+{
+  testimonials.length > 0 && (
+    <section id="testimonios" class="testimonials" aria-labelledby="testimonials-title">
+      <div class="head">
+        <SectionHeading index="04" label="Testimonios" title="Lo que dicen en la pista" id="testimonials-title" />
+      </div>
+      <ul class="row">
+        {testimonials.map((testimonial) => (
+          <li class="glass">
+            <blockquote>
+              <p>“{testimonial.quote}”</p>
+            </blockquote>
+            <p class="who">
+              <cite>{testimonial.name}</cite>
+              <span>{testimonial.event}</span>
+            </p>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )
+}
+
+<style>
+  .testimonials {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    padding: 64px 0 0;
+    scroll-margin-top: 90px;
+  }
+  .head {
+    padding: 0 var(--gutter);
+  }
+  .row {
+    display: flex;
+    gap: 14px;
+    margin: 0;
+    padding: 0 var(--gutter) 8px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--gutter);
+    scrollbar-width: none;
+    list-style: none;
+  }
+  .row::-webkit-scrollbar {
+    display: none;
+  }
+  li {
+    display: flex;
+    flex: 0 0 min(300px, 82vw);
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 24px 22px;
+    border-radius: var(--radius-card);
+    border: 1px solid var(--border-default);
+    scroll-snap-align: start;
+  }
+  blockquote {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.55;
+    color: var(--color-text);
+  }
+  .who {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  cite {
+    font-family: var(--font-display);
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 700;
+    color: var(--color-accent);
+  }
+  .who span {
+    font-size: 13px;
+    color: var(--color-text-muted);
+  }
+
+  @media (min-width: 1024px) {
+    .testimonials {
+      gap: 48px;
+      padding: 0 var(--gutter) var(--section-gap);
+      scroll-margin-top: 120px;
+    }
+    .head {
+      padding: 0;
+    }
+    .row {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 24px;
+      padding: 0;
+      overflow: visible;
+    }
+    li {
+      padding: 36px 32px;
+    }
+    blockquote {
+      font-size: 18px;
+    }
+  }
+</style>
