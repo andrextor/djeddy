@@ -157,7 +157,7 @@ export const site = {
       kind: 'file',
       src: '/videos/dj-eddy-hablame-carangano.mp4',
       poster: hablamePoster,
-      title: 'Háblame Carangano · DJ Eddy',
+      title: 'Háblame Carangano',
       duration: '3:39',
       uploadDate: '2025-04-09',
     },
