@@ -33,3 +33,23 @@ Spec: [`specs/2026-11-24-event-videos-design.md`](../specs/2026-11-24-event-vide
      - `Added`: the two event clips.
      - `Changed`: the new heading and the 3-column grid.
    - `package.json`: version 0.5.0.
+
+## Revision 1: card size (approved 2026-11-24)
+
+Iván saw on a laptop that the cards are too big: one card fills the screen, and the header covers it. See spec decision 6 (revised).
+
+5. **`fix(videos): smaller desktop cards, more-clips bar`.**
+   - `src/components/Videos.astro`:
+     - from 1024 px, 3 columns;
+     - from 1280 px, 5 columns;
+     - from 1280 px, `.more` spans the full row as a 128 px horizontal bar (icon left, text right).
+   - Check:
+     - at 390 px nothing changes;
+     - at 1024, 1280, 1440 and 1920 px, the whole card (including the video controls) fits under the header without scrolling;
+     - there is no horizontal scroll;
+     - `pnpm ci:check` passes.
+6. **`chore(release): 0.5.0`** is amended so the `Changed` entry describes the final grid.
+
+Deviation, found in the 1280 px check: five columns left ~205 px cards, and the titles wrapped to 4 lines over the poster. Five columns now start at 1440 px. Between 1024 and 1439 px there are 3 columns, with the grid capped at 1080 px wide so a card never grows past ~344 × 611 px. "Háblame Carangano · DJ Eddy" was shortened to "Háblame Carangano" so its caption matches the others.
+
+The bar selector is `.layout > .more`: Astro compiles `.layout > *` to `.layout[cid]>[cid]`, which outranks `.more[cid]` and kept the 9:16 ratio.

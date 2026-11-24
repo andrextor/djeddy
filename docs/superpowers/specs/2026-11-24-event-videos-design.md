@@ -39,13 +39,22 @@ Both are vertical 480×864 (WhatsApp compression). This is lower than the curren
    - `uploadDate: '2026-11-24'`.
 
    JSON-LD then emits 5 `VideoObject`s.
-6. **Desktop grid.** 5 videos + "Más clips" = 6 cards. Four columns would leave a 4 + 2 row, so from 1280 px the grid uses **3 columns** (2 full rows). 1024 px keeps 2 columns (3 full rows).
+6. **Desktop grid (revised after review).** The first version used 3 columns from 1280 px. Iván found the cards too big: at a ~1470 px laptop each card was ~420 × 745 px, almost the whole viewport, so the fixed header covered the video and its controls. The new rule is that **a card must fit the viewport with room to spare**:
+
+   | Width | Videos | "Más clips" | Card size |
+   |---|---|---|---|
+   | 1024–1439 px | 3 columns, grid capped at 1080 px wide | 6th grid cell (2 full rows) | ~270 × 480 px at 1024, ≤ 344 × 611 px |
+   | ≥ 1440 px | 5 columns (all in one row) | full-width gold bar under the row, 128 px tall (the original canvas bar) | ~240 × 430 px at 1440 |
+
+   240 px is the mobile card width, where the captions are already checked.
 
 ## Alternatives rejected
 
 - **A new separate section for this event.** It adds a section and a nav item for two clips. The existing video row already does the job.
 - **Using the copy as the video caption.** It is too long for a 240 px card and repeats on each card.
 - **Upscaling to 720p.** It adds bytes and no detail.
+- **Fixed-width cards in a horizontal swipe row on desktop.** A mouse wheel can't scroll it sideways.
+- **4 columns.** It leaves an orphan fifth video on its own row.
 - **Dropping an old clip.** Nobody asked for it, and the clips weigh nothing until tapped.
 
 ## Constraints
