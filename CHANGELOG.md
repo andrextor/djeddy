@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.0] - 2026-11-24
+
+### Added
+
+- **Two clips from a live event:** Eddy in the booth and on the mic, with the guests and the plaza lit up at night.
+
+### Changed
+
+- **The videos section is now titled "Presentes en tus grandes eventos".**
+- **Smaller video cards on computers:** five in a row on wide screens, with "Más clips" as a gold bar underneath, and three columns on laptops. Each card fits on screen without the header covering it.
+
 ## [0.4.0] - 2026-10-08
 
 ### Added

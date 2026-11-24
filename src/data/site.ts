@@ -1,4 +1,6 @@
 import activationPoster from '@/assets/dj-eddy-activacion-de-marca-poster.jpg'
+import eventLive1Poster from '@/assets/dj-eddy-evento-en-vivo-1-poster.jpg'
+import eventLive2Poster from '@/assets/dj-eddy-evento-en-vivo-2-poster.jpg'
 import hablamePoster from '@/assets/dj-eddy-hablame-carangano-poster.jpg'
 import introPoster from '@/assets/dj-eddy-presentacion-poster.jpg'
 import type { IconName } from '@/components/Icon.astro'
@@ -129,6 +131,22 @@ export const site = {
     },
     {
       kind: 'file',
+      src: '/videos/dj-eddy-evento-en-vivo-1.mp4',
+      poster: eventLive1Poster,
+      title: 'Evento en vivo en Cali',
+      duration: '1:14',
+      uploadDate: '2026-11-24',
+    },
+    {
+      kind: 'file',
+      src: '/videos/dj-eddy-evento-en-vivo-2.mp4',
+      poster: eventLive2Poster,
+      title: 'En cabina, noche de evento',
+      duration: '1:00',
+      uploadDate: '2026-11-24',
+    },
+    {
+      kind: 'file',
       src: '/videos/dj-eddy-activacion-de-marca.mp4',
       poster: activationPoster,
       title: 'Activación de marca en Cali',
@@ -139,7 +157,7 @@ export const site = {
       kind: 'file',
       src: '/videos/dj-eddy-hablame-carangano.mp4',
       poster: hablamePoster,
-      title: 'Háblame Carangano · DJ Eddy',
+      title: 'Háblame Carangano',
       duration: '3:39',
       uploadDate: '2025-04-09',
     },
